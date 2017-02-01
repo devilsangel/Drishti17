@@ -2,22 +2,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0099cc"
+    android:background="@drawable/bg"
     tools:context="com.drishti.drishti17.Login">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
          TextureView, etc. -->
-    <TextView
-        android:id="@+id/fullscreen_content"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:keepScreenOn="true"
-        android:text="@string/dummy_content"
-        android:textColor="#33b5e5"
-        android:textSize="50sp"
-        android:textStyle="bold" />
+        android:id="@+id/fullscreen_content">
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/logo"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
 
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
@@ -30,20 +32,55 @@
             android:id="@+id/fullscreen_content_controls"
             style="?metaButtonBarStyle"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="10dp">
             <!--android:orientation="vertical"-->
             <!--tools:ignore="UselessParent">-->
-            <Button
-                android:id="@+id/dummy_button"
-                style="?metaButtonBarButtonStyle"
-                android:layout_width="fill_parent"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/dummy_button"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginBottom="156dp" />
+                android:id="@+id/fb_button_bg"
+                android:background="#787870"
+                android:alpha="0.7"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:animateLayoutChanges="true">
+                <Button
+                    android:id="@+id/fb_button"
+                    style="?metaButtonBarButtonStyle"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="#000000"
+                    android:text="@string/Logina"
+                    android:layout_centerVertical="true"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:animateLayoutChanges="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/fb_button_bg"
+                android:id="@+id/g_button_bg"
+                android:orientation="horizontal"
+                android:background="#787870"
+                android:alpha="0.7"
+                android:layout_marginTop="10dp"
+                >
+                <Button
+                    android:id="@+id/g_button"
+                    style="?metaButtonBarButtonStyle"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="#000000"
+                    android:text="@string/Loginb"
+                    android:layout_centerVertical="true"
+                    />
+            </LinearLayout>
+
+
+
         </RelativeLayout>
 
 
