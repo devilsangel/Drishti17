@@ -1,8 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#247ba0</color>
-    <color name="colorPrimaryDark">#70c1b3</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#1B232E</color>
+    <color name="colorPrimaryDark">#10151C</color>
+    <color name="colorAccent">#f25f5c</color>
 
+    <color name="colorPrimary_nav">#36465D</color>
     <color name="black_overlay">#66000000</color>
+
+    <color name="white">#FDFDFE</color>
+    <color name="colorLight">#70c1b3</color>
+
+    <color name="palette_black">#50514f</color>
+    <color name="palette_red">#f25f5c</color>
+    <color name="palette_yellow">#F6DC38</color>
+    <color name="palette_blue">#247ba0</color>
+    <color name="palette_green">#56BB89</color>
+
+    <color name="green">#56BB89</color>
+    <color name="violet">#AB7EBD</color>
+    <color name="red_dark">#E02828</color>
+    <color name="orange">#F1982E</color>
+    <color name="immersive_bars">#99000000</color>
+    <color name="light_immersive_bars">@color/immersive_bars</color>
+    <color name="scrim">#99323232</color>
+
 </resources>
+

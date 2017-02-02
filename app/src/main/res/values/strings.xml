@@ -3,4 +3,17 @@
 
     <string name="Logina">Fb Login</string>
     <string name="Loginb">G+ Login</string>
+    <string name="title_activity_home">Home</string>
+    <string name="title_activity_temp_home">TempHome</string>
+    <string name="title_activity_navigation">NavigationActivity</string>
+
+    <string name="transition_navigation_icon">navigation_activity_view</string>
+
+    <string name="home">Home</string>
+    <string name="events">Events</string>
+    <string name="expos">Expos</string>
+    <string name="schedule">Schedule</string>
+    <string name="map">Map</string>
+    <string name="profile">Profile</string>
+    <string name="developers">Developers</string>
 </resources>

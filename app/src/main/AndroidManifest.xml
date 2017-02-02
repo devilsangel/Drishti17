@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.drishti.drishti17">
-    <meta-data android:name="com.google.android.gms.vision.DEPENDENCIES" android:value="barcode"/>
+
+    <meta-data
+        android:name="com.google.android.gms.vision.DEPENDENCIES"
+        android:value="barcode" />
+
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.CAMERA" />
 
@@ -15,14 +19,26 @@
             android:name=".Login"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
-            android:theme="@style/FullscreenTheme">
+            android:theme="@style/FullscreenTheme"/>
+        <activity android:name=".QRactivity" />
+        <activity
+            android:name=".ui.Home"
+            android:label="@string/app_name"
+            android:theme="@style/Home" />
+        <activity
+            android:name=".ui.TempHome"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".QRactivity">
-        </activity>
+        <activity
+            android:name=".ui.NavigationActivity"
+            android:label="@string/title_activity_navigation"
+            android:theme="@style/Navigation"/>
     </application>
 
 </manifest>

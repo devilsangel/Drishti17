@@ -1,0 +1,44 @@
+<resources>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+
+    <style name="Home" parent="AppTheme.NoActionBar">
+        <item name="colorAccent">@color/colorPrimary_nav</item>
+        <item name="android:windowAllowEnterTransitionOverlap">true</item>
+        <item name="android:windowAllowReturnTransitionOverlap">true</item>
+        <item name="android:windowSharedElementsUseOverlay">false</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@color/immersive_bars</item>
+        <item name="android:navigationBarColor">@color/immersive_bars</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowActionModeOverlay">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@color/colorPrimary</item>
+
+    </style>
+
+    <style name="Translucent"  parent="AppTheme.NoActionBar">
+        <!-- using a semi-transparent window background for the drag-back gesture -->
+        <item name="android:windowBackground">@color/scrim</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+    </style>
+
+    <style name="Navigation" parent="Translucent">
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="colorPrimary">@color/colorPrimary_nav</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorPrimary_nav</item>
+
+    </style>
+</resources>

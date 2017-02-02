@@ -20,4 +20,36 @@
         <item name="android:background">@color/black_overlay</item>
     </style>
 
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Home" parent="AppTheme.NoActionBar">
+        <item name="colorAccent">@color/colorPrimary_nav</item>
+
+    </style>
+    <style name="Navigation" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary_nav</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorPrimary_nav</item>
+    </style>
+
+    <style name="nav_image">
+        <item name="android:padding">15dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="nav_text">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:padding">4dp</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 </resources>
