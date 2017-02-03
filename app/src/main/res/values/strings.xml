@@ -1,8 +1,5 @@
 <resources>
     <string name="app_name">Drishti17</string>
-
-    <string name="Logina">Fb Login</string>
-    <string name="Loginb">G+ Login</string>
     <string name="title_activity_home">Home</string>
     <string name="title_activity_temp_home">TempHome</string>
     <string name="title_activity_navigation">NavigationActivity</string>
@@ -16,4 +13,7 @@
     <string name="map">Map</string>
     <string name="profile">Profile</string>
     <string name="developers">Developers</string>
+    <string name="Logina">Login with Facebook</string>
+    <string name="Loginb">Login with Google+</string>
+>>>>>>> Stashed changes
 </resources>

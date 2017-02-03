@@ -1,4 +1,4 @@
-package com.drishti.drishti17;
+package com.drishti.drishti17.ui;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
@@ -10,6 +10,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
+
+import com.drishti.drishti17.R;
 
 public class Login extends AppCompatActivity {
 
