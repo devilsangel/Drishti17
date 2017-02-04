@@ -54,7 +54,11 @@
         <activity
             android:name=".ui.EventDetail"
             android:label="@string/title_activity_event_detail"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.Profile"
+            android:label="Prof"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
