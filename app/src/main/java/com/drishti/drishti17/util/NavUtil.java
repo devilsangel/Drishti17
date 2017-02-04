@@ -16,6 +16,7 @@ import com.drishti.drishti17.ui.Events;
 import com.drishti.drishti17.ui.Expo;
 import com.drishti.drishti17.ui.Home;
 import com.drishti.drishti17.ui.NavigationActivity;
+import com.drishti.drishti17.ui.Profile;
 import com.drishti.drishti17.ui.Schedule;
 import com.drishti.drishti17.ui.transition.FabTransform;
 
@@ -41,7 +42,7 @@ public class NavUtil {
         tempMap.put(3, Events.class);
         tempMap.put(4, Home.class);
         tempMap.put(5, Expo.class);
-        tempMap.put(6, Home.class);
+        tempMap.put(6, Profile.class);
         tempMap.put(7, Home.class);
 
         positionClassMap = Collections.unmodifiableMap(tempMap);
