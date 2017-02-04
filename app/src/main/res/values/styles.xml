@@ -29,6 +29,7 @@
         <item name="colorAccent">@color/colorPrimary_nav</item>
 
     </style>
+
     <style name="Navigation" parent="AppTheme.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary_nav</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>

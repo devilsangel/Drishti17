@@ -1,35 +1,21 @@
 package com.drishti.drishti17;
 
-import android.content.pm.PackageManager;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.util.SparseArray;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
-import android.widget.TextView;
-
-import com.google.android.gms.vision.CameraSource;
-import com.google.android.gms.vision.Detector;
-import com.google.android.gms.vision.barcode.Barcode;
-import com.google.android.gms.vision.barcode.BarcodeDetector;
-
-import java.io.IOException;
+import android.support.v7.app.AppCompatActivity;
 
 public class QRactivity extends AppCompatActivity {
 
-
+/*
     TextView barcodeInfo;
     SurfaceView cameraView;
     BarcodeDetector barcodeDetector;
-    CameraSource cameraSource;
+    CameraSource cameraSource;*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qractivity);
-        cameraView = (SurfaceView) findViewById(R.id.camera_view);
+       /* cameraView = (SurfaceView) findViewById(R.id.camera_view);
         barcodeInfo = (TextView) findViewById(R.id.code_info);
         barcodeDetector =
                 new BarcodeDetector.Builder(this)
@@ -89,7 +75,7 @@ public class QRactivity extends AppCompatActivity {
                     });
                 }
             }
-        });
+        }); */
     }
 
 }

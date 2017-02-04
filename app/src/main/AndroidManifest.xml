@@ -19,7 +19,7 @@
             android:name=".Login"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
-            android:theme="@style/FullscreenTheme"/>
+            android:theme="@style/FullscreenTheme" />
         <activity android:name=".QRactivity" />
         <activity
             android:name=".ui.Home"
@@ -38,7 +38,19 @@
         <activity
             android:name=".ui.NavigationActivity"
             android:label="@string/title_activity_navigation"
-            android:theme="@style/Navigation"/>
+            android:theme="@style/Navigation" />
+        <activity
+            android:name=".ui.Events"
+            android:label="@string/title_activity_events"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.Schedule"
+            android:label="@string/title_activity_schedule"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.Expo"
+            android:label="@string/title_activity_expo"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

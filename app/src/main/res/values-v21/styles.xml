@@ -23,7 +23,7 @@
 
     </style>
 
-    <style name="Translucent"  parent="AppTheme.NoActionBar">
+    <style name="Translucent" parent="AppTheme.NoActionBar">
         <!-- using a semi-transparent window background for the drag-back gesture -->
         <item name="android:windowBackground">@color/scrim</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
