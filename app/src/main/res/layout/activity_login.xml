@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg"
-    tools:context="com.drishti.drishti17.Login">
+    tools:context="com.drishti.drishti17.ui.Login">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
@@ -40,8 +40,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/fb_button_bg"
-                android:background="#787870"
-                android:alpha="0.7"
+                android:background="#4867aa"
+                android:alpha="0.6"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
                 android:animateLayoutChanges="true">
@@ -53,6 +53,7 @@
                     android:layout_weight="1"
                     android:textColor="#000000"
                     android:text="@string/Logina"
+                    android:drawableLeft="@drawable/fb"
                     android:layout_centerVertical="true"
                     />
             </LinearLayout>
@@ -63,8 +64,8 @@
                 android:layout_below="@+id/fb_button_bg"
                 android:id="@+id/g_button_bg"
                 android:orientation="horizontal"
-                android:background="#787870"
-                android:alpha="0.7"
+                android:background="#ffffff"
+                android:alpha="0.6"
                 android:layout_marginTop="10dp"
                 >
                 <Button
@@ -74,6 +75,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textColor="#000000"
+                    android:drawableLeft="@drawable/g"
                     android:text="@string/Loginb"
                     android:layout_centerVertical="true"
                     />

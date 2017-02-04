@@ -16,11 +16,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Login"
+            android:name=".ui.Login"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
-            android:theme="@style/FullscreenTheme" />
-        <activity android:name=".QRactivity" />
+            android:theme="@style/FullscreenTheme"/>
+
+
+        <activity android:name=".ui.QRactivity" />
         <activity
             android:name=".ui.Home"
             android:label="@string/app_name"

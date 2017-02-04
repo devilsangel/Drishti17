@@ -6,8 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import com.drishti.drishti17.Login;
-import com.drishti.drishti17.QRactivity;
 import com.drishti.drishti17.R;
 
 public class TempHome extends AppCompatActivity implements View.OnClickListener {

@@ -1,7 +1,16 @@
-package com.drishti.drishti17;
+package com.drishti.drishti17.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.util.SparseArray;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
+import android.widget.TextView;
+
+import com.drishti.drishti17.R;
+
+import java.io.IOException;
 
 public class QRactivity extends AppCompatActivity {
 
