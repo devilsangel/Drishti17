@@ -18,8 +18,7 @@ public class EventDetail extends AppCompatActivity {
     }
 
     private void setUpUI() {
-
-            new Blur((ImageView) findViewById(R.id.back), this, 3, 10).applyBlur(true, findViewById(R.id.content_event_detail));
+        new Blur((ImageView) findViewById(R.id.back), this, 3, 5).applyBlur(true, findViewById(R.id.inner_layout));
 
     }
 

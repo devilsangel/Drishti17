@@ -32,6 +32,9 @@ public class Blur {
         this.context = context;
     }
 
+    /**
+     * @param backview -  back view is the innerview after the blur image view
+     */
     public void applyBlur(final Boolean bool, final View backview) {
         placeBackground.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             @Override
