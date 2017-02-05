@@ -37,4 +37,9 @@
         tiramisu chupa chups dragée cheesecake brownie chocolate bar chocolate bar icing. Apple pie cake
         carrot cake gingerbread candy canes</string>
     <string name="article_detail_more_info">More Info</string>
+
+    <string name="lorem_desp"> Exercise your brain cells and get cracking,
+        there are more bugs than you can handle, and
+        not enough time! So get smashing!</string>
+    <!--<string name=""></string>-->
 </resources>

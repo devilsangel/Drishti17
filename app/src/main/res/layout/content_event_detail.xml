@@ -25,11 +25,79 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Debugging"
+            android:text="Bug smash"
             style="@style/event_title"
-            android:layout_marginTop="200dp"
+            android:layout_marginTop="12`0dp"
             android:textSize="40sp"
             android:id="@+id/title"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/event_desp"
+            android:layout_below="@id/title"
+            android:text="@string/lorem_desp"
+            android:id="@+id/desp"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_today_white_24dp"
+            style="@style/event_desp"
+            android:layout_below="@id/desp"
+            android:id="@+id/date_pic"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/event_desp"
+            android:layout_below="@id/desp"
+            android:layout_toRightOf="@id/date_pic"
+            android:text="10/12/2016"
+            android:id="@+id/date"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_alarm_white_24dp"
+            style="@style/event_desp"
+            android:layout_below="@id/date"
+            android:id="@+id/time_pic"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/event_desp"
+            android:layout_below="@id/date"
+            android:layout_toRightOf="@id/date_pic"
+            android:text="9:00 AM"
+            android:id="@+id/time"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_location_on_white_24dp"
+            style="@style/event_desp"
+            android:layout_below="@id/time_pic"
+            android:id="@+id/location_pic"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/event_desp"
+            android:layout_below="@id/time_pic"
+            android:layout_toRightOf="@id/location_pic"
+            android:text="CS department"
+            android:id="@+id/location"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/button_border"
+            android:layout_margin="10dp"
+            android:textColor="@color/white"
+            android:text="Register"/>
 
     </RelativeLayout>
 
