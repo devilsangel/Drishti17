@@ -8,6 +8,7 @@
     <color name="black_overlay">#66000000</color>
 
     <color name="white">#FDFDFE</color>
+    <color name="dark_white">#e2e2ea</color>
     <color name="colorLight">#70c1b3</color>
 
     <color name="palette_black">#50514f</color>
