@@ -33,5 +33,11 @@
         android:text="Home"
         android:id="@+id/button_home"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Events"
+        android:id="@+id/button_events"/>
+
 
 </LinearLayout>

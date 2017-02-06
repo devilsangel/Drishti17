@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "37494669483",
+    "firebase_url": "https://drishti-bd782.firebaseio.com",
+    "project_id": "drishti-bd782",
+    "storage_bucket": "drishti-bd782.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:37494669483:android:b5a9b3d592a0128d",
+        "android_client_info": {
+          "package_name": "com.drishti.drishti17"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "37494669483-s5rv2h0djdkihefcpi6e3o5j2p5piajm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFRWtQtcFbDZfF-I5DZEEx7RD93Dq7Ij4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "37494669483-s5rv2h0djdkihefcpi6e3o5j2p5piajm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

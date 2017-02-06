@@ -42,7 +42,7 @@
         <activity
             android:name=".ui.Events"
             android:label="@string/title_activity_events"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/Events" />
         <activity
             android:name=".ui.Schedule"
             android:label="@string/title_activity_schedule"
@@ -52,9 +52,13 @@
             android:label="@string/title_activity_expo"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".ui.EventDetail"
+            android:label="@string/title_activity_event_detail"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".ui.Profile"
             android:label="Prof"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
