@@ -1,6 +1,7 @@
 package com.drishti.drishti17.ui.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.drishti.drishti17.R;
 import com.drishti.drishti17.network.models.EventListModel;
+import com.drishti.drishti17.ui.EventList;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -48,7 +50,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
 
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
         EventListModel eventListModel = deptMap.get(deptKeys.get(position));
         StorageReference gsReference = storage.getReferenceFromUrl(eventListModel.storage_url);
 
@@ -57,6 +59,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
                 .using(new FirebaseImageLoader())
                 .load(gsReference)
                 .into(holder.backImage);
+
     }
 
     @Override
@@ -68,12 +71,22 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
 
         ImageView backImage;
         TextView title;
+        View view;
 
         ViewHolder(View itemView) {
             super(itemView);
 
             backImage = (ImageView) itemView.findViewById(R.id.back_image);
             title = (TextView) itemView.findViewById(R.id.title);
+            view = itemView.findViewById(R.id.root_layout);
+
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent_expand = new Intent(view.getContext(), EventList.class);
+                    view.getContext().startActivity(intent_expand);
+                }
+            });
 
         }
     }

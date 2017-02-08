@@ -41,5 +41,11 @@
     <string name="lorem_desp"> Exercise your brain cells and get cracking,
         there are more bugs than you can handle, and
         not enough time! So get smashing!</string>
+    <string name="title_activity_event_list">EventList</string>
+
+
+    <string name="feed">FEED</string>
+    <string name="activity">ACTIVITY</string>
+    <string name="settings">SETTINGS</string>
     <!--<string name=""></string>-->
 </resources>

@@ -24,5 +24,9 @@
     <color name="light_immersive_bars">@color/immersive_bars</color>
     <color name="scrim">#99323232</color>
 
+    <color name="guillotine_background">#444153</color>
+    <color name="guillotine_background_dark">#383547</color>
+    <color name="selected_item_color">#30d1d5</color>
+
 </resources>
 

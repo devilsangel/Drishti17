@@ -59,6 +59,10 @@
             android:name=".ui.Profile"
             android:label="Prof"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.EventList"
+            android:label="@string/title_activity_event_list"
+            android:theme="@style/Home"/>
     </application>
 
 </manifest>
