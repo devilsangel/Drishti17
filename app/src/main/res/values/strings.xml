@@ -22,7 +22,7 @@
     <string name="Loginb">Login with Google+</string>
 
     <string name="loading">Loading</string>
-
+    <string name="g_client_id">37494669483-s5rv2h0djdkihefcpi6e3o5j2p5piajm.apps.googleusercontent.com</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_event_detail">EventDetail</string>
 
