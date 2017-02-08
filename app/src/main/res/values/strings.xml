@@ -47,5 +47,10 @@
     <string name="feed">FEED</string>
     <string name="activity">ACTIVITY</string>
     <string name="settings">SETTINGS</string>
+    <string name="informals">Informals</string>
+    <string name="workshops">Workshops</string>
+    <string name="competitions">Competitions</string>
+    <!--<string name=""></string>-->
+    <!--<string name=""></string>-->
     <!--<string name=""></string>-->
 </resources>

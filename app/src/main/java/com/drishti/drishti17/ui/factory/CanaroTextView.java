@@ -19,6 +19,7 @@ public class CanaroTextView extends TextView {
     public CanaroTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         Import.settypefaces(context,"canaro_extra_bold.otf",this);
+        setAllCaps(true);
     }
 
 }

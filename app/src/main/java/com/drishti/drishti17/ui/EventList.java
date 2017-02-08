@@ -3,17 +3,17 @@ package com.drishti.drishti17.ui;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.drishti.drishti17.R;
-import com.yalantis.guillotine.animation.GuillotineAnimation;
+import com.drishti.drishti17.util.GuillotineUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class EventList extends AppCompatActivity {
+public class EventList extends AppCompatActivity implements GuillotineUtil.OnNavigationClickListener {
 
     private static final long RIPPLE_DURATION = 250;
     @BindView(R.id.toolbar)
@@ -35,13 +35,27 @@ public class EventList extends AppCompatActivity {
             getSupportActionBar().setTitle(null);
         }
 
-        View guillotineMenu = LayoutInflater.from(this).inflate(R.layout.guillotine, null);
-        root.addView(guillotineMenu);
 
-        new GuillotineAnimation.GuillotineBuilder(guillotineMenu, guillotineMenu.findViewById(R.id.guillotine_hamburger), contentHamburger)
-                .setStartDelay(RIPPLE_DURATION)
-                .setActionBarViewForAnimation(toolbar)
-                .setClosedOnStart(true)
-                .build();
+        new GuillotineUtil(this).setUpNav(root,findViewById(R.id.content_hamburger),toolbar,this);
+
+    }
+
+    @Override
+    public void onNavigationClick(int id) {
+        TextView title = (TextView) toolbar.findViewById(R.id.title);
+        String text ="";
+        switch (id) {
+            case R.id.competitions_group:
+                text = getString(R.string.competitions);
+                break;
+            case R.id.workshops_group:
+                text = getString(R.string.workshops);
+                break;
+            case R.id.informals_group:
+                text = getString(R.string.informals);
+                break;
+        }
+
+        title.setText(text);
     }
 }
