@@ -4,11 +4,11 @@ import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.drishti.drishti17.R;
+import com.drishti.drishti17.util.UIUtil;
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
 
 public class Schedule extends AppCompatActivity {
@@ -23,8 +23,8 @@ public class Schedule extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        UIUtil.setToolBar(this,"Schedule");
+
         initUI();
         setUI();
 

@@ -126,7 +126,6 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:minHeight">?attr/actionBarSize</item>
         <item name="android:windowNoTitle">true</item>
-        <item name="android:background">@color/colorPrimary</item>
     </style>
 
     <style name="ImageView" />

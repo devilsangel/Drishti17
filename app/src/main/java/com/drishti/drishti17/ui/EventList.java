@@ -26,7 +26,8 @@ import java.util.HashMap;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class EventList extends AppCompatActivity implements GuillotineUtil.OnNavigationClickListener, ValueEventListener {
+public class EventList extends AppCompatActivity implements
+        GuillotineUtil.OnNavigationClickListener, ValueEventListener {
 
     private static final long RIPPLE_DURATION = 250;
     @BindView(R.id.toolbar)

@@ -6,42 +6,46 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context="com.drishti.drishti17.ui.Home">
+
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
+            style="@style/SizeSpecificCollapsingToolbarLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
-            style="@style/SizeSpecificCollapsingToolbarLayout"
-            app:expandedTitleMarginStart="48dp"
-            app:expandedTitleMarginEnd="64dp">
+            app:expandedTitleMarginEnd="64dp"
+            app:expandedTitleMarginStart="48dp">
+
             <ImageView
                 android:id="@+id/qr"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop"
                 android:fitsSystemWindows="true"
+                android:scaleType="centerCrop"
                 android:src="@drawable/code"
                 app:layout_collapseMode="parallax" />
+
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                app:layout_collapseMode="pin" />
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
-        android:background="@color/dark_white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/dark_white"
 
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -57,6 +61,7 @@
                 android:layout_marginBottom="@dimen/card_margin"
                 android:layout_marginLeft="@dimen/card_margin"
                 android:layout_marginRight="@dimen/card_margin">
+
                 <LinearLayout
                     style="@style/Widget.CardContent"
                     android:layout_width="match_parent"
@@ -73,110 +78,121 @@
                         android:id="@+id/college"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="College of Engineering, Trivandrum"
-                        android:layout_marginBottom="5dp"/>
+                        android:layout_marginBottom="5dp"
+                        android:text="College of Engineering, Trivandrum" />
+
                     <View
-                        android:layout_marginTop="5dp"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@android:color/darker_gray"
-                        android:visibility="gone"
-                        />
-                    <RelativeLayout
                         android:layout_marginTop="5dp"
+                        android:background="@android:color/darker_gray"
+                        android:visibility="gone" />
+
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
                         android:padding="10dp">
+
                         <LinearLayout
+                            android:id="@+id/wor"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:orientation="vertical"
 
-                            android:id="@+id/wor"
-                            android:layout_toLeftOf="@+id/linearLayout2"
                             android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true">
-                            <TextView
+                            android:layout_alignParentStart="true"
+                            android:layout_toLeftOf="@+id/linearLayout2"
+                            android:orientation="vertical">
+
+                            <com.drishti.drishti17.ui.factory.ProximaTextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:textAlignment="center"
                                 android:text="Workshops"
+                                android:textAlignment="center"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:textAlignment="center"
-                                android:text="4" />
+                                android:text="4"
+                                android:textAlignment="center" />
                         </LinearLayout>
+
                         <View
-                            android:layout_height="match_parent"
-                            android:layout_alignTop="@id/wor"
-                            android:layout_alignBottom="@+id/wor"
+                            android:id="@+id/view"
                             android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:layout_alignBottom="@+id/wor"
+                            android:layout_alignTop="@id/wor"
                             android:layout_centerHorizontal="true"
-                            android:background="@android:color/darker_gray"
-                            android:id="@+id/view" />
+                            android:background="@android:color/darker_gray" />
+
                         <LinearLayout
+                            android:id="@+id/linearLayout2"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_alignParentRight="true"
-                            android:orientation="vertical"
-                            android:layout_toRightOf="@+id/view"
                             android:layout_toEndOf="@+id/view"
-                            android:id="@+id/linearLayout2">
-                            <TextView
+                            android:layout_toRightOf="@+id/view"
+                            android:orientation="vertical">
+
+                            <com.drishti.drishti17.ui.factory.ProximaTextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:textAlignment="center"
                                 android:text="Events"
+                                android:textAlignment="center"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:textAlignment="center"
-                                android:text="4" />
+                                android:text="4"
+                                android:textAlignment="center" />
                         </LinearLayout>
                     </RelativeLayout>
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
-            <TextView
+
+            <com.drishti.drishti17.ui.factory.ProximaTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="My Schedule"
                 android:layout_margin="@dimen/card_margin"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+                android:text="My Schedule"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scrollbars="none">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
                     <android.support.v7.widget.CardView
                         android:layout_width="200dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/card_margin"
                         android:layout_marginLeft="@dimen/card_margin"
                         android:layout_marginRight="@dimen/card_margin">
+
                         <LinearLayout
                             style="@style/Widget.CardContent"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
-                            <TextView
+                            <com.drishti.drishti17.ui.factory.SourceSansTextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="Day 1"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
 
-
                         </LinearLayout>
                     </android.support.v7.widget.CardView>
+
                     <android.support.v7.widget.CardView
                         android:layout_width="200dp"
                         android:layout_height="wrap_content"
@@ -189,7 +205,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
-                            <TextView
+                            <com.drishti.drishti17.ui.factory.SourceSansTextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="Day 2"
@@ -199,6 +215,7 @@
                         </LinearLayout>
 
                     </android.support.v7.widget.CardView>
+
                     <android.support.v7.widget.CardView
                         android:layout_width="200dp"
                         android:layout_height="wrap_content"
@@ -223,12 +240,14 @@
                     </android.support.v7.widget.CardView>
                 </LinearLayout>
             </HorizontalScrollView>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="My Scores"
                 android:layout_margin="@dimen/card_margin"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+                android:text="My Scores"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -241,13 +260,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <TextView
+                    <com.drishti.drishti17.ui.factory.ProximaTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/article_detail_more_info"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
-                    <TextView
+                    <com.drishti.drishti17.ui.factory.SourceSansTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/lorem_ipsum" />
@@ -257,5 +276,5 @@
             </android.support.v7.widget.CardView>
 
         </LinearLayout>
-        </android.support.v4.widget.NestedScrollView>
+    </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>

@@ -7,13 +7,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 
 import com.drishti.drishti17.R;
 import com.drishti.drishti17.ui.fragments.DeptListFragment;
 import com.drishti.drishti17.util.NavUtil;
+import com.drishti.drishti17.util.UIUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,8 +27,7 @@ public class Events extends AppCompatActivity implements DeptListFragment.OnDepa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        UIUtil.setToolBar(this,"Events");
 
         ButterKnife.bind(this);
         fragmentManager = getSupportFragmentManager();
