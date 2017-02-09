@@ -28,5 +28,21 @@
     <color name="guillotine_background_dark">#383547</color>
     <color name="selected_item_color">#30d1d5</color>
 
+    <color name="tab_back1">#ffffff</color>
+    <color name="tab_back2">#ff252e39</color>
+    <color name="tab_back3">#ff1a1e23</color>
+
+    <color name="tab_highlight1">#42a4d1</color>
+    <color name="tab_highlight2">#3cdedd</color>
+    <color name="tab_highlight3">#ff1748</color>
+
+    <color name="tab_active1">#42a4d1</color>
+    <color name="tab_active2">#fff</color>
+    <color name="tab_active3">#fff</color>
+
+    <color name="tab_inactive1">#ff1a1e23</color>
+    <color name="tab_inactive2">#81ffffff</color>
+    <color name="tab_inactive3">#81ffffff</color>
+
 </resources>
 

@@ -116,7 +116,7 @@ public class DeptListFragment extends Fragment implements ValueEventListener {
         RecyclerView deptList = (RecyclerView) getActivity().findViewById(R.id.list_dept);
 
         deptList.setVisibility(View.VISIBLE);
-        EventListAdapter eventListAdapter = new EventListAdapter(deptMap,getContext());
+        EventListAdapter eventListAdapter = new EventListAdapter(deptMap,getContext(),"dept");
         deptList.setAdapter(eventListAdapter);
         deptList.setHasFixedSize(true);
         deptList.setLayoutManager(new LinearLayoutManager(getContext()));

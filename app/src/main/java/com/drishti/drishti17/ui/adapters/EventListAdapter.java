@@ -2,6 +2,7 @@ package com.drishti.drishti17.ui.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.drishti.drishti17.R;
 import com.drishti.drishti17.network.models.EventListModel;
+import com.drishti.drishti17.ui.EventDetail;
 import com.drishti.drishti17.ui.EventList;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.storage.FirebaseStorage;
@@ -27,17 +29,19 @@ import java.util.Map;
 
 public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.ViewHolder> {
 
-    private HashMap<String, EventListModel> deptMap;
-    private ArrayList<String> deptKeys;
+    private HashMap<String, EventListModel> map;
+    private static ArrayList<String> keys;
     private FirebaseStorage storage = FirebaseStorage.getInstance();
     private Context context;
+    static String from;
 
-    public EventListAdapter(HashMap<String, EventListModel> deptMap,Context context) {
-        this.deptMap = deptMap;
+    public EventListAdapter(HashMap<String, EventListModel> deptMap,Context context,String from) {
+        this.from = from;
+        this.map = deptMap;
         this.context =context;
-        deptKeys = new ArrayList<>(deptMap.size());
+        keys = new ArrayList<>(deptMap.size());
         for (Map.Entry<String, EventListModel> dept : deptMap.entrySet()) {
-            deptKeys.add(dept.getKey());
+            keys.add(dept.getKey());
         }
     }
 
@@ -51,7 +55,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        EventListModel eventListModel = deptMap.get(deptKeys.get(position));
+        EventListModel eventListModel = map.get(keys.get(position));
         StorageReference gsReference = storage.getReferenceFromUrl(eventListModel.storage_url);
 
         holder.title.setText(eventListModel.name);
@@ -64,7 +68,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
 
     @Override
     public int getItemCount() {
-        return deptKeys.size();
+        return keys.size();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -83,11 +87,33 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent_expand = new Intent(view.getContext(), EventList.class);
-                    view.getContext().startActivity(intent_expand);
+                   switch (from){
+                       case "dept":
+                           proceedEventList();
+                           break;
+                       case "eventlist":
+                           proceedEvent();
+                           break;
+                   }
                 }
             });
 
+        }
+
+        void proceedEventList() {
+            Intent intent_expand = new Intent(view.getContext(), EventList.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("dept", keys.get(getAdapterPosition()));
+            intent_expand.putExtras(bundle);
+            view.getContext().startActivity(intent_expand);
+        }
+
+        void proceedEvent() {
+            Intent intent_expand = new Intent(view.getContext(), EventDetail.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("dept", keys.get(getAdapterPosition()));
+            intent_expand.putExtras(bundle);
+            view.getContext().startActivity(intent_expand);
         }
     }
 }
