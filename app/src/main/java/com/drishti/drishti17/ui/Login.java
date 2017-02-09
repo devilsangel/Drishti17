@@ -1,16 +1,13 @@
 package com.drishti.drishti17.ui;
 
-import android.Manifest;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -20,6 +17,11 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.drishti.drishti17.R;
+import com.drishti.drishti17.network.models.Student;
+import com.drishti.drishti17.ui.factory.ProgressDialog;
+import com.drishti.drishti17.util.ApiClient;
+import com.drishti.drishti17.util.ApiInterface;
+import com.drishti.drishti17.util.AuthUtil;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -33,23 +35,31 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-
+import com.drishti.drishti17.ui.factory.ProgressDialog;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-public class Login extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
+public class Login extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     private static final int UI_ANIMATION_DELAY = 300;
     private final Handler mHideHandler = new Handler();
-    @BindView(R.id.fullscreen_content) View mContentView;
-    @BindView(R.id.logo) ImageView logo;
-    @BindView(R.id.fullscreen_content_controls) View mControlsView;
-    @BindView(R.id.g_button) Button gPlus;
-    boolean flag=true;
+    @BindView(R.id.fullscreen_content)
+    View mContentView;
+    @BindView(R.id.logo)
+    ImageView logo;
+    @BindView(R.id.fullscreen_content_controls)
+    View mControlsView;
+    @BindView(R.id.g_button)
+    Button gPlus;
+    boolean flag = true;
     private GoogleApiClient mGoogleApiClient;
     private static final int RC_SIGN_IN = 9001;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    ProgressDialog progressDialog;
     private static final String TAG = "GoogleActivity";
     private final Runnable mHidePart2Runnable = new Runnable() {
         @SuppressLint("InlinedApi")
@@ -74,21 +84,23 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
             mControlsView.setVisibility(View.VISIBLE);
         }
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+
         mContentView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(flag){
-                    flag=false;
-                    PropertyValuesHolder p6=PropertyValuesHolder.ofFloat("scaleX",1f);
-                    PropertyValuesHolder p7=PropertyValuesHolder.ofFloat("scaleY",1f);
-                    PropertyValuesHolder p8=PropertyValuesHolder.ofFloat("y",logo.getY()/2);
-                    ObjectAnimator anim3=ObjectAnimator.ofPropertyValuesHolder(logo,p6,p7,p8);
+                if (flag) {
+                    flag = false;
+                    PropertyValuesHolder p6 = PropertyValuesHolder.ofFloat("scaleX", 1f);
+                    PropertyValuesHolder p7 = PropertyValuesHolder.ofFloat("scaleY", 1f);
+                    PropertyValuesHolder p8 = PropertyValuesHolder.ofFloat("y", logo.getY() / 2);
+                    ObjectAnimator anim3 = ObjectAnimator.ofPropertyValuesHolder(logo, p6, p7, p8);
                     anim3.setDuration(1000);
                     anim3.addListener(new Animator.AnimatorListener() {
                         @Override
@@ -118,10 +130,10 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         logo.setScaleX(0f);
         logo.setScaleY(0f);
         logo.setAlpha(0f);
-        PropertyValuesHolder p1=PropertyValuesHolder.ofFloat("alpha",1f);
-        PropertyValuesHolder p2=PropertyValuesHolder.ofFloat("scaleX",1.5f);
-        PropertyValuesHolder p3=PropertyValuesHolder.ofFloat("scaleY",1.5f);
-        ObjectAnimator anim=ObjectAnimator.ofPropertyValuesHolder(logo,p1,p2,p3);
+        PropertyValuesHolder p1 = PropertyValuesHolder.ofFloat("alpha", 1f);
+        PropertyValuesHolder p2 = PropertyValuesHolder.ofFloat("scaleX", 1.5f);
+        PropertyValuesHolder p3 = PropertyValuesHolder.ofFloat("scaleY", 1.5f);
+        ObjectAnimator anim = ObjectAnimator.ofPropertyValuesHolder(logo, p1, p2, p3);
         anim.setDuration(2000);
         anim.addListener(new Animator.AnimatorListener() {
             @Override
@@ -131,9 +143,9 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                PropertyValuesHolder p4=PropertyValuesHolder.ofFloat("scaleX",1.45f);
-                PropertyValuesHolder p5=PropertyValuesHolder.ofFloat("scaleY",1.45f);
-                ObjectAnimator anim1=ObjectAnimator.ofPropertyValuesHolder(logo,p4,p5);
+                PropertyValuesHolder p4 = PropertyValuesHolder.ofFloat("scaleX", 1.45f);
+                PropertyValuesHolder p5 = PropertyValuesHolder.ofFloat("scaleY", 1.45f);
+                ObjectAnimator anim1 = ObjectAnimator.ofPropertyValuesHolder(logo, p4, p5);
                 anim1.setDuration(100);
                 anim1.start();
             }
@@ -165,7 +177,32 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
+
                     // User is signed in
+                    final ApiInterface service = ApiClient.getService();
+                    AuthUtil.getFirebaseToken(new AuthUtil.Listener() {
+                        @Override
+                        public void tokenObtained(String token) {
+                            Call<Student> call=service.login(token);
+                            call.enqueue(new Callback<Student>() {
+                                @Override
+                                public void onResponse(Call<Student> call, Response<Student> response) {
+                                    Student student=response.body();
+                                    if(student.registered){
+                                        Log.d("Login","Existing User");
+                                    }else{
+                                        Log.d("Login","New User");
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<Student> call, Throwable t) {
+                                    Log.d("Login","Fail");
+                                }
+                            });
+                        }
+                    });
+
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                 } else {
                     // User is signed out
@@ -205,20 +242,22 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             if (result.isSuccess()) {
                 // Google Sign In was successful, authenticate with Firebase
-                Log.d(TAG,"sucess");
+                Log.d(TAG, "sucess");
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
             } else {
-                Log.d(TAG,result.getStatus().toString());
+                Log.d(TAG, result.getStatus().toString());
                 // Google Sign In failed, update UI appropriately
                 // ...
             }
         }
     }
+
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -237,6 +276,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                     }
                 });
     }
+
     private void hide() {
         // Hide UI first
         ActionBar actionBar = getSupportActionBar();
@@ -266,14 +306,5 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
     }
 
-//    @Override
-//    public void onClick(View v) {
-//        Log.d(""+R.id.g_button,""+v.getId());
-//        switch (v.getId()){
-//            case R.id.g_button:
-//                Log.d("blah","blah");
-//                Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-//                startActivityForResult(signInIntent, RC_SIGN_IN);
-//        }
-//    }
+
 }
