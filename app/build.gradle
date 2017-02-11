@@ -61,6 +61,7 @@ dependencies {
     compile ('com.github.ozodrukh:CircularReveal:2.0.1@aar') {
         transitive = true;
     }
+    compile 'com.jaredrummler:material-spinner:1.1.0'
     compile 'io.gsonfire:gson-fire:1.8.0'
     testCompile 'junit:junit:4.12'
     compile 'com.google.android.gms:play-services-vision:10.0.1'

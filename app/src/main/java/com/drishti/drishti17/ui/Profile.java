@@ -23,7 +23,6 @@ public class Profile extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         ButterKnife.bind(this);
-        Import.settypefaces(this, "ProximaNovaSoft-Regular.otf",name);
-        Import.settypefaces(this,"SourceSansPro-Regular.otf",college);
+
     }
 }

@@ -61,7 +61,11 @@
         <activity
             android:name=".ui.EventList"
             android:label="@string/title_activity_event_list"
-            android:theme="@style/Home"/>
+            android:theme="@style/Home" />
+        <activity
+            android:name=".ui.MainRegister"
+            android:label="Registration"
+            android:theme="@style/Registration"/>
     </application>
 
 </manifest>
