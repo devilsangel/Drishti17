@@ -45,9 +45,22 @@ public class Import {
     }
 
 
+    public static int getBackgroundImage(Context context,String imageName) {
+        String uri = "drawable/" + imageName;
+        return context.getResources().getIdentifier(uri, null, context.getPackageName());
+    }
+
     public static boolean isVersionOK(int base_version) {
         return (Build.VERSION.SDK_INT >= base_version);
     }
 
 
+    public static boolean isEventDownloading() {
+        return Global.isDownloading;
+    }
+
+    public static void setEventDownloadingStatus(boolean isDownloading) {
+        Global.isDownloading = isDownloading;
+
+    }
 }

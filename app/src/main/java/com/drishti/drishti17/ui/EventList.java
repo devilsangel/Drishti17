@@ -1,35 +1,31 @@
 package com.drishti.drishti17.ui;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.drishti.drishti17.R;
-import com.drishti.drishti17.network.models.EventListModel;
-import com.drishti.drishti17.ui.adapters.EventListAdapter;
-import com.drishti.drishti17.ui.factory.ProgressDialog;
+import com.drishti.drishti17.ui.fragments.CompetitionListFragment;
 import com.drishti.drishti17.util.GuillotineUtil;
-import com.drishti.drishti17.util.Import;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class EventList extends AppCompatActivity implements
-        GuillotineUtil.OnNavigationClickListener, ValueEventListener {
+        GuillotineUtil.OnNavigationClickListener {
 
-    private static final long RIPPLE_DURATION = 250;
+    private static final String TAG = EventList.class.getSimpleName();
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.root)
@@ -37,9 +33,9 @@ public class EventList extends AppCompatActivity implements
     @BindView(R.id.content_hamburger)
     View contentHamburger;
     String dept;
-    String fpath;
 
-    ProgressDialog progressDialog;
+    BroadcastReceiver downloadCompleteReceiver;
+
 
 
     @Override
@@ -55,16 +51,53 @@ public class EventList extends AppCompatActivity implements
         getArguments();
         new GuillotineUtil(this).setUpNav(root, findViewById(R.id.content_hamburger), toolbar, this);
 
-        progressDialog = new ProgressDialog(this);
-        load();
+        registerReceivers();
+        setUpFragmentUi();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if(downloadCompleteReceiver != null)
+            unregisterReceiver(downloadCompleteReceiver);
     }
 
     private void getArguments() {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             dept = bundle.getString("dept");
-            fpath = "dept-events/"+dept+"/list";
+
         }
+    }
+
+    private void registerReceivers() {
+        downloadCompleteReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                if(intent.getAction().matches("com.drishti.drishti17.EVENT_LIST_UPDATED")){
+                    Log.d(TAG, "onReceive: event list download finished");
+                }
+            }
+        };
+        registerReceiver(downloadCompleteReceiver,new IntentFilter("com.drishti.drishti17.EVENT_LIST_UPDATED"));
+    }
+
+
+    private void setUpFragmentUi() {
+
+        Log.d(TAG, "setUpFragmentUi: setting up fragments");
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment competitions = fragmentManager.findFragmentByTag("competitions");
+        if ((competitions == null) || !competitions.isAdded()) {
+            Fragment deptListFragment = CompetitionListFragment.newInstance(dept);
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.add(R.id.content_event_list, deptListFragment, "competitions");
+            fragmentTransaction.commit();
+        } else {
+            Log.d(TAG, "setUpFragmentUi: some fragment already present");
+        }
+
     }
 
     @Override
@@ -86,55 +119,14 @@ public class EventList extends AppCompatActivity implements
         title.setText(text);
     }
 
-    void load() {
-        progressDialog.showProgressDialog();
-        DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-        mRootRef.child(fpath).addListenerForSingleValueEvent(this);
-    }
-
-    @Override
-    public void onDataChange(DataSnapshot dataSnapshot) {
-        switch (dataSnapshot.getKey())
-        {
-            case "list":
-                int count = (int) dataSnapshot.getChildrenCount();
-                HashMap<String, EventListModel> deptMap = new HashMap<>(count);
-                for (DataSnapshot event : dataSnapshot.getChildren()) {
-                    EventListModel listModel = event.getValue(EventListModel.class);
-                    deptMap.put(event.getKey(),listModel);
-                }
-                if (deptMap.isEmpty()){
-                    onFailure();
-                    return;
-                }
-
-                onSuccess(deptMap);
-                break;
-        }
-    }
-
-    private void onSuccess(HashMap<String, EventListModel> deptMap) {
-        progressDialog.disMissProgressDialog();
-        RecyclerView deptList = (RecyclerView)findViewById(R.id.list_events);
-
-        deptList.setVisibility(View.VISIBLE);
-        EventListAdapter eventListAdapter = new EventListAdapter(deptMap,this,"eventlist");
-        deptList.setAdapter(eventListAdapter);
-        deptList.setHasFixedSize(true);
-        deptList.setLayoutManager(new LinearLayoutManager(this));
 
 
-    }
-
-    private void onFailure() {
-        progressDialog.disMissProgressDialog();
-        Import.snack(root,"No data available. Try for computer science");
-    }
 
 
-    @Override
-    public void onCancelled(DatabaseError databaseError) {
-        progressDialog.disMissProgressDialog();
-        Import.toast(this,"Cancelled event "+databaseError.getMessage());
-    }
+
+
+
+
+
+
 }
