@@ -8,6 +8,13 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
 
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the 'MyLocation' functionality. 
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:name="com.drishti.drishti17.Drishti"
         android:allowBackup="true"
@@ -77,9 +84,28 @@
             android:label="@string/title_activity_event_list"
             android:theme="@style/Home" />
 
+
         <service
             android:name=".async.services.EventsSyncService"
             android:exported="false"></service>
+
+        <activity
+            android:name=".ui.MainRegister"
+            android:label="Registration"
+            android:theme="@style/Registration" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".ui.MapsActivity"
+            android:label="@string/title_activity_maps" />
+        <activity
+            android:name=".ui.Cetalks"
+            android:label="@string/title_activity_cetalks"
+            android:theme="@style/AppTheme.NoActionBar"/>
+>>>>>>> 206c923b7f43736526f33fe3095765338b66d7c2
     </application>
 
 </manifest>
