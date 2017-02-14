@@ -24,6 +24,7 @@ public class TempHome extends AppCompatActivity implements View.OnClickListener 
        findViewById(R.id.button_event_detail).setOnClickListener(this);
         findViewById(R.id.button_register).setOnClickListener(this);
         findViewById(R.id.button_map).setOnClickListener(this);
+        findViewById(R.id.button_radio).setOnClickListener(this);
     }
 
     @Override
@@ -49,6 +50,9 @@ public class TempHome extends AppCompatActivity implements View.OnClickListener 
                 break;
             case R.id.button_map:
                 startActivity(new Intent(this, MapsActivity.class));
+                break;
+            case R.id.button_radio:
+                startActivity(new Intent(this, Cetalks.class));
                 break;
         }
 
