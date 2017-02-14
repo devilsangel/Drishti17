@@ -40,6 +40,7 @@ public class EventTable extends SugarRecord {
         contactPhone2  = eventModel.contactPhone2;
         adminId = eventModel.adminId;
         isWorkshop = eventModel.isWorkshop;
+        image = eventModel.image;
 
 
     }

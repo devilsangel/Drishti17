@@ -50,7 +50,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
     public void onBindViewHolder(final ViewHolder holder, int position) {
         EventTable event = eventList.get(position);
 
-        if (event.image != null)
+        if (event.image != null &&event.image.startsWith("https://firebasestorage.googleapis.com/"))
         {
             Log.d(TAG, "onBindViewHolder: image url "+event.image);
             StorageReference gsReference = storage.getReferenceFromUrl(event.image);
