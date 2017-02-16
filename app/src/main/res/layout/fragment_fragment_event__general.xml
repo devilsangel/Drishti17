@@ -1,0 +1,27 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/grad_event_1"
+    android:id="@+id/content_general"
+    android:orientation="vertical"
+    tools:context="com.drishti.drishti17.ui.fragments.FragmentEvent_General">
+
+
+    <com.drishti.drishti17.ui.factory.CanaroTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Circuit Debugger"
+        style="@style/event_desp"
+        android:textSize="40sp"
+        android:id="@+id/title"/>
+
+    <com.drishti.drishti17.ui.factory.SourceSansTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/lorem_ipsum"
+        style="@style/event_desp"
+        android:id="@+id/description"/>
+
+</LinearLayout>

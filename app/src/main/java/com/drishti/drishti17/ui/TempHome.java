@@ -43,7 +43,7 @@ public class TempHome extends AppCompatActivity implements View.OnClickListener 
                 startActivity(new Intent(this, Departments.class));
                 break;
             case R.id.button_event_detail:
-                startActivity(new Intent(this, EventDetail.class));
+                startActivity(new Intent(this, EventPage.class));
                 break;
             case R.id.button_register:
                 startActivity(new Intent(this, MainRegister.class));

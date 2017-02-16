@@ -9,6 +9,7 @@ import com.drishti.drishti17.network.models.EventModel;
 import com.drishti.drishti17.util.ApiClient;
 import com.drishti.drishti17.util.ApiInterface;
 import com.drishti.drishti17.util.Import;
+import com.drishti.drishti17.util.NetworkUtil;
 import com.drishti.drishti17.util.db.EventTable;
 
 import java.util.List;
@@ -21,12 +22,16 @@ import retrofit2.Response;
 public class EventsSyncService extends IntentService {
 
     private static final String TAG = EventsSyncService.class.getSimpleName();
+
     public EventsSyncService() {
         super("EventsSyncService");
     }
 
 
     public static void startDownlaod(Context context) {
+        if (!NetworkUtil.isNetworkAvailable(context))
+            return;
+
         Log.d(TAG, "startDownlaod: starting");
         Intent intent = new Intent(context, EventsSyncService.class);
         context.startService(intent);
@@ -37,8 +42,8 @@ public class EventsSyncService extends IntentService {
         if (intent != null) {
 
         }
-
-        download();
+        if (NetworkUtil.isNetworkAvailable(this))
+            download();
     }
 
     @Override
@@ -54,7 +59,7 @@ public class EventsSyncService extends IntentService {
         Import.setEventDownloadingStatus(true);
 
         cleanTable();
-        EventTable.findById(EventTable.class,1);
+        EventTable.findById(EventTable.class, 1);
 
         Log.d(TAG, "download: starting download");
         ApiInterface service = ApiClient.getService();
@@ -65,9 +70,9 @@ public class EventsSyncService extends IntentService {
                 if (response.isSuccessful()) {
                     List<EventModel> eventModels = response.body();
                     Log.d(TAG, "onResponse: event list " + eventModels.size());
-                    for (EventModel model: eventModels) {
-                        Log.d(TAG, "onResponse: event "+model.name +" "+model.isWorkshop);
-                        EventTable eventTable  = new EventTable(model);
+                    for (EventModel model : eventModels) {
+                        Log.d(TAG, "onResponse: event " + model.name + " " + model.isWorkshop);
+                        EventTable eventTable = new EventTable(model);
                         eventTable.save();
                     }
                 } else {

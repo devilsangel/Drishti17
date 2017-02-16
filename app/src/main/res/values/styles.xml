@@ -152,4 +152,6 @@
         <item name="android:layout_marginLeft">@dimen/guillotine_large_margin</item>
     </style>
 
+
+
 </resources>

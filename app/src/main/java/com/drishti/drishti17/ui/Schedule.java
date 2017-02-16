@@ -62,7 +62,7 @@ public class Schedule extends AppCompatActivity {
             }
         });
 
-        mTopNavigationTabStrip.setTabIndex(1, true);
+
         mCenterNavigationTabStrip.setViewPager(mViewPager, 1);
         mBottomNavigationTabStrip.setTabIndex(1, true);
 

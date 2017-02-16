@@ -46,5 +46,14 @@
     <color name="tab_inactive2">#81ffffff</color>
     <color name="tab_inactive3">#81ffffff</color>
 
+    <color name="event_tab_back1">#554D72</color>
+    <color name="event_tab_back2">#694A70</color>
+    <color name="event_tab_back3">#864367</color>
+
+    <color name="event_grad1">#554D72</color>
+    <color name="event_grad2">#694A70</color>
+    <color name="event_grad3">#864367</color>
+    <color name="event_grad4">#9B3F62</color>
+
 </resources>
 
