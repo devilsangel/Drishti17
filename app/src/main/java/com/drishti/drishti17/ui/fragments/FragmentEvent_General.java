@@ -1,6 +1,9 @@
 package com.drishti.drishti17.ui.fragments;
 
 
+import android.annotation.TargetApi;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,11 +11,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.drishti.drishti17.R;
+import com.drishti.drishti17.util.Import;
 import com.drishti.drishti17.util.UIUtil;
 import com.drishti.drishti17.util.db.EventTable;
 
@@ -64,19 +67,8 @@ public class FragmentEvent_General extends Fragment {
     public void changePadding(int paddingHeight) {
         this.paddingHeight = paddingHeight;
         final View view1 = getActivity().findViewById(R.id.content_general);
-        view1.setPadding(0,paddingHeight,0,0);
-        view1.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                view1.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                Log.d(TAG, "onGlobalLayout: setting padding");
-                FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
-                        FrameLayout.LayoutParams.MATCH_PARENT);
-
-
-            }
-        });
-
+        view1.setPadding(0,paddingHeight,0,
+                (int)getResources().getDimension(R.dimen.event_view_pager_padding_bottom));
         loadUI();
     }
 
@@ -90,6 +82,83 @@ public class FragmentEvent_General extends Fragment {
 
         title.setText(eventItem.name);
         UIUtil.printHTML(desp,eventItem.description);
+
+        setView(R.id.icon_date,R.id.date,Import.daytoDate(eventItem.day));
+        setView(R.id.icon_time,R.id.time,eventItem.time);
+        setView(R.id.icon_fees,R.id.fees,"Rs "+eventItem.regFee);
+
+        setNoMembers();
+
+        Log.d(TAG, "loadUI: is workshop "+eventItem.isWorkshop);
+        if (eventItem.isWorkshop) {
+            loadWorkshop();
+        }else{
+            loadCompetition();
+        }
+    }
+
+    private void setView(int iconId,int textId,String text){
+        if (text == null || text.equals("0"))
+            return;
+        getActivity().findViewById(iconId).setVisibility(View.VISIBLE);
+        TextView textView = (TextView) getActivity().findViewById(textId);
+        textView.setVisibility(View.VISIBLE);
+        textView.setText(text);
+    }
+
+    private void setNoMembers() {
+        ImageView icon = (ImageView) getActivity().findViewById(R.id.icon_group);
+        TextView text = (TextView) getActivity().findViewById(R.id.group);
+
+        Drawable icon_pic;
+        String mem;
+        if (eventItem.isgroup) {
+            icon_pic = UIUtil.getDrawable(getContext(), R.drawable.icon_users);
+            mem = getResources().getQuantityString(R.plurals.members,eventItem.maxPerGroup,eventItem.maxPerGroup);
+        } else {
+            icon_pic = UIUtil.getDrawable(getContext(),R.drawable.icon_user);
+            mem = getResources().getQuantityString(R.plurals.members,1);
+        }
+
+        icon.setImageDrawable(icon_pic);
+        setView(R.id.icon_group,R.id.group,mem);
+    }
+
+    private void loadWorkshop() {
+        getActivity().findViewById(R.id.layout_prize).setVisibility(View.GONE);
+    }
+
+    private void loadCompetition() {
+        View prize = getActivity().findViewById(R.id.layout_prize);
+        if (eventItem.prize1 != 0) {
+            View first = prize.findViewById(R.id.include_first);
+            setIncludeView(first,R.drawable.icon_first,
+                    String.valueOf(eventItem.prize1));
+        }
+        if (eventItem.prize2 != 0) {
+            View second = prize.findViewById(R.id.include_second);
+            setIncludeView(second,R.drawable.icon_second,
+                    String.valueOf(eventItem.prize2));
+        }
+        if (eventItem.prize3 != 0) {
+            View third = prize.findViewById(R.id.include_third);
+            setIncludeView(third,R.drawable.icon_third,
+                    String.valueOf(eventItem.prize3));
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void setIncludeView(View parentView, int iconDrawableId, String text) {
+
+        parentView.setVisibility(View.VISIBLE);
+        Drawable drawable;
+        if (Import.isVersionOK(Build.VERSION_CODES.LOLLIPOP)){
+            drawable = getContext().getDrawable(iconDrawableId);
+        }else {
+            drawable = getResources().getDrawable(iconDrawableId);
+        }
+        ((ImageView)parentView.findViewById(R.id.icon)).setImageDrawable(drawable);
+        ((TextView)parentView.findViewById(R.id.text)).setText(text);
     }
 
 

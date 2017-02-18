@@ -11,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.widget.TextView;
 
 import com.drishti.drishti17.R;
 import com.drishti.drishti17.ui.fragments.FragmentEvent_Contact;
@@ -58,7 +57,7 @@ public class EventPage extends AppCompatActivity implements ViewPager.OnPageChan
     }
 
     private void initUI() {
-        Import.settypefaces(this, "ProximaNovaSoft-Regular.otf", (TextView) findViewById(R.id.register));
+       // Import.settypefaces(this, "ProximaNovaSoft-Regular.otf", (TextView) findViewById(R.id.register));
         final View view = findViewById(R.id.tab_host);
         view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -88,12 +87,17 @@ public class EventPage extends AppCompatActivity implements ViewPager.OnPageChan
             List<EventTable> eventItems = EventTable.find(EventTable.class, where, null);
 
             Log.d(TAG, "doInBackground: no of qualified events " + id);
+            if(eventItems.isEmpty())
+                return null;
             return eventItems.get(0);
         }
 
         @Override
         protected void onPostExecute(EventTable eventItem) {
             super.onPostExecute(eventItem);
+
+            if(eventItem == null)
+                return;
 
             EventPage.this.eventItem = eventItem;
             ViewPager mViewPager = (ViewPager) findViewById(R.id.vp);
@@ -141,6 +145,8 @@ public class EventPage extends AppCompatActivity implements ViewPager.OnPageChan
         }
 
         findViewById(R.id.tab_host).setBackground(drawable);
+        findViewById(R.id.vp).setBackground(drawable);
+        findViewById(R.id.register).setBackground(drawable);
         Import.setStatusBarColor(this, this, color);
 
     }

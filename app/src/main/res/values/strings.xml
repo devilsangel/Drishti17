@@ -53,6 +53,11 @@
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_cetalks">Cetalks</string>
     <string name="title_activity_event_page">EventPage</string>
+
+    <plurals name="members">
+        <item quantity="one">Individual event</item>
+        <item quantity="other">%1$d per group</item>
+    </plurals>
     <!--<string name=""></string>-->
     <!--<string name=""></string>-->
     <!--<string name=""></string>-->

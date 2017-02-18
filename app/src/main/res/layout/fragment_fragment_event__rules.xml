@@ -1,10 +1,17 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/grad_event_2"
     tools:context="com.drishti.drishti17.ui.fragments.FragmentEvent_Rules">
 
+    <WebView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/view_rules"
+        android:layout_margin="10dp"
+        android:padding="10dp">
 
+    </WebView>
 
-</FrameLayout>
+</ScrollView>

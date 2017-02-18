@@ -63,4 +63,16 @@ public class Import {
         Global.isDownloading = isDownloading;
 
     }
+
+    public static String daytoDate(String day) {
+        switch (day){
+            case "1":
+                return "19/3/17";
+            case "2":
+                return "20/3/17";
+            case "3":
+                return "21/3/17";
+        }
+        return null;
+    }
 }

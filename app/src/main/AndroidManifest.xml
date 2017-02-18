@@ -27,7 +27,7 @@
             android:value="com.drishti.drishti17.util.db" />
         <meta-data
             android:name="VERSION"
-            android:value="9" />
+            android:value="11" />
         <meta-data
             android:name="QUERY_LOG"
             android:value="true" />
@@ -104,11 +104,11 @@
             android:name=".ui.Cetalks"
             android:label="@string/title_activity_cetalks"
             android:theme="@style/AppTheme.NoActionBar" />
-        >>>>>>> 206c923b7f43736526f33fe3095765338b66d7c2
+
         <activity
             android:name=".ui.EventPage"
             android:label="@string/title_activity_event_page"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

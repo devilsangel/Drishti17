@@ -93,6 +93,12 @@
 
     </style>
 
+    <style name="event_text">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/white</item>
+
+    </style>
+
 
     <style name="LinearLayout" />
 
@@ -153,5 +159,7 @@
     </style>
 
 
-
+<style name="event_margin">
+    <item name="android:layout_marginLeft">30dp</item>
+</style>
 </resources>
