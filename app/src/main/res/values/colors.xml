@@ -57,5 +57,7 @@
     <color name="event_grad3">#864367</color>
     <color name="event_grad4">#9B3F62</color>
 
+    <color name="black">#000000</color>
+
 </resources>
 
