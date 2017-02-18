@@ -1,4 +1,4 @@
-package com.drishti.drishti17.services;
+package com.drishti.drishti17.async.services;
 
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -14,7 +14,6 @@ import android.util.Log;
 
 import com.drishti.drishti17.R;
 import com.drishti.drishti17.ui.Cetalks;
-import com.ohoussein.playpause.PlayPauseView;
 
 import java.io.IOException;
 

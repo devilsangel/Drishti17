@@ -105,7 +105,7 @@
             android:name=".ui.Cetalks"
             android:label="@string/title_activity_cetalks"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <service android:name=".services.RadioService"></service>
+        <service android:name=".async.services.RadioService"></service>
     </application>
 
 </manifest>
