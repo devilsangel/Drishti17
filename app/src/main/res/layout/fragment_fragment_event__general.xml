@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:textSize="40sp" />
+            android:textSize="32sp" />
 
         <com.drishti.drishti17.ui.factory.SourceSansTextView
             android:id="@+id/description"
@@ -156,12 +156,15 @@
             android:orientation="horizontal"
             android:padding="10dp"
             android:gravity="center"
-            android:visibility="gone"
+            android:visibility="visible"
             android:id="@+id/layout_prize">
 
             <include layout="@layout/include_event_inner_detail"
                 android:id="@+id/include_first"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                style="@style/event_margin"/>
 
             <include layout="@layout/include_event_inner_detail"
                 android:id="@+id/include_second"
@@ -175,7 +178,7 @@
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:visibility="gone"
-                style="@style/event_margin"/>
+                />
 
 
         </LinearLayout>

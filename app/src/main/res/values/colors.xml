@@ -25,6 +25,8 @@
     <color name="immersive_bars">#99000000</color>
     <color name="light_immersive_bars">@color/immersive_bars</color>
     <color name="scrim">#99323232</color>
+    <color name="divider">#BDBDBD</color>
+    <color name="lines_grey">#65CDC5BF</color>
 
     <color name="guillotine_background">#444153</color>
     <color name="guillotine_background_dark">#383547</color>
