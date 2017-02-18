@@ -109,6 +109,9 @@
             android:name=".ui.EventPage"
             android:label="@string/title_activity_event_page"
             android:theme="@style/AppTheme.NoActionBar"/>
+
+        <service android:name=".async.services.RadioService"/>
+
     </application>
 
 </manifest>
