@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.drishti.drishti17.ui.Events">
+    tools:context="com.drishti.drishti17.ui.Departments">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"

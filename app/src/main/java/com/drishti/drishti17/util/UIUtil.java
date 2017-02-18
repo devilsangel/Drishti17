@@ -12,7 +12,7 @@ import com.drishti.drishti17.R;
 
 public class UIUtil {
 
-    ;
+
     public static void setToolBar(AppCompatActivity activity, String titleText) {
         Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
         TextView title = (TextView) toolbar.findViewById(R.id.title);

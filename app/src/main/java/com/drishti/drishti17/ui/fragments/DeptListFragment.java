@@ -4,15 +4,12 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.drishti.drishti17.R;
 import com.drishti.drishti17.network.models.EventListModel;
-import com.drishti.drishti17.ui.adapters.EventListAdapter;
 import com.drishti.drishti17.ui.factory.ProgressDialog;
 import com.drishti.drishti17.util.Import;
 import com.google.firebase.database.DataSnapshot;
@@ -113,7 +110,7 @@ public class DeptListFragment extends Fragment implements ValueEventListener {
 
     private void onSuccess(HashMap<String, EventListModel> deptMap) {
         progressDialog.disMissProgressDialog();
-        RecyclerView deptList = (RecyclerView) getActivity().findViewById(R.id.list_dept);
+      /*  RecyclerView deptList = (RecyclerView) getActivity().findViewById(R.id.list_dept);
 
         deptList.setVisibility(View.VISIBLE);
         EventListAdapter eventListAdapter = new EventListAdapter(deptMap,getContext(),"dept");
@@ -121,7 +118,7 @@ public class DeptListFragment extends Fragment implements ValueEventListener {
         deptList.setHasFixedSize(true);
         deptList.setLayoutManager(new LinearLayoutManager(getContext()));
 
-
+*/
     }
 
     private void onFailure() {

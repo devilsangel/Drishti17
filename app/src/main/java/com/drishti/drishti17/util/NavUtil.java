@@ -12,7 +12,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.drishti.drishti17.R;
-import com.drishti.drishti17.ui.Events;
+import com.drishti.drishti17.ui.Departments;
 import com.drishti.drishti17.ui.Expo;
 import com.drishti.drishti17.ui.Home;
 import com.drishti.drishti17.ui.NavigationActivity;
@@ -39,7 +39,7 @@ public class NavUtil {
         Map<Integer, Class> tempMap = new HashMap<>();
         tempMap.put(1, Schedule.class);
         tempMap.put(2, Home.class);
-        tempMap.put(3, Events.class);
+        tempMap.put(3, Departments.class);
         tempMap.put(4, Home.class);
         tempMap.put(5, Expo.class);
         tempMap.put(6, Profile.class);
