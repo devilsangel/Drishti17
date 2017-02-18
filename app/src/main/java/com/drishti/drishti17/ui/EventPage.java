@@ -165,7 +165,7 @@ public class EventPage extends AppCompatActivity implements ViewPager.OnPageChan
                     fragment = FragmentEvent_General.getInstance(tabHeight,eventItem);
                     break;
                 case 1:
-                    fragment = FragmentEvent_Rules.newInstance();
+                    fragment = FragmentEvent_Rules.newInstance(tabHeight,eventItem);
                     break;
                 case 2:
                     fragment = FragmentEvent_Contact.newInstance();

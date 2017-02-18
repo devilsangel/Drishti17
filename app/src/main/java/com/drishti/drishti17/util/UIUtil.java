@@ -7,13 +7,14 @@ import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
 import android.widget.TextView;
 
 import com.drishti.drishti17.R;
 
 /**
- * Created by droidcafe on 2/9/2017.
- */
+ * Created by droidcafe on 2/9/2017. */
 
 public class UIUtil {
 
@@ -27,16 +28,19 @@ public class UIUtil {
         title.setText(titleText);
     }
 
-    @TargetApi(Build.VERSION_CODES.N)
     public static void printHTML(TextView textView, String htmlText) {
+        textView.setText(parseHTML(htmlText));
+        textView.setMovementMethod(LinkMovementMethod.getInstance());
+    }
 
+    @TargetApi(Build.VERSION_CODES.N)
+    public static Spanned parseHTML(String htmlText) {
         if(Import.isVersionOK(Build.VERSION_CODES.N)){
-            textView.setText(Html.fromHtml(htmlText,Html.FROM_HTML_MODE_COMPACT));
+           return Html.fromHtml(htmlText,Html.FROM_HTML_MODE_COMPACT);
         }else {
-            textView.setText(Html.fromHtml(htmlText));
+            return Html.fromHtml(htmlText);
 
         }
-        return;
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
