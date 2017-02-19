@@ -79,7 +79,7 @@
     <style name="event_title">
         <item name="android:fontFamily">sans-serif-black</item>
         <item name="android:padding">10dp</item>
-        <item name="android:textSize">30sp</item>
+        <item name="android:textSize">26sp</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textStyle">bold</item>
@@ -92,6 +92,14 @@
         <item name="android:textColor">@color/white</item>
 
     </style>
+
+    <style name="event_text">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/white</item>
+
+    </style>
+
+
 
 
     <style name="LinearLayout" />
@@ -152,4 +160,8 @@
         <item name="android:layout_marginLeft">@dimen/guillotine_large_margin</item>
     </style>
 
+
+<style name="event_margin">
+    <item name="android:layout_marginRight">20dp</item>
+</style>
 </resources>

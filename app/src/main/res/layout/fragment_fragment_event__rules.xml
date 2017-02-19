@@ -1,0 +1,32 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_rules"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/grad_event_2"
+    tools:context="com.drishti.drishti17.ui.fragments.FragmentEvent_Rules">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.drishti.drishti17.ui.factory.CanaroTextView
+            style="@style/event_desp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="The Almanac"
+            android:textSize="32sp" />
+
+        <com.drishti.drishti17.ui.factory.SourceSansTextView
+            android:id="@+id/rules"
+            style="@style/event_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:padding="10dp" />
+
+    </LinearLayout>
+
+</ScrollView>

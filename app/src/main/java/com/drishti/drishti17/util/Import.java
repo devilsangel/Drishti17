@@ -3,7 +3,9 @@ package com.drishti.drishti17.util;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Build;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -63,4 +65,40 @@ public class Import {
         Global.isDownloading = isDownloading;
 
     }
+
+    public static String daytoDate(String day) {
+        switch (day){
+            case "1":
+                return "19/3/17";
+            case "2":
+                return "20/3/17";
+            case "3":
+                return "21/3/17";
+        }
+        return null;
+    }
+
+    /**
+     * helper function for composing mail
+     */
+    public static void composeEmail(Activity activity, String[] addresses, String subject){
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:"));
+        intent.putExtra(Intent.EXTRA_EMAIL, addresses);
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+
+        if (intent.resolveActivity(activity.getPackageManager()) != null) {
+            activity.startActivity(intent);
+        }
+    }
+
+    /**
+     * launch helper intent to start default dialer app
+     */
+    public static void callIntent(Activity activity, String phoneNo) {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse("tel:" + phoneNo));
+        activity.startActivity(intent);
+    }
+
 }

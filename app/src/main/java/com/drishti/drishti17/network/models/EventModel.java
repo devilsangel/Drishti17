@@ -6,9 +6,9 @@ package com.drishti.drishti17.network.models;
 
 public class EventModel {
 
-    public int id,prize1,prize2,prize3;
-    public String name,description,format,category,group,image,regFee,day,time;
+    public int id,prize1,prize2,prize3,maxPerGroup,regFee;
+    public String name,description,format,category,image,day,time;
     public String contactName1,contactPhone1,contactEmail1,contactName2,contactPhone2,contactEmail2;
     public String adminId;
-    public boolean isWorkshop;
+    public boolean isWorkshop,group;
 }

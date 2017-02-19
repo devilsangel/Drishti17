@@ -12,4 +12,6 @@
 
     <dimen name="guillotine_item_text_size">20sp</dimen>
     <dimen name="guillotine_actionbar_background_view_height">35dp</dimen>
+
+    <dimen name="event_view_pager_padding_bottom">10dp</dimen>
 </resources>

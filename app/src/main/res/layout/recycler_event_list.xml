@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root_layout"
     android:layout_width="match_parent"
     android:layout_height="150dp"
-    android:id="@+id/root_layout"
     android:orientation="vertical">
 
     <ImageView
         android:id="@+id/back_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        />
+        android:scaleType="centerCrop" />
 
-     <com.drishti.drishti17.ui.factory.CanaroTextView
-        android:layout_width="wrap_content"
+    <com.drishti.drishti17.ui.factory.CanaroTextView
+        android:id="@+id/title"
+        style="@style/event_title"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        style="@style/event_title"
-        android:id="@+id/title"/>
+        android:background="@drawable/grad_text_back"
+       />
 
 </FrameLayout>

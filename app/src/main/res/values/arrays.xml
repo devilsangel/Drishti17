@@ -40,5 +40,12 @@
     </string-array>
 
 
+    <string-array name="event_tabs">
+        <item>General</item>
+        <item>Rules</item>
+        <item>Contact</item>
+    </string-array>
+
+
 
 </resources>

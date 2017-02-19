@@ -11,13 +11,13 @@ import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 
 /**
- * Created by Nirmal on 1/3/2016.
+ * Created by Nirmal on 1/3/2016
  */
 public class Blur {
 
-    ImageView placeBackground;
-    Context context;
-    float radius=0,scaleFactor=0;
+    private ImageView placeBackground;
+    private Context context;
+    private float radius=0,scaleFactor=0;
     public Blur(ImageView imageView, Context context)
     {
         placeBackground  =imageView;

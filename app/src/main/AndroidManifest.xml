@@ -16,7 +16,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
-        android:name="com.drishti.drishti17.Drishti"
+        android:name=".Drishti"
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
@@ -27,7 +27,7 @@
             android:value="com.drishti.drishti17.util.db" />
         <meta-data
             android:name="VERSION"
-            android:value="9" />
+            android:value="11" />
         <meta-data
             android:name="QUERY_LOG"
             android:value="true" />
@@ -84,10 +84,9 @@
             android:label="@string/title_activity_event_list"
             android:theme="@style/Home" />
 
-
         <service
             android:name=".async.services.EventsSyncService"
-            android:exported="false"></service>
+            android:exported="false" />
 
         <activity
             android:name=".ui.MainRegister"
@@ -104,8 +103,15 @@
         <activity
             android:name=".ui.Cetalks"
             android:label="@string/title_activity_cetalks"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".ui.EventPage"
+            android:label="@string/title_activity_event_page"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <service android:name=".async.services.RadioService"></service>
+
+        <service android:name=".async.services.RadioService"/>
+
     </application>
 
 </manifest>

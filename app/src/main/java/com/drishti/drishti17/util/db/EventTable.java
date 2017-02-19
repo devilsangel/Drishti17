@@ -9,11 +9,11 @@ import com.orm.SugarRecord;
 
 public class EventTable extends SugarRecord {
 
-    public int server_id,prize1,prize2,prize3;
-    public String name,description,format,category,grops,image,regFee,day,time;
+    public int server_id, prize1, prize2, prize3,maxPerGroup,regFee;
+    public String name,description,format,category,image,day,time;
     public String contactName1,contactPhone1,contactEmail1,contactName2,contactPhone2,contactEmail2;
     public String adminId;
-    public boolean isWorkshop;
+    public boolean isWorkshop,isgroup;
 
     public EventTable() {
 
@@ -28,7 +28,7 @@ public class EventTable extends SugarRecord {
         prize2 = eventModel.prize2;
         prize3 = eventModel.prize3;
         category =  eventModel.category;
-        grops = eventModel.group;
+        isgroup = eventModel.group;
         regFee  = eventModel.regFee;
         day = eventModel.day;
         time  = eventModel.time;
@@ -41,6 +41,7 @@ public class EventTable extends SugarRecord {
         adminId = eventModel.adminId;
         isWorkshop = eventModel.isWorkshop;
         image = eventModel.image;
+        maxPerGroup = eventModel.maxPerGroup;
 
 
     }
