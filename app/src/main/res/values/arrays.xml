@@ -39,6 +39,17 @@
         <item>online</item>
     </string-array>
 
+    <string-array name="temp_events">
+        <item>Disrupt Hackathon</item>
+        <item>Fix my TV</item>
+        <item>Build my house</item>
+        <item>Wire my garage</item>
+        <item>Repair my car</item>
+        <item>Comicon</item>
+        <item>Sexy talking girlfriend</item>
+        <item>Treasure hunting</item>
+    </string-array>
+
 
     <string-array name="event_tabs">
         <item>General</item>

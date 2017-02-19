@@ -18,7 +18,7 @@ public class MakSukTextView extends TextView {
 
     public MakSukTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        Import.settypefaces(context,"PressStart2P-Regular.ttf",this);
+        Import.settypefaces(context,"maksukehoitus.ttf",this);
     }
 
 }

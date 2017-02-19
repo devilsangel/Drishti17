@@ -9,18 +9,25 @@ import android.view.View;
 
 import com.drishti.drishti17.R;
 import com.drishti.drishti17.async.services.EventsSyncService;
+import com.drishti.drishti17.ui.adapters.HomeFlipAdapter;
 import com.drishti.drishti17.util.NavUtil;
 import com.drishti.drishti17.util.UIUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import se.emilsjolander.flipview.FlipView;
+import se.emilsjolander.flipview.OverFlipMode;
 
 
-public class Home extends AppCompatActivity implements View.OnClickListener {
+public class Home extends AppCompatActivity implements View.OnClickListener,
+        HomeFlipAdapter.Callback, FlipView.OnOverFlipListener {
 
     private static final String TAG = Home.class.getSimpleName();
     @BindView(R.id.fab)
     FloatingActionButton fab;
+
+    private FlipView mFlipView;
+    private HomeFlipAdapter mAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +39,20 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
 
         Log.d(TAG, "onCreate: going to start");
         EventsSyncService.startDownlaod(this);
+        setupFlip();
 
+    }
+
+    private void setupFlip() {
+        mFlipView = (FlipView) findViewById(R.id.flipview);
+        mAdapter = new HomeFlipAdapter(this);
+
+        mAdapter.setCallback(this);
+        mFlipView.setAdapter(mAdapter);
+        mFlipView.peakNext(false);
+        mFlipView.setOverFlipMode(OverFlipMode.RUBBER_BAND);
+        mFlipView.setEmptyView(findViewById(R.id.empty_view));
+        mFlipView.setOnOverFlipListener(this);
     }
 
     @Override
@@ -50,5 +70,17 @@ public class Home extends AppCompatActivity implements View.OnClickListener {
         if (NavUtil.isFromNav(requestCode)) {
             NavUtil.handleNavigation(this,this,resultCode);
         }
+    }
+
+    @Override
+    public void onPageRequested(int page) {
+
+    }
+
+    @Override
+    public void onOverFlip(FlipView v, OverFlipMode mode,
+                           boolean overFlippingPrevious,
+                           float overFlipDistance, float flipDistancePerPage) {
+        Log.i("overflip", "overFlipDistance = "+overFlipDistance);
     }
 }
