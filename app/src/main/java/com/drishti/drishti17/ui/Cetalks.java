@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -18,16 +17,18 @@ import com.drishti.drishti17.async.services.Constants;
 import com.drishti.drishti17.async.services.RadioService;
 import com.drishti.drishti17.ui.factory.Blur.Blur;
 import com.drishti.drishti17.ui.factory.ProgressDialog;
+import com.drishti.drishti17.util.NavUtil;
 import com.ohoussein.playpause.PlayPauseView;
-
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class Cetalks extends AppCompatActivity {
+public class Cetalks extends AppCompatActivity implements View.OnClickListener {
     @BindView(R.id.play_pause_view)PlayPauseView view;
     IntentFilter intentFilter;
     ProgressDialog progressDialog;
+    FloatingActionButton fab;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,15 +40,8 @@ public class Cetalks extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ButterKnife.bind(this);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-        ButterKnife.bind(this);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(this);
 
         TextView marque = (TextView) this.findViewById(R.id.marque_scrolling_text);
         marque.setSelected(true);
@@ -103,4 +97,21 @@ public class Cetalks extends AppCompatActivity {
             }
         }
     };
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.fab:
+                NavUtil.openNavigation(this,this,fab);
+                break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (NavUtil.isFromNav(requestCode)) {
+            NavUtil.handleNavigation(this,this,resultCode);
+        }
+    }
 }

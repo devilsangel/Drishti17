@@ -67,6 +67,7 @@ public class Import {
     }
 
     public static String daytoDate(String day) {
+        if (day == null) return null;
         switch (day){
             case "1":
                 return "19/3/17";

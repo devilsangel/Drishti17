@@ -103,7 +103,7 @@
         <activity
             android:name=".ui.Cetalks"
             android:label="@string/title_activity_cetalks"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/Home" />
 
         <activity
             android:name=".ui.EventPage"

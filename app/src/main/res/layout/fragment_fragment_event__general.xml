@@ -43,7 +43,7 @@
                 android:visibility="gone"
                 android:src="@drawable/icon_date" />
 
-            <com.drishti.drishti17.ui.factory.SourceSansTextView
+            <com.drishti.drishti17.ui.factory.ProximaTextView
                 android:id="@+id/date"
                 style="@style/event_text"
                 android:layout_width="wrap_content"
@@ -66,7 +66,7 @@
                 android:visibility="gone"
                 android:src="@drawable/icon_time" />
 
-            <com.drishti.drishti17.ui.factory.SourceSansTextView
+            <com.drishti.drishti17.ui.factory.ProximaTextView
                 android:id="@+id/time"
                 style="@style/event_text"
                 android:layout_width="wrap_content"
@@ -80,38 +80,19 @@
 
         </RelativeLayout>
 
-        <ImageView
-            android:id="@+id/icon_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/layout_time"
-            android:layout_marginLeft="10dp"
-            android:padding="10dp"
-            android:src="@drawable/icon_location" />
 
-        <com.drishti.drishti17.ui.factory.SourceSansTextView
-            android:id="@+id/location"
-            style="@style/event_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/icon_location"
-            android:layout_alignTop="@id/icon_location"
-            android:layout_toRightOf="@id/icon_location"
-            android:gravity="center"
-            android:text="CS Department"
-            android:textColor="@color/white" />
 
         <ImageView
             android:id="@+id/icon_fees"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/icon_location"
+            android:layout_below="@id/layout_time"
             android:layout_marginLeft="10dp"
             android:padding="10dp"
             android:visibility="gone"
             android:src="@drawable/icon_fees" />
 
-        <com.drishti.drishti17.ui.factory.SourceSansTextView
+        <com.drishti.drishti17.ui.factory.ProximaTextView
             android:id="@+id/fees"
             style="@style/event_text"
             android:layout_width="wrap_content"
@@ -130,14 +111,14 @@
             android:id="@+id/icon_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/icon_location"
+            android:layout_below="@id/layout_time"
             android:layout_toRightOf="@id/fees"
             android:padding="10dp"
             android:layout_marginLeft="10dp"
             android:visibility="gone"
             android:src="@drawable/icon_users" />
 
-        <com.drishti.drishti17.ui.factory.SourceSansTextView
+        <com.drishti.drishti17.ui.factory.ProximaTextView
             android:id="@+id/group"
             style="@style/event_text"
             android:layout_width="wrap_content"
@@ -183,7 +164,26 @@
 
         </LinearLayout>
 
+        <ImageView
+            android:id="@+id/icon_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_prize"
+            android:layout_marginLeft="10dp"
+            android:padding="10dp"
+            android:src="@drawable/icon_location" />
 
+        <com.drishti.drishti17.ui.factory.ProximaTextView
+            android:id="@+id/location"
+            style="@style/event_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/icon_location"
+            android:layout_alignTop="@id/icon_location"
+            android:layout_toRightOf="@id/icon_location"
+            android:gravity="center"
+            android:text="CS Department"
+            android:textColor="@color/white" />
 
     </RelativeLayout>
 </ScrollView>
