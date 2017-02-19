@@ -4,6 +4,7 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.content.Loader;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
@@ -15,7 +16,15 @@ import android.util.Log;
 import com.drishti.drishti17.R;
 import com.drishti.drishti17.ui.Cetalks;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+
 
 
 /**
@@ -25,13 +34,39 @@ import java.io.IOException;
 public class RadioService extends Service {
     public static boolean iSRunning=false;
     private static final String LOG_TAG = "RadioService";
-    public static boolean isPlaying=false;
     MediaPlayer mp;
+    boolean flag=true;
+    Thread statusThread;
     @Override
     public void onCreate() {
         super.onCreate();
         mp=new MediaPlayer();
-
+        statusThread=new Thread(new Runnable() {
+            @Override
+            public void run() {
+                OkHttpClient client=new OkHttpClient();
+                Request request= new Request.Builder()
+                                    .url("https://public.radio.co/stations/s7114f1b4e/status").build();
+                while (flag) {
+                    try {
+                        JSONObject json=new JSONObject(client.newCall(request).execute().body().string());
+                        Log.d("trackname",new JSONObject(json.get("current_track").toString()).get("title").toString());
+                        updateNotification(new JSONObject(json.get("current_track").toString()).get("title").toString());
+                        Intent intent=new Intent();
+                        intent.setAction(Constants.ACTION.SONG_CHANGE);
+                        intent.putExtra("song",new JSONObject(json.get("current_track").toString()).get("title").toString());
+                        sendBroadcast(intent);
+                        TimeUnit.SECONDS.sleep(3);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
         mp.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mp) {
@@ -49,7 +84,6 @@ public class RadioService extends Service {
         broadcast.setAction(Constants.ACTION.CHANGE_STATE);
         if(intent.getAction().equals(Constants.ACTION.STARTFOREGROUND_ACTION)){
             Log.d(LOG_TAG,"start action");
-            isPlaying=true;
             updateNotification("My song");
             sendBroadcast(broadcast);
             try {
@@ -67,13 +101,17 @@ public class RadioService extends Service {
                     }
                 }
             }).start();
+            statusThread.start();
         }else if(intent.getAction().equals(Constants.ACTION.STOPFOREGROUND_ACTION)){
             Log.i(LOG_TAG, "Received Stop Foreground Intent");
-            isPlaying=false;
             iSRunning=false;
-            mp.stop();
-            mp.reset();
+//            mp.stop();
+//            mp.reset();
             mp.release();
+            flag=false;
+            Intent i=new Intent();
+            i.setAction(Constants.ACTION.LOADED);
+            sendBroadcast(i);
             sendBroadcast(broadcast);
             stopForeground(true);
             stopSelf();

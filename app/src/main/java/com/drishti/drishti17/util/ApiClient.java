@@ -12,7 +12,6 @@ public class ApiClient {
     public static final String  NODE_PORT = "";
     public static final String  BASE_URL = HOST_URL ;
 
-    private static Retrofit retrofit = null;
 
 
     public static ApiInterface getService() {

@@ -10,7 +10,7 @@ public class Constants {
         public static String CHANGE_STATE = "com.drishticet.foregroundservice.action.change";
         public static String LOADED = "com.drishticet.foregroundservice.action.loaded";
         public static String PLAY_ACTION = "com.drishticet.foregroundservice.action.play";
-        public static String PAUSE_ACTION = "com.drishticet.foregroundservice.action.pause";
+        public static String SONG_CHANGE = "com.drishticet.foregroundservice.action.songchange";
         public static String STARTFOREGROUND_ACTION = "com.drishticet.foregroundservice.action.startforeground";
         public static String STOPFOREGROUND_ACTION = "com.drishticet.foregroundservice.action.stopforeground";
     }

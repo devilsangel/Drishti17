@@ -26,6 +26,7 @@ import butterknife.ButterKnife;
 
 public class Cetalks extends AppCompatActivity {
     @BindView(R.id.play_pause_view)PlayPauseView view;
+    @BindView(R.id.marque_scrolling_text)TextView songName;
     IntentFilter intentFilter;
     ProgressDialog progressDialog;
     @Override
@@ -35,6 +36,7 @@ public class Cetalks extends AppCompatActivity {
         intentFilter=new IntentFilter();
         intentFilter.addAction(Constants.ACTION.CHANGE_STATE);
         intentFilter.addAction(Constants.ACTION.LOADED);
+        intentFilter.addAction(Constants.ACTION.SONG_CHANGE);
         progressDialog=new ProgressDialog(Cetalks.this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -49,9 +51,8 @@ public class Cetalks extends AppCompatActivity {
         });
         ButterKnife.bind(this);
 
-        TextView marque = (TextView) this.findViewById(R.id.marque_scrolling_text);
-        marque.setSelected(true);
-        marque.setHorizontallyScrolling(true);
+        songName.setSelected(true);
+        songName.setHorizontallyScrolling(true);
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,9 +98,13 @@ public class Cetalks extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
 
             if(intent.getAction().equals(Constants.ACTION.LOADED))
-                progressDialog.disMissProgressDialog();
+                if(progressDialog.isShowing())
+                    progressDialog.disMissProgressDialog();
             if(intent.getAction().equals(Constants.ACTION.CHANGE_STATE)){
                 view.toggle();
+            }
+            if(intent.getAction().equals(Constants.ACTION.SONG_CHANGE)){
+                songName.setText(intent.getStringExtra("song"));
             }
         }
     };
