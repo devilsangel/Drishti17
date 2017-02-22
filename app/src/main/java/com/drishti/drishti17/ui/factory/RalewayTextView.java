@@ -18,7 +18,7 @@ public class RalewayTextView extends TextView {
 
     public RalewayTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        Import.settypefaces(context,"SourceSansPro-Regular.otf",this);
+        Import.settypefaces(context,"Raleway-Regular.ttf",this);
     }
 
 }

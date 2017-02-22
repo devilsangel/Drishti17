@@ -23,7 +23,7 @@
             android:src="@drawable/icon_date"
             android:visibility="visible" />
 
-        <com.drishti.drishti17.ui.factory.RalewayTextView
+        <com.drishti.drishti17.ui.factory.SourceSansTextView
             android:id="@+id/text1"
             style="@style/event_text"
             android:layout_width="wrap_content"
@@ -62,7 +62,7 @@
             android:src="@drawable/icon_time"
             android:visibility="visible" />
 
-        <com.drishti.drishti17.ui.factory.RalewayTextView
+        <com.drishti.drishti17.ui.factory.SourceSansTextView
             android:id="@+id/text2"
             style="@style/event_text"
             android:layout_width="wrap_content"

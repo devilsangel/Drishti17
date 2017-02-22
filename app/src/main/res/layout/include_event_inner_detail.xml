@@ -12,7 +12,7 @@
         android:layout_gravity="center"
          />
 
-    <com.drishti.drishti17.ui.factory.RalewayTextView
+    <com.drishti.drishti17.ui.factory.SourceSansTextView
         android:id="@+id/text"
         style="@style/event_text"
         android:layout_width="wrap_content"
