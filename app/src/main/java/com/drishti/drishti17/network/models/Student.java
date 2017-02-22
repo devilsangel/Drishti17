@@ -11,6 +11,6 @@ public class Student {
     @SerializedName("normalizedScore")
     public int gunt_score;
     public String name,uid,phone,picture,collegeId;
-    public enum accomodation{none,male,female};
+    public enum Accomodation{none,male,female};
     public boolean registered;
 }

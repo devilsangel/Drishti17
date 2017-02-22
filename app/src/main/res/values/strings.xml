@@ -5,7 +5,7 @@
     <string name="title_activity_navigation">NavigationActivity</string>
 
     <string name="transition_navigation_icon">navigation_activity_view</string>
-
+    <string name="facebook_app_id">1356599054411755</string>
     <string name="home">Home</string>
     <string name="events">Events</string>
     <string name="expos">Expos</string>

@@ -36,7 +36,7 @@
             android:padding="10dp">
             <!--android:orientation="vertical"-->
             <!--tools:ignore="UselessParent">-->
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/fb_button_bg"
@@ -45,18 +45,19 @@
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
                 android:animateLayoutChanges="true">
+
                 <Button
-                    android:id="@+id/fb_button"
                     style="?metaButtonBarButtonStyle"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textColor="#000000"
+                    android:id="@+id/fb_button"
                     android:text="@string/Logina"
                     android:drawableLeft="@drawable/fb"
                     android:layout_centerVertical="true"
                     />
-            </LinearLayout>
+            </RelativeLayout>
             <LinearLayout
                 android:animateLayoutChanges="true"
                 android:layout_width="match_parent"

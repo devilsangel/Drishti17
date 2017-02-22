@@ -18,6 +18,7 @@ import com.drishti.drishti17.async.services.Constants;
 import com.drishti.drishti17.async.services.RadioService;
 import com.drishti.drishti17.ui.factory.Blur.Blur;
 import com.drishti.drishti17.ui.factory.ProgressDialog;
+import com.facebook.FacebookSdk;
 import com.ohoussein.playpause.PlayPauseView;
 
 
@@ -53,7 +54,8 @@ public class Cetalks extends AppCompatActivity {
 
         songName.setSelected(true);
         songName.setHorizontallyScrolling(true);
-
+        if(RadioService.iSRunning)
+            view.toggle();
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,9 +80,9 @@ public class Cetalks extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         unregisterReceiver(receiver);
-        Intent service = new Intent(Cetalks.this, RadioService.class);
-        service.setAction(Constants.ACTION.STOPFOREGROUND_ACTION);
-        startService(service);
+//        Intent service = new Intent(Cetalks.this, RadioService.class);
+//        service.setAction(Constants.ACTION.STOPFOREGROUND_ACTION);
+//        startService(service);
         super.onDestroy();
     }
 

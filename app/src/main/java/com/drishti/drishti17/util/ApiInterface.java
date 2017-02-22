@@ -1,5 +1,6 @@
 package com.drishti.drishti17.util;
 
+import com.drishti.drishti17.network.models.College;
 import com.drishti.drishti17.network.models.Student;
 import com.drishti.drishti17.network.models.EventModel;
 
@@ -27,11 +28,14 @@ public interface ApiInterface {
     @POST("student/register")
     Call<String> register(@Header("x-auth-token") String idToken,
                           @Field("phone") String phone,
-                          @Field("accomodation") Student.accomodation accomodation,
+                          @Field("accomodation") Student.Accomodation accomodation,
                           @Field("collegeId")int collegeId);
 
 
     @GET("public/event")
     Call<List<EventModel>> getEventList();
+
+    @GET("public/college")
+    Call<List<College>> getAllColleges();
 
 }
