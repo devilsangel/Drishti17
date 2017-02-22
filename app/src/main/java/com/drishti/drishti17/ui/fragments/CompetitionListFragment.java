@@ -23,17 +23,18 @@ import java.util.List;
 public class CompetitionListFragment extends Fragment {
 
     private static final String TAG = CompetitionListFragment.class.getSimpleName();
-    String deptKey;
+    String deptKey, where;
 
     public CompetitionListFragment() {
 
     }
 
-    public static CompetitionListFragment newInstance(String deptKey) {
+    public static CompetitionListFragment newInstance(String deptKey, String where) {
         CompetitionListFragment fragment = new CompetitionListFragment();
 
         Bundle args = new Bundle();
         args.putString("deptKey", deptKey);
+        args.putString("where", where);
         fragment.setArguments(args);
         return fragment;
     }
@@ -44,7 +45,8 @@ public class CompetitionListFragment extends Fragment {
 
         if (getArguments() != null) {
             deptKey = getArguments().getString("deptKey");
-            Log.d(TAG, "onCreate: department selected "+deptKey);
+            where = getArguments().getString("where");
+            Log.d(TAG, "onCreate: department selected " + deptKey);
         }
 
     }
@@ -55,6 +57,7 @@ public class CompetitionListFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_competition_list, container, false);
     }
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -68,9 +71,10 @@ public class CompetitionListFragment extends Fragment {
         new AsyncLoad().execute(deptKey);
     }
 
-     class AsyncLoad extends AsyncTask<String, Void, List<EventTable>> {
+    class AsyncLoad extends AsyncTask<String, Void, List<EventTable>> {
 
-        ProgressDialog progressDialog ;
+        ProgressDialog progressDialog;
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -82,42 +86,45 @@ public class CompetitionListFragment extends Fragment {
         @Override
         protected List<EventTable> doInBackground(String... strings) {
             String deptKey = strings[0];
-            String where = "category = ? and is_workshop = 0";
+
             String[] args = {deptKey};
-            List<EventTable> eventModels = EventTable.find(EventTable.class, where, args);
+            List<EventTable> eventModels = EventTable.find(EventTable.class,
+                    where, where.contains("?") ? args : null);
 
             Log.d(TAG, "loadEvents: event no " + eventModels.size());
             return eventModels;
         }
 
-         @Override
-         protected void onPostExecute(List<EventTable> eventTables) {
-             super.onPostExecute(eventTables);
+        @Override
+        protected void onPostExecute(List<EventTable> eventTables) {
+            super.onPostExecute(eventTables);
 
-             progressDialog.disMissProgressDialog();
-             if(eventTables.size() == 0){
-                 onFailure();
-             }else{
-                 onSuccess(eventTables);
-             }
-         }
+            progressDialog.disMissProgressDialog();
+            if (eventTables.size() == 0) {
+                onFailure();
+            } else {
+                onSuccess(eventTables);
+            }
+        }
 
-         private void onSuccess(List<EventTable> deptMap) {
-             RecyclerView deptList = (RecyclerView)getActivity().findViewById(R.id.list_events);
+        private void onSuccess(List<EventTable> deptMap) {
+            if(getActivity() == null)
+                return;
 
-             deptList.setVisibility(View.VISIBLE);
-             EventListAdapter eventListAdapter = new EventListAdapter(deptMap,getContext(),"eventlist");
-             deptList.setAdapter(eventListAdapter);
-             deptList.setHasFixedSize(true);
-             deptList.setLayoutManager(new LinearLayoutManager(getContext()));
+            RecyclerView deptList = (RecyclerView) getActivity().findViewById(R.id.list_events);
 
-         }
+            deptList.setVisibility(View.VISIBLE);
+            EventListAdapter eventListAdapter = new EventListAdapter(deptMap, getContext(), "eventlist");
+            deptList.setAdapter(eventListAdapter);
+            deptList.setHasFixedSize(true);
+            deptList.setLayoutManager(new LinearLayoutManager(getContext()));
 
-         private void onFailure() {
-             Import.snack(getActivity().findViewById(R.id.content_event_list),"No data available. Try for computer science");
-         }
-     }
+        }
 
+        private void onFailure() {
+            Import.snack(getActivity().findViewById(R.id.content_event_list), "No data available. Try for computer science");
+        }
+    }
 
 
 }

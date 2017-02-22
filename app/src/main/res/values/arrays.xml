@@ -16,6 +16,7 @@
         <item>General</item>
         <item>Robotics</item>
         <item>Online</item>
+        <item>Workshops</item>
     </string-array>
 
     <string-array name="dept_keys">
@@ -27,6 +28,7 @@
         <item>GEN</item>
         <item>ROBO</item>
         <item>ONLINE</item>
+        <item>WKSHOP</item>
     </string-array>
     <string-array name="dept_images">
         <item>computer</item>
@@ -37,6 +39,7 @@
         <item>general</item>
         <item>robotics</item>
         <item>online</item>
+        <item>archi</item>
     </string-array>
 
     <string-array name="temp_events">

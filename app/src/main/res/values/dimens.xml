@@ -5,7 +5,7 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="card_margin">16dp</dimen>
 
-    <dimen name="guillotine_small_margin">24dp</dimen>
+    <dimen name="guillotine_small_margin">20dp</dimen>
     <dimen name="guillotine_medium_margin">48dp</dimen>
     <dimen name="guillotine_large_margin">100dp</dimen>
     <dimen name="guillotine_divider_height">40dp</dimen>

@@ -1,10 +1,10 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/grad_event_1"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/grad_event_1">
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/content_general"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,7 +17,8 @@
             style="@style/event_desp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Circuit Debugger"
             android:textSize="32sp" />
 
         <com.drishti.drishti17.ui.factory.SourceSansTextView
@@ -27,163 +28,86 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/title" />
 
-        <RelativeLayout
+        <include
             android:id="@+id/layout_time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/description"
-            android:orientation="horizontal"
-            android:padding="10dp">
+            layout="@layout/include_event_detail_item" />
 
-            <ImageView
-                android:id="@+id/icon_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:visibility="gone"
-                android:src="@drawable/icon_date" />
+        <include
+            android:id="@+id/layout_reg"
+            layout="@layout/include_event_detail_item" />
 
-            <com.drishti.drishti17.ui.factory.ProximaTextView
-                android:id="@+id/date"
-                style="@style/event_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/icon_date"
-                android:layout_alignTop="@id/icon_date"
-                android:layout_toRightOf="@id/icon_date"
-                android:gravity="center"
-                android:text="10/12/2017"
-                android:layout_marginRight="30dp"
-                android:visibility="gone"
-                android:textColor="@color/white" />
-
-            <ImageView
-                android:id="@+id/icon_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/date"
-                android:padding="10dp"
-                android:visibility="gone"
-                android:src="@drawable/icon_time" />
-
-            <com.drishti.drishti17.ui.factory.ProximaTextView
-                android:id="@+id/time"
-                style="@style/event_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/icon_time"
-                android:layout_alignTop="@id/icon_time"
-                android:layout_toRightOf="@id/icon_time"
-                android:gravity="center"
-                android:visibility="gone"
-                android:textColor="@color/white" />
-
-        </RelativeLayout>
-
-
-
-        <ImageView
-            android:id="@+id/icon_fees"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/layout_time"
-            android:layout_marginLeft="10dp"
-            android:padding="10dp"
-            android:visibility="gone"
-            android:src="@drawable/icon_fees" />
-
-        <com.drishti.drishti17.ui.factory.ProximaTextView
-            android:id="@+id/fees"
-            style="@style/event_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/icon_fees"
-            android:layout_alignTop="@id/icon_fees"
-            android:layout_toRightOf="@id/icon_fees"
-            android:gravity="center"
-            android:text="Rs 200"
-            android:layout_marginRight="40dp"
-            android:visibility="gone"
-            android:textColor="@color/white" />
-
-
-        <ImageView
-            android:id="@+id/icon_group"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/layout_time"
-            android:layout_toRightOf="@id/fees"
-            android:padding="10dp"
-            android:layout_marginLeft="10dp"
-            android:visibility="gone"
-            android:src="@drawable/icon_users" />
-
-        <com.drishti.drishti17.ui.factory.ProximaTextView
-            android:id="@+id/group"
-            style="@style/event_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/icon_group"
-            android:layout_alignTop="@id/icon_group"
-            android:layout_toRightOf="@id/icon_group"
-            android:gravity="center"
-            android:visibility="gone"
-            android:textColor="@color/white" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/layout_prize"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/fees"
+            android:layout_margin="10dp"
             android:orientation="horizontal"
             android:padding="10dp"
-            android:gravity="center"
-            android:visibility="visible"
-            android:id="@+id/layout_prize">
+            android:background="@drawable/left_curve_back"
+            android:visibility="visible">
 
-            <include layout="@layout/include_event_inner_detail"
+            <include
                 android:id="@+id/include_first"
-                android:visibility="gone"
+                style="@style/event_margin"
+                layout="@layout/include_event_inner_detail"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                style="@style/event_margin"/>
+                android:layout_weight="1"
+                android:visibility="gone" />
 
-            <include layout="@layout/include_event_inner_detail"
+            <View
+                android:layout_width="1dp"
+                android:id="@+id/line_prize1"
+                android:visibility="gone"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/lines_grey" />
+
+            <include
                 android:id="@+id/include_second"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
+                style="@style/event_margin"
+                layout="@layout/include_event_inner_detail"
+                android:visibility="gone" />
+            <View
+                android:layout_width="1dp"
+                android:id="@+id/line_prize2"
                 android:visibility="gone"
-                style="@style/event_margin"/>
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/lines_grey" />
 
-            <include layout="@layout/include_event_inner_detail"
+            <include
                 android:id="@+id/include_third"
+                layout="@layout/include_event_inner_detail"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:visibility="gone"
-                />
-
-
+                android:layout_weight="1"
+                android:visibility="gone" />
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/icon_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/layout_prize"
-            android:layout_marginLeft="10dp"
-            android:padding="10dp"
-            android:src="@drawable/icon_location" />
+        <!--  <ImageView
+              android:id="@+id/icon_location"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
 
-        <com.drishti.drishti17.ui.factory.ProximaTextView
-            android:id="@+id/location"
-            style="@style/event_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/icon_location"
-            android:layout_alignTop="@id/icon_location"
-            android:layout_toRightOf="@id/icon_location"
-            android:gravity="center"
-            android:text="CS Department"
-            android:textColor="@color/white" />
+              android:layout_marginLeft="10dp"
+              android:padding="10dp"
+              android:src="@drawable/icon_location" />
 
-    </RelativeLayout>
+          <com.drishti.drishti17.ui.factory.ProximaTextView
+              android:id="@+id/location"
+              style="@style/event_text"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_alignBottom="@id/icon_location"
+              android:layout_alignTop="@id/icon_location"
+              android:layout_toRightOf="@id/icon_location"
+              android:gravity="center"
+              android:text="CS Department"
+              android:textColor="@color/white" />-->
+
+    </LinearLayout>
 </ScrollView>

@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.drishti.drishti17.R;
 import com.drishti.drishti17.util.Import;
+import com.drishti.drishti17.util.UIUtil;
 import com.drishti.drishti17.util.db.EventTable;
 
 
@@ -86,23 +87,33 @@ public class FragmentEvent_Contact extends Fragment {
 
         View parent = getActivity().findViewById(parentView);
 
-        ImageView icon_email = (ImageView) parent.findViewById(R.id.icon_email);
-        ImageView icon_phone = (ImageView) parent.findViewById(R.id.icon_phone);
-        TextView text_email = (TextView) parent.findViewById(R.id.email);
-        TextView text_phone = (TextView) parent.findViewById(R.id.phone);
+        TextView nameView = (TextView) parent.findViewById(R.id.name);
+        nameView.setText(name);
 
-        icon_email.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sendMail(mode);
-            }
-        });
-        icon_phone.setOnClickListener(new View.OnClickListener() {
+        View layout1 =  parent.findViewById(R.id.layout1);
+        View layout2 =  parent.findViewById(R.id.layout2);
+
+        layout1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 callPhone(mode);
             }
         });
+        layout2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendMail(mode);
+            }
+        });
+
+        setView(layout1,R.id.icon1,R.id.text1,phone,R.drawable.icon_phone);
+        setView(layout2,R.id.icon2,R.id.text2,email,R.drawable.icon_mail);
+       /* ImageView icon_email = (ImageView) parent.findViewById(R.id.icon1);
+        ImageView icon_phone = (ImageView) parent.findViewById(R.id.icon2);
+        TextView text_email = (TextView) parent.findViewById(R.id.text1);
+        TextView text_phone = (TextView) parent.findViewById(R.id.text2);
+
+
         text_email.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -119,15 +130,32 @@ public class FragmentEvent_Contact extends Fragment {
         setView((ImageView) parent.findViewById(R.id.icon_name),
                 (TextView) parent.findViewById(R.id.name), name);
         setView(icon_email, text_email, email);
-        setView(icon_phone, text_phone, phone);
+        setView(icon_phone, text_phone, phone);*/
     }
 
+    private void setView(View parent,int iconId, int textId, String text, int iconDrawable) {
+        if (text == null || text.equals("0"))
+        {
+            parent.setVisibility(View.GONE);
+            return;
+        }
+
+        parent.setVisibility(View.VISIBLE);
+        ImageView iconView = (ImageView) parent.findViewById(iconId);
+        iconView.setVisibility(View.VISIBLE);
+        iconView.setImageDrawable(UIUtil.getDrawable(getContext(),iconDrawable));
+
+        TextView textView = (TextView) parent.findViewById(textId);
+        textView.setVisibility(View.VISIBLE);
+        textView.setText(text);
+
+
+    }
     private void setView(ImageView icon, TextView textView, String text) {
         if (text == null || text.equals("0"))
             return;
         icon.setVisibility(View.VISIBLE);
-        textView.setVisibility(View.VISIBLE);
-        textView.setText(text);
+
     }
 
     private void setEventItem(EventTable eventItem) {

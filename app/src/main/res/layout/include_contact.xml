@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <ImageView
@@ -10,8 +10,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:padding="10dp"
-        android:visibility="gone"
-        android:src="@drawable/icon_man" />
+        android:src="@drawable/icon_man"
+        android:visibility="visible" />
 
     <com.drishti.drishti17.ui.factory.SourceSansTextView
         android:id="@+id/name"
@@ -22,51 +22,58 @@
         android:layout_alignTop="@id/icon_name"
         android:layout_toRightOf="@id/icon_name"
         android:gravity="center"
-        android:visibility="gone"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        android:visibility="visible" />
 
-    <ImageView
-        android:id="@+id/icon_phone"
-        android:layout_width="wrap_content"
+    <include
+        android:id="@+id/contact"
+        layout="@layout/include_event_detail_item"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/icon_name"
-        android:layout_marginLeft="20dp"
-        android:padding="10dp"
-        android:visibility="gone"
-        android:src="@drawable/icon_phone" />
+        android:layout_below="@id/icon_name" />
 
-    <com.drishti.drishti17.ui.factory.SourceSansTextView
-        android:id="@+id/phone"
-        style="@style/event_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/icon_phone"
-        android:layout_alignTop="@id/icon_phone"
-        android:layout_toRightOf="@id/icon_phone"
-        android:gravity="center"
-        android:visibility="gone"
-        android:textColor="@color/white" />
+    <!-- <ImageView
+         android:id="@+id/icon_phone"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_below="@id/icon_name"
+         android:layout_marginLeft="20dp"
+         android:padding="10dp"
+         android:visibility="visible"
+         android:src="@drawable/icon_phone" />
 
-    <ImageView
-        android:id="@+id/icon_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/icon_name"
-        android:layout_marginLeft="20dp"
-        android:layout_toRightOf="@id/phone"
-        android:visibility="gone"
-        android:padding="10dp"
-        android:src="@drawable/icon_mail" />
+     <com.drishti.drishti17.ui.factory.SourceSansTextView
+         android:id="@+id/phone"
+         style="@style/event_text"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignBottom="@id/icon_phone"
+         android:layout_alignTop="@id/icon_phone"
+         android:layout_toRightOf="@id/icon_phone"
+         android:gravity="center"
+         android:visibility="visible"
+         android:textColor="@color/white" />
 
-    <com.drishti.drishti17.ui.factory.SourceSansTextView
-        android:id="@+id/email"
-        style="@style/event_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/icon_email"
-        android:layout_alignTop="@id/icon_email"
-        android:layout_toRightOf="@id/icon_email"
-        android:gravity="center"
-        android:visibility="gone"
-        android:textColor="@color/white" />
+     <ImageView
+         android:id="@+id/icon_email"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_below="@id/icon_name"
+         android:layout_marginLeft="20dp"
+         android:layout_toRightOf="@id/phone"
+         android:visibility="visible"
+         android:padding="10dp"
+         android:src="@drawable/icon_mail" />
+
+     <com.drishti.drishti17.ui.factory.SourceSansTextView
+         android:id="@+id/email"
+         style="@style/event_text"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignBottom="@id/icon_email"
+         android:layout_alignTop="@id/icon_email"
+         android:layout_toRightOf="@id/icon_email"
+         android:gravity="center"
+         android:visibility="visible"
+         android:textColor="@color/white" />-->
 </RelativeLayout>

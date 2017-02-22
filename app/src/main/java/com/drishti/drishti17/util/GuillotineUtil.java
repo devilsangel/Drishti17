@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -18,6 +19,7 @@ import com.yalantis.guillotine.animation.GuillotineAnimation;
 
 public class GuillotineUtil implements View.OnClickListener {
 
+    private static final String TAG = GuillotineUtil.class.getSimpleName();
     private static final long RIPPLE_DURATION = 250;
     private OnNavigationClickListener mListener;
     private View guillotineMenu;
@@ -43,6 +45,7 @@ public class GuillotineUtil implements View.OnClickListener {
         lastSelected = (TextView) guillotineMenu.findViewById(R.id.competition);
         setSelectColor(lastSelected);
 
+        guillotineMenu.findViewById(R.id.background_view).setOnClickListener(this);
         guillotineMenu.findViewById(R.id.competitions_group).setOnClickListener(this);
         guillotineMenu.findViewById(R.id.workshops_group).setOnClickListener(this);
         guillotineMenu.findViewById(R.id.informals_group).setOnClickListener(this);
@@ -51,7 +54,6 @@ public class GuillotineUtil implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         TextView textView = null;
-        setNormalColor(lastSelected);
 
         switch (view.getId()) {
             case R.id.competitions_group:
@@ -63,8 +65,12 @@ public class GuillotineUtil implements View.OnClickListener {
             case R.id.informals_group:
                 textView = (TextView) guillotineMenu.findViewById(R.id.informal);
                 break;
+            case R.id.background_view:
+                Log.d(TAG, "onClick: misclick");
+                return;
 
         }
+        setNormalColor(lastSelected);
         lastSelected = textView;
         setSelectColor(textView);
         mListener.onNavigationClick(view.getId());

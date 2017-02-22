@@ -58,6 +58,8 @@
     <color name="event_grad4">#9B3F62</color>
 
     <color name="black">#000000</color>
+    <color name="grey">#5A5A5E</color>
+    <color name="blur">#25ffffff</color>
 
 </resources>
 

@@ -26,7 +26,7 @@ public class EventPage extends AppCompatActivity implements ViewPager.OnPageChan
 
     private static final String TAG = EventPage.class.getSimpleName();
     private int position;
-    private int tabHeight;
+    private int tabHeight,paddingHeight;
     private int id;
     private EventTable eventItem;
 
@@ -57,7 +57,6 @@ public class EventPage extends AppCompatActivity implements ViewPager.OnPageChan
     }
 
     private void initUI() {
-       // Import.settypefaces(this, "ProximaNovaSoft-Regular.otf", (TextView) findViewById(R.id.register));
         final View view = findViewById(R.id.tab_host);
         view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -67,7 +66,6 @@ public class EventPage extends AppCompatActivity implements ViewPager.OnPageChan
                 loadEvent();
             }
         });
-        Log.d(TAG, "initUI: ");
     }
 
     void loadEvent() {
@@ -81,6 +79,7 @@ public class EventPage extends AppCompatActivity implements ViewPager.OnPageChan
 
         @Override
         protected EventTable doInBackground(Integer... integers) {
+            Log.d(TAG, "doInBackground: padding "+paddingHeight +" tab "+tabHeight);
             id = integers[0];
 
             String where = "serverid = " + id;

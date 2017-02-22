@@ -23,20 +23,21 @@ public class FragmentEvent_General extends Fragment {
 
 
     private static final String TAG = FragmentEvent_General.class.getSimpleName();
-    private int paddingHeight;
+    private int paddingTop;
     private EventTable eventItem;
 
     public FragmentEvent_General() {
         // Required empty public constructor
     }
 
-    public static FragmentEvent_General getInstance(int tabHeight, EventTable eventItem) {
+    public static FragmentEvent_General getInstance(int paddingTop,
+                                                    EventTable eventItem) {
 
         FragmentEvent_General fragmentEvent_general = new FragmentEvent_General();
 
         fragmentEvent_general.setEventItem(eventItem);
         Bundle bundle = new Bundle();
-        bundle.putInt("padding_height", tabHeight);
+        bundle.putInt("padding_height_top", paddingTop);
         fragmentEvent_general.setArguments(bundle);
         return fragmentEvent_general;
     }
@@ -45,7 +46,7 @@ public class FragmentEvent_General extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            paddingHeight = getArguments().getInt("padding_height");
+            paddingTop = getArguments().getInt("padding_height_top");
         }
     }
 
@@ -59,16 +60,16 @@ public class FragmentEvent_General extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Log.d(TAG, "onViewCreated: view created "+paddingHeight);
-        changePadding(paddingHeight);
+        Log.d(TAG, "onViewCreated: view created " + paddingTop);
+        changePadding(paddingTop);
     }
 
 
     public void changePadding(int paddingHeight) {
-        this.paddingHeight = paddingHeight;
+        this.paddingTop = paddingHeight;
         final View view1 = getActivity().findViewById(R.id.content_general);
-        view1.setPadding(0,paddingHeight,0,
-                (int)getResources().getDimension(R.dimen.event_view_pager_padding_bottom));
+        view1.setPadding(0, paddingHeight, 0,
+                (int) getResources().getDimension(R.dimen.event_view_pager_padding_bottom));
         loadUI();
     }
 
@@ -81,47 +82,64 @@ public class FragmentEvent_General extends Fragment {
         TextView desp = (TextView) getActivity().findViewById(R.id.description);
 
         title.setText(eventItem.name);
-        UIUtil.printHTML(desp,eventItem.description);
+        UIUtil.printHTML(desp, eventItem.description);
 
-        setView(R.id.icon_date,R.id.date,Import.daytoDate(eventItem.day));
-        setView(R.id.icon_time,R.id.time,eventItem.time);
-        setView(R.id.icon_fees,R.id.fees,"Rs "+eventItem.regFee);
+        setFirstView(R.id.layout_time, Import.daytoDate(eventItem.day), R.drawable.icon_date);
+        setSecondView(R.id.layout_time, eventItem.time, R.drawable.icon_time);
+
+        setFirstView(R.id.layout_reg, "Rs " + eventItem.regFee, R.drawable.icon_fees);
 
         setNoMembers();
 
-        Log.d(TAG, "loadUI: is workshop "+eventItem.isWorkshop);
+        Log.d(TAG, "loadUI: is workshop " + eventItem.isWorkshop);
         if (eventItem.isWorkshop) {
             loadWorkshop();
-        }else{
+        } else {
             loadCompetition();
         }
     }
 
-    private void setView(int iconId,int textId,String text){
+    private void setFirstView(int parentView, String text, int iconDrawable) {
         if (text == null || text.equals("0"))
             return;
-        getActivity().findViewById(iconId).setVisibility(View.VISIBLE);
-        TextView textView = (TextView) getActivity().findViewById(textId);
-        textView.setVisibility(View.VISIBLE);
-        textView.setText(text);
+        setView(parentView, R.id.text1, R.id.icon1, text, iconDrawable);
+    }
+
+    private void setSecondView(int parentViewId, String text, int iconDrawable) {
+        if (text == null || text.equals("0"))
+            return;
+        View parentView = getActivity().findViewById(parentViewId);
+        parentView.findViewById(R.id.line).setVisibility(View.VISIBLE);
+        setView(parentViewId, R.id.text2, R.id.icon2, text, iconDrawable);
     }
 
     private void setNoMembers() {
-        ImageView icon = (ImageView) getActivity().findViewById(R.id.icon_group);
-        TextView text = (TextView) getActivity().findViewById(R.id.group);
-
-        Drawable icon_pic;
+        int icon_pic;
         String mem;
         if (eventItem.isgroup) {
-            icon_pic = UIUtil.getDrawable(getContext(), R.drawable.icon_users);
-            mem = getResources().getQuantityString(R.plurals.members,eventItem.maxPerGroup,eventItem.maxPerGroup);
+            icon_pic = R.drawable.icon_users;
+            mem = getResources().getQuantityString(R.plurals.members,
+                    eventItem.maxPerGroup, eventItem.maxPerGroup);
         } else {
-            icon_pic = UIUtil.getDrawable(getContext(),R.drawable.icon_user);
-            mem = getResources().getQuantityString(R.plurals.members,1);
+            icon_pic = R.drawable.icon_user;
+            mem = getResources().getQuantityString(R.plurals.members, 1);
         }
+        setSecondView(R.id.layout_reg, mem, icon_pic);
+    }
 
-        icon.setImageDrawable(icon_pic);
-        setView(R.id.icon_group,R.id.group,mem);
+    private void setView(int parentViewId, int textViewId, int iconId, String text, int iconDrawable) {
+
+        View parentView = getActivity().findViewById(parentViewId);
+        ImageView icon = (ImageView) parentView.findViewById(iconId);
+        icon.setVisibility(View.VISIBLE);
+
+        Drawable iconPic = UIUtil.getDrawable(getContext(), iconDrawable);
+        icon.setImageDrawable(iconPic);
+
+        TextView textView = (TextView) parentView.findViewById(textViewId);
+        textView.setVisibility(View.VISIBLE);
+        textView.setText(text);
+
     }
 
     private void loadWorkshop() {
@@ -132,18 +150,20 @@ public class FragmentEvent_General extends Fragment {
         View prize = getActivity().findViewById(R.id.layout_prize);
         if (eventItem.prize1 != 0) {
             View first = prize.findViewById(R.id.include_first);
-            setIncludeView(first,R.drawable.icon_first,
-                    String.valueOf(eventItem.prize1));
+            setIncludeView(first, R.drawable.icon_first,
+                    "Rs "+eventItem.prize1);
         }
         if (eventItem.prize2 != 0) {
+            prize.findViewById(R.id.line_prize1).setVisibility(View.VISIBLE);
             View second = prize.findViewById(R.id.include_second);
-            setIncludeView(second,R.drawable.icon_second,
-                    String.valueOf(eventItem.prize2));
+            setIncludeView(second, R.drawable.icon_second,
+                    "Rs. "+eventItem.prize2);
         }
         if (eventItem.prize3 != 0) {
+            prize.findViewById(R.id.line_prize2).setVisibility(View.VISIBLE);
             View third = prize.findViewById(R.id.include_third);
-            setIncludeView(third,R.drawable.icon_third,
-                    String.valueOf(eventItem.prize3));
+            setIncludeView(third, R.drawable.icon_third,
+                    "Rs. "+eventItem.prize3);
         }
     }
 
@@ -152,13 +172,13 @@ public class FragmentEvent_General extends Fragment {
 
         parentView.setVisibility(View.VISIBLE);
         Drawable drawable;
-        if (Import.isVersionOK(Build.VERSION_CODES.LOLLIPOP)){
+        if (Import.isVersionOK(Build.VERSION_CODES.LOLLIPOP)) {
             drawable = getContext().getDrawable(iconDrawableId);
-        }else {
+        } else {
             drawable = getResources().getDrawable(iconDrawableId);
         }
-        ((ImageView)parentView.findViewById(R.id.icon)).setImageDrawable(drawable);
-        ((TextView)parentView.findViewById(R.id.text)).setText(text);
+        ((ImageView) parentView.findViewById(R.id.icon)).setImageDrawable(drawable);
+        ((TextView) parentView.findViewById(R.id.text)).setText(text);
     }
 
 
