@@ -12,8 +12,8 @@ import android.util.Log;
 import android.view.View;
 
 import com.drishti.drishti17.R;
+import com.drishti.drishti17.ui.Cetalks;
 import com.drishti.drishti17.ui.Departments;
-import com.drishti.drishti17.ui.Expo;
 import com.drishti.drishti17.ui.Home;
 import com.drishti.drishti17.ui.NavigationActivity;
 import com.drishti.drishti17.ui.Profile;
@@ -41,7 +41,7 @@ public class NavUtil {
         tempMap.put(2, Home.class);
         tempMap.put(3, Departments.class);
         tempMap.put(4, Home.class);
-        tempMap.put(5, Expo.class);
+        tempMap.put(5, Cetalks.class);
         tempMap.put(6, Profile.class);
         tempMap.put(7, Home.class);
 

@@ -1,6 +1,8 @@
 package com.drishti.drishti17.ui.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.drishti.drishti17.R;
+import com.drishti.drishti17.ui.EventPage;
 import com.drishti.drishti17.util.db.EventTable;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.storage.FirebaseStorage;
@@ -85,19 +88,21 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    switch (from) {
-                        case "competitions":
-                            proceedCompetition();
-                            break;
-                        case "workshops":
-                            proceedWorkshop();
-                            break;
-                    }
+                    Log.d(TAG, "onClick: "+from);
+                    proceedDetail();
                 }
             });
 
         }
 
+        void proceedDetail() {
+            Log.d(TAG, "proceedDetail: "+eventList.get(getAdapterPosition()).server_id);
+            Intent intent_expand = new Intent(view.getContext(), EventPage.class);
+            Bundle bundle = new Bundle();
+            bundle.putInt("id", eventList.get(getAdapterPosition()).server_id);
+            intent_expand.putExtras(bundle);
+            view.getContext().startActivity(intent_expand);
+        }
         void proceedCompetition() {
            /* Intent intent_expand = new Intent(view.getContext(), EventDetail.class);
             Bundle bundle = new Bundle();
