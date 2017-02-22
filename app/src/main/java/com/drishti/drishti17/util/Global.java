@@ -7,4 +7,5 @@ package com.drishti.drishti17.util;
 public class Global {
 
     public static boolean isDownloading = false;
+    public static boolean isguest=true;
 }

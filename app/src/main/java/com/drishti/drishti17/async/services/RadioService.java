@@ -120,9 +120,9 @@ public class RadioService extends Service {
     }
     private void updateNotification(String songname){
         Intent notificationIntent = new Intent(this, Cetalks.class);
-        notificationIntent.setAction(Constants.ACTION.MAIN_ACTION);
-        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
-                | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//        notificationIntent.setAction(Constants.ACTION.MAIN_ACTION);
+//        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+//                | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
                 notificationIntent, 0);
         Intent playIntent = new Intent(this, RadioService.class);
@@ -134,13 +134,13 @@ public class RadioService extends Service {
         PendingIntent ppauseIntent = PendingIntent.getService(this, 0,
                 pauseIntent, 0);
         Bitmap icon = BitmapFactory.decodeResource(getResources(),
-                R.mipmap.ic_launcher);
+                R.mipmap.logo);
         Notification notification = new NotificationCompat.Builder(this)
                     .setContentTitle("Cetalks")
                     .setTicker("Cetalks")
                     .setContentText(songname)
-                    .setSmallIcon(R.mipmap.ic_launcher)
                     .setLargeIcon(Bitmap.createScaledBitmap(icon, 128, 128, false))
+                    .setSmallIcon(R.drawable.icon)
                     .setContentIntent(pendingIntent)
                     .setOngoing(true)
                     .addAction(android.R.drawable.ic_media_pause, "Pause",

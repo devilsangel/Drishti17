@@ -22,6 +22,15 @@ import com.drishti.drishti17.ui.factory.ProgressDialog;
 import com.drishti.drishti17.util.ApiClient;
 import com.drishti.drishti17.util.ApiInterface;
 import com.drishti.drishti17.util.AuthUtil;
+import com.drishti.drishti17.util.Global;
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -32,10 +41,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.drishti.drishti17.ui.factory.ProgressDialog;
+
+import java.util.Arrays;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -54,13 +67,15 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     View mControlsView;
     @BindView(R.id.g_button)
     Button gPlus;
+    @BindView(R.id.fb_button)Button fbButton;
     boolean flag = true;
+    boolean autoLogin=true;
     private GoogleApiClient mGoogleApiClient;
     private static final int RC_SIGN_IN = 9001;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    ProgressDialog progressDialog;
     private static final String TAG = "GoogleActivity";
+    CallbackManager callbackManager;
     private final Runnable mHidePart2Runnable = new Runnable() {
         @SuppressLint("InlinedApi")
         @Override
@@ -88,7 +103,6 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
@@ -189,9 +203,17 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                                 public void onResponse(Call<Student> call, Response<Student> response) {
                                     Student student=response.body();
                                     if(student.registered){
-                                        Log.d("Login","Existing User");
+                                        Global.isguest=false;
+                                        startActivity(new Intent(Login.this,Home.class));
+                                        finish();
                                     }else{
-                                        Log.d("Login","New User");
+                                        if(autoLogin){
+                                            FirebaseAuth.getInstance().signOut();
+                                            autoLogin=false;
+                                        }else {
+                                            startActivity(new Intent(Login.this, MainRegister.class));
+                                            finish();
+                                        }
                                     }
                                 }
 
@@ -213,11 +235,36 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         gPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                autoLogin=false;
                 Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
                 startActivityForResult(signInIntent, RC_SIGN_IN);
             }
         });
+        callbackManager=CallbackManager.Factory.create();
+        fbButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                autoLogin=false;
+                LoginManager.getInstance().logInWithReadPermissions(Login.this,Arrays.asList("email","public_profile"));
+            }
+        });
+        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Log.d("Facebook Login",loginResult+"");
+                handleFacebookAccessToken(loginResult.getAccessToken());
+            }
 
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Log.d("error","error");
+            }
+        });
     }
 
     @Override
@@ -238,6 +285,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+        callbackManager.onActivityResult(requestCode,resultCode,data);
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             if (result.isSuccess()) {
@@ -252,16 +300,43 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
             }
         }
     }
+    private void handleFacebookAccessToken(AccessToken token) {
+        Log.d(TAG, "handleFacebookAccessToken:" + token);
 
-    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-        Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
-
-        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        final ProgressDialog progressDialog=new ProgressDialog(this);
+        progressDialog.showProgressDialog();
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+                        progressDialog.disMissProgressDialog();
+                        Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
+
+                        // If sign in fails, display a message to the user. If sign in succeeds
+                        // the auth state listener will be notified and logic to handle the
+                        // signed in user can be handled in the listener.
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "signInWithCredential", task.getException());
+                            Toast.makeText(Login.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+
+                        // ...
+                    }
+                });
+    }
+    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+        Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
+
+        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+        final ProgressDialog progressDialog=new ProgressDialog(this);
+        progressDialog.showProgressDialog();
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        progressDialog.disMissProgressDialog();
                         Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
 
                         // If sign in fails, display a message to the user. If sign in succeeds
@@ -275,6 +350,11 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                         // ...
                     }
                 });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
     }
 
     private void hide() {

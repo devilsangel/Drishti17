@@ -47,7 +47,8 @@ public class Cetalks extends AppCompatActivity implements View.OnClickListener {
 
         songName.setSelected(true);
         songName.setHorizontallyScrolling(true);
-
+        if(RadioService.iSRunning)
+            view.toggle();
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,9 +73,9 @@ public class Cetalks extends AppCompatActivity implements View.OnClickListener {
     @Override
     protected void onDestroy() {
         unregisterReceiver(receiver);
-        Intent service = new Intent(Cetalks.this, RadioService.class);
-        service.setAction(Constants.ACTION.STOPFOREGROUND_ACTION);
-        startService(service);
+//        Intent service = new Intent(Cetalks.this, RadioService.class);
+//        service.setAction(Constants.ACTION.STOPFOREGROUND_ACTION);
+//        startService(service);
         super.onDestroy();
     }
 

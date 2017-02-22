@@ -16,28 +16,67 @@
         android:id="@+id/ti1"
         android:textColorHint="@color/white">
         <AutoCompleteTextView
+            android:id="@+id/cname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="College name"
             android:textColor="@color/white"
             />
     </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ti2"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/ti1"
+        android:textColorHint="@color/white">
+        <EditText
+            android:id="@+id/pnumber"
+            android:inputType="number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Phone Number"
+            android:textColor="@color/white"
+            />
+    </android.support.design.widget.TextInputLayout>
 
     <com.jaredrummler.materialspinner.MaterialSpinner
         android:layout_marginTop="30dp"
-        android:layout_below="@+id/ti1"
+        android:layout_below="@+id/ti2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/gender"
         />
-    <com.jaredrummler.materialspinner.MaterialSpinner
-        android:layout_marginTop="30dp"
-        android:layout_below="@+id/gender"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/acc"
-        />
 
+    <com.drishti.drishti17.ui.factory.ProximaTextView
+        android:layout_below="@id/gender"
+        android:layout_marginTop="30dp"
+        android:layout_width="wrap_content"
+        android:textSize="20dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:text="Accomadation"
+        android:id="@+id/radiotitle"/>
+    <RadioGroup
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/radiotitle"
+        android:id="@+id/acc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RadioButton
+            android:textColor="@color/white"
+            android:text="Yes"
+            android:id="@+id/accyes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <RadioButton
+            android:text="No"
+            android:id="@+id/accno"
+            android:checked="true"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RadioGroup>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
