@@ -10,6 +10,7 @@ import android.view.View;
 import com.drishti.drishti17.R;
 import com.drishti.drishti17.async.services.EventsSyncService;
 import com.drishti.drishti17.ui.adapters.HomeFlipAdapter;
+import com.drishti.drishti17.util.Import;
 import com.drishti.drishti17.util.NavUtil;
 import com.drishti.drishti17.util.UIUtil;
 
@@ -38,7 +39,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener,
         fab.setOnClickListener(this);
 
         Log.d(TAG, "onCreate: going to start");
-        EventsSyncService.startDownlaod(this);
+        Import.fetchRemoteConfig(this,this);
         setupFlip();
 
     }

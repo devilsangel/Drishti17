@@ -4,21 +4,34 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.drishti.drishti17.BuildConfig;
+import com.drishti.drishti17.R;
+import com.drishti.drishti17.async.services.EventsSyncService;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
+
 /**
  * Created by droidcafe on 2/2/2017.
  */
 
 public class Import {
+
+    private static final String TAG = Import.class.getSimpleName();
 
     public static void toast(Context context, String text) {
         Toast.makeText(context, text, Toast.LENGTH_LONG).show();
@@ -47,7 +60,7 @@ public class Import {
     }
 
 
-    public static int getBackgroundImage(Context context,String imageName) {
+    public static int getBackgroundImage(Context context, String imageName) {
         String uri = "drawable/" + imageName;
         return context.getResources().getIdentifier(uri, null, context.getPackageName());
     }
@@ -68,7 +81,7 @@ public class Import {
 
     public static String daytoDate(String day) {
         if (day == null) return null;
-        switch (day){
+        switch (day) {
             case "1":
                 return "19/3/17";
             case "2":
@@ -82,7 +95,7 @@ public class Import {
     /**
      * helper function for composing mail
      */
-    public static void composeEmail(Activity activity, String[] addresses, String subject){
+    public static void composeEmail(Activity activity, String[] addresses, String subject) {
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("mailto:"));
         intent.putExtra(Intent.EXTRA_EMAIL, addresses);
@@ -102,4 +115,49 @@ public class Import {
         activity.startActivity(intent);
     }
 
+    public static String  getStringSharedPerf(Context context, String sharedKey) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Global.SHARED_PREF, 0);
+        return sharedPreferences.getString(sharedKey, "");
+    }
+
+    public static void setSharedPref(Context context, String sharedKey, String  value) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Global.SHARED_PREF, 0);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(sharedKey, value);
+        editor.apply();
+    }
+
+    public static void fetchRemoteConfig(final Context context, Activity activity) {
+
+        final FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.getInstance();
+        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
+                .setDeveloperModeEnabled(BuildConfig.DEBUG)
+                .build();
+        remoteConfig.setConfigSettings(configSettings);
+
+        remoteConfig.setDefaults(R.xml.remote_config_default_map);
+
+        long cacheExpiration = 720;
+        if (remoteConfig.getInfo().getConfigSettings().isDeveloperModeEnabled()) {
+            cacheExpiration = 0;
+        }
+
+        Log.d(TAG, "fetchRemoteConfig: cache expiration "+cacheExpiration);
+        remoteConfig.fetch(cacheExpiration).addOnCompleteListener(activity, new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    Log.d(TAG, "onComplete: before activating "+remoteConfig.getString("event_current_version"));
+                    remoteConfig.activateFetched();
+                    Log.d(TAG, "onComplete: after activating "+remoteConfig.getString("event_current_version"));
+                    onConfigActivated(context);
+                }
+            }
+        });
+    }
+
+    public static void onConfigActivated(Context context) {
+        if(EventsSyncService.checkDownload(context))
+            EventsSyncService.startDownload(context);
+    }
 }

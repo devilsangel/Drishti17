@@ -8,9 +8,11 @@ import android.util.Log;
 import com.drishti.drishti17.network.models.EventModel;
 import com.drishti.drishti17.util.ApiClient;
 import com.drishti.drishti17.util.ApiInterface;
+import com.drishti.drishti17.util.Global;
 import com.drishti.drishti17.util.Import;
 import com.drishti.drishti17.util.NetworkUtil;
 import com.drishti.drishti17.util.db.EventTable;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 
 import java.util.List;
 
@@ -27,12 +29,19 @@ public class EventsSyncService extends IntentService {
         super("EventsSyncService");
     }
 
+    public static boolean checkDownload(Context context) {
 
-    public static void startDownlaod(Context context) {
+        FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.getInstance();
+        String currentVersion = Import.getStringSharedPerf(context, Global.PREF_EVENT_CURRENT_VERSION);
+        String remoteVersion = remoteConfig.getString("event_current_version");
+        return (currentVersion == null)|| !currentVersion.equals(remoteVersion);
+    }
+
+    public static void startDownload(Context context) {
         if (!NetworkUtil.isNetworkAvailable(context))
             return;
 
-        Log.d(TAG, "startDownlaod: starting");
+        Log.d(TAG, "startDownload: starting");
         Intent intent = new Intent(context, EventsSyncService.class);
         context.startService(intent);
     }
@@ -57,10 +66,7 @@ public class EventsSyncService extends IntentService {
 
     void download() {
         Import.setEventDownloadingStatus(true);
-
-        cleanTable();
         EventTable.findById(EventTable.class, 1);
-
         Log.d(TAG, "download: starting download");
         ApiInterface service = ApiClient.getService();
         service.getEventList().enqueue(new Callback<List<EventModel>>() {
@@ -68,6 +74,7 @@ public class EventsSyncService extends IntentService {
             public void onResponse(Call<List<EventModel>> call, Response<List<EventModel>> response) {
                 Log.d(TAG, "onResponse");
                 if (response.isSuccessful()) {
+                    cleanTable();
                     List<EventModel> eventModels = response.body();
                     Log.d(TAG, "onResponse: event list " + eventModels.size());
                     for (EventModel model : eventModels) {
@@ -86,6 +93,10 @@ public class EventsSyncService extends IntentService {
             }
         });
 
+        FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.getInstance();
+        String remoteVersion = remoteConfig.getString("event_current_version");
+
+        Import.setSharedPref(this,Global.PREF_EVENT_CURRENT_VERSION,remoteVersion);
         Import.setEventDownloadingStatus(false);
     }
 
