@@ -9,15 +9,16 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.drishti.drishti17.R;
-import com.drishti.drishti17.util.Import;
+import com.drishti.drishti17.network.models.HighLightModel;
+import com.drishti.drishti17.util.UIUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
- * Created by droidcafe on 2/19/2017.
+ * Created by droidcafe on 2/19/2017
  */
 
 public class HomeFlipAdapter extends BaseAdapter {
@@ -25,42 +26,17 @@ public class HomeFlipAdapter extends BaseAdapter {
     private static final String TAG = HomeFlipAdapter.class.getSimpleName();
     private LayoutInflater inflater;
     private Callback callback;
-    private List<Item> items = new ArrayList<>();
+    private List<HighLightModel> items = new ArrayList<>();
+    Random random ;
 
     public interface Callback {
         public void onPageRequested(int page);
     }
 
-    static class Item {
-        static long id = 0;
-        String title,picUrl;
-        long mId;
-
-        public Item(String title,String picUrl) {
-            mId = id++;
-            this.title = title;
-            this.picUrl  = picUrl;
-        }
-
-        String getTitle() {
-            return title;
-        }
-        String getPicUrl() {
-            return picUrl;
-        }
-        long getId() {
-            return mId;
-        }
-    }
-
-    public HomeFlipAdapter(Context context) {
+    public HomeFlipAdapter(Context context, List<HighLightModel> flipList) {
         inflater = LayoutInflater.from(context);
-        String[] titles = context.getResources().getStringArray(R.array.temp_events);
-        String[] deptPic = context.getResources().getStringArray(R.array.dept_images);
-
-        for (int i = 0; i < 8; i++) {
-            items.add(new Item(titles[i],deptPic[i]));
-        }
+        items = flipList;
+        random = new Random();
     }
 
     public void setCallback(Callback callback) {
@@ -69,7 +45,7 @@ public class HomeFlipAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return 8;
+        return items.size();
     }
 
     @Override
@@ -100,12 +76,23 @@ public class HomeFlipAdapter extends BaseAdapter {
             holder = (ViewHolder) view.getTag();
         }
 
+
         Context context = view.getContext();
-        holder.title.setText(items.get(position).getTitle());
-        int id = Import.getBackgroundImage(context,items.get(position).getPicUrl());
-        Glide.with(context)
-                .load(id)
-                .into(holder.promo);
+        int placeholder = random.nextInt(context.getResources().getInteger(R.integer.blur_limit));
+        int error = random.nextInt(context.getResources().getInteger(R.integer.logo_limit));
+
+
+        holder.title.setText(items.get(position).getName());
+        holder.desp.setText(items.get(position).getPromo());
+
+       // int id = Import.getBackgroundImage(context,items.get(position).getImage());
+        UIUtil.loadPic(context,holder.promo,items.get(position).getImage(),placeholder,error);
+
+        /*Glide.with(context)
+                .load(items.get(position).getImage())
+                .error(R.drawable.drishti_logo1)
+                .crossFade()
+                .into(holder.promo);*/
         return view;
     }
 

@@ -38,9 +38,6 @@ public class EventsSyncService extends IntentService {
     }
 
     public static void startDownload(Context context) {
-        if (!NetworkUtil.isNetworkAvailable(context))
-            return;
-
         Log.d(TAG, "startDownload: starting");
         Intent intent = new Intent(context, EventsSyncService.class);
         context.startService(intent);
@@ -48,9 +45,8 @@ public class EventsSyncService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        if (intent != null) {
 
-        }
+        Import.setEventDownloadingStatus(true);
         if (NetworkUtil.isNetworkAvailable(this))
             download();
     }
@@ -58,6 +54,7 @@ public class EventsSyncService extends IntentService {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        Import.setEventDownloadingStatus(false);
 
         Intent intent = new Intent();
         intent.setAction("com.drishti.drishti17.EVENT_LIST_UPDATED");
@@ -65,7 +62,6 @@ public class EventsSyncService extends IntentService {
     }
 
     void download() {
-        Import.setEventDownloadingStatus(true);
         EventTable.findById(EventTable.class, 1);
         Log.d(TAG, "download: starting download");
         ApiInterface service = ApiClient.getService();
@@ -95,9 +91,7 @@ public class EventsSyncService extends IntentService {
 
         FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.getInstance();
         String remoteVersion = remoteConfig.getString("event_current_version");
-
         Import.setSharedPref(this,Global.PREF_EVENT_CURRENT_VERSION,remoteVersion);
-        Import.setEventDownloadingStatus(false);
     }
 
     private void cleanTable() {

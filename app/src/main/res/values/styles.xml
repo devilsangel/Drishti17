@@ -166,4 +166,23 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_weight">1</item>
     </style>
+
+
+    <style name="error_title">
+        <item name="android:text">@string/oops</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">32sp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="error_desp">
+        <item name="android:text">@string/empty</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:visibility">gone</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
 </resources>

@@ -5,7 +5,8 @@
     <meta-data
         android:name="com.google.android.gms.vision.DEPENDENCIES"
         android:value="barcode" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -23,7 +24,7 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id"/>
+            android:value="@string/facebook_app_id" />
         <meta-data
             android:name="DATABASE"
             android:value="com.drishti.drishti17.util.db" />
@@ -106,14 +107,17 @@
             android:name=".ui.Cetalks"
             android:label="@string/title_activity_cetalks"
             android:theme="@style/Home" />
-
         <activity
             android:name=".ui.EventPage"
             android:label="@string/title_activity_event_page"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
 
-        <service android:name=".async.services.RadioService"/>
+        <service android:name=".async.services.RadioService" />
 
+        <activity
+            android:name=".ui.DevActivity"
+            android:label="@string/title_activity_dev"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

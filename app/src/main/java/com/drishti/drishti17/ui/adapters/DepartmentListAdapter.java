@@ -15,7 +15,7 @@ import com.bumptech.glide.Glide;
 import com.drishti.drishti17.R;
 import com.drishti.drishti17.network.models.DepartmentModel;
 import com.drishti.drishti17.ui.EventList;
-import com.drishti.drishti17.util.Import;
+import com.drishti.drishti17.util.UIUtil;
 
 import java.util.HashMap;
 
@@ -47,7 +47,7 @@ public class DepartmentListAdapter extends RecyclerView.Adapter<DepartmentListAd
         DepartmentModel deptModel = deptMap.get(position);
         holder.title.setText(deptModel.name);
 
-        int id = Import.getBackgroundImage(context,deptModel.url);
+        int id = UIUtil.getBackgroundImage(context,deptModel.url);
         Log.d(TAG, "onBindViewHolder: "+deptModel.url +" "+id);
         Glide.with(context)
                 .load(id)

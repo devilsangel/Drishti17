@@ -14,6 +14,7 @@ import android.view.View;
 import com.drishti.drishti17.R;
 import com.drishti.drishti17.ui.Cetalks;
 import com.drishti.drishti17.ui.Departments;
+import com.drishti.drishti17.ui.DevActivity;
 import com.drishti.drishti17.ui.Home;
 import com.drishti.drishti17.ui.NavigationActivity;
 import com.drishti.drishti17.ui.Profile;
@@ -43,7 +44,7 @@ public class NavUtil {
         tempMap.put(4, Home.class);
         tempMap.put(5, Cetalks.class);
         tempMap.put(6, Profile.class);
-        tempMap.put(7, Home.class);
+        tempMap.put(7, DevActivity.class);
 
         positionClassMap = Collections.unmodifiableMap(tempMap);
 

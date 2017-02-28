@@ -87,7 +87,7 @@ public class MainRegister extends AppCompatActivity implements View.OnClickListe
     public void submit(){
         final String college =collegeName.getText().toString();
         if(searchList.get(college)==null){
-            collegeName.setError("Select College from list or choose others");
+            collegeName.setError("Select College from flipList or choose others");
             return;
         }
         final String number=pNumber.getText().toString();

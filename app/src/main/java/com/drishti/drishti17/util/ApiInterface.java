@@ -1,6 +1,7 @@
 package com.drishti.drishti17.util;
 
 import com.drishti.drishti17.network.models.College;
+import com.drishti.drishti17.network.models.HighLightModel;
 import com.drishti.drishti17.network.models.Student;
 import com.drishti.drishti17.network.models.EventModel;
 
@@ -34,6 +35,9 @@ public interface ApiInterface {
 
     @GET("public/event")
     Call<List<EventModel>> getEventList();
+
+    @GET("/public/highlight")
+    Call<List<HighLightModel>> getHightlightList();
 
     @GET("public/college")
     Call<List<College>> getAllColleges();

@@ -16,14 +16,17 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.drishti.drishti17.R;
+import com.drishti.drishti17.async.services.EventsSyncService;
+import com.drishti.drishti17.ui.factory.ProgressDialog;
 import com.drishti.drishti17.ui.fragments.CompetitionListFragment;
 import com.drishti.drishti17.util.GuillotineUtil;
+import com.drishti.drishti17.util.Import;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class EventList extends AppCompatActivity implements
-        GuillotineUtil.OnNavigationClickListener {
+        GuillotineUtil.OnNavigationClickListener, View.OnClickListener {
 
     private static final String TAG = EventList.class.getSimpleName();
     @BindView(R.id.toolbar)
@@ -36,6 +39,7 @@ public class EventList extends AppCompatActivity implements
 
     boolean isWorkshop;
     BroadcastReceiver downloadCompleteReceiver;
+    ProgressDialog progressDialog;
 
 
     @Override
@@ -48,21 +52,27 @@ public class EventList extends AppCompatActivity implements
             setSupportActionBar(toolbar);
             getSupportActionBar().setTitle(null);
         }
+        progressDialog = new ProgressDialog(this);
         getArguments();
         handleNavigation();
 
         registerReceivers();
-        setUpFragmentUi(0);
-    }
 
+        setUpUI();
+        findViewById(R.id.reload).setOnClickListener(this);
+    }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
 
+        if (progressDialog != null) {
+            progressDialog.disMissProgressDialog();
+        }
         if (downloadCompleteReceiver != null)
             unregisterReceiver(downloadCompleteReceiver);
     }
+
 
     private void getArguments() {
         Bundle bundle = getIntent().getExtras();
@@ -79,7 +89,8 @@ public class EventList extends AppCompatActivity implements
             @Override
             public void onReceive(Context context, Intent intent) {
                 if (intent.getAction().matches("com.drishti.drishti17.EVENT_LIST_UPDATED")) {
-                    Log.d(TAG, "onReceive: event list download finished");
+                    Log.d(TAG, "onReceive: event flipList download finished");
+                    progressDialog.disMissProgressDialog();
                     setUpFragmentUi(0);
                 }
             }
@@ -94,6 +105,14 @@ public class EventList extends AppCompatActivity implements
             title.setText("Workshops");
         }else{
             new GuillotineUtil(this).setUpNav(root, findViewById(R.id.content_hamburger), toolbar, this);
+        }
+    }
+
+    private void setUpUI() {
+        if(Import.isEventDownloading()){
+            progressDialog.showProgressDialog();
+        }else{
+            setUpFragmentUi(0);
         }
     }
 
@@ -139,4 +158,18 @@ public class EventList extends AppCompatActivity implements
     }
 
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.reload:
+                reload();
+                break;
+        }
+    }
+
+    void reload() {
+        progressDialog.showProgressDialog();
+        EventsSyncService.startDownload(this);
+
+    }
 }

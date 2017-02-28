@@ -108,10 +108,17 @@ public class CompetitionListFragment extends Fragment {
         }
 
         private void onSuccess(List<EventTable> deptMap) {
-            if(getActivity() == null)
+
+            if (getActivity() == null)
                 return;
 
+            getActivity().findViewById(R.id.empty_view).setVisibility(View.GONE);
+            getActivity().findViewById(R.id.empty_text).setVisibility(View.GONE);
+            getActivity().findViewById(R.id.cube).setVisibility(View.GONE);
+            getActivity().findViewById(R.id.reload).setVisibility(View.GONE);
+
             RecyclerView deptList = (RecyclerView) getActivity().findViewById(R.id.list_events);
+
 
             deptList.setVisibility(View.VISIBLE);
             EventListAdapter eventListAdapter = new EventListAdapter(deptMap, getContext(), "eventlist");
@@ -122,7 +129,12 @@ public class CompetitionListFragment extends Fragment {
         }
 
         private void onFailure() {
-            Import.snack(getActivity().findViewById(R.id.content_event_list), "No data available. Try for computer science");
+            getActivity().findViewById(R.id.list_events).setVisibility(View.GONE);
+            getActivity().findViewById(R.id.empty_view).setVisibility(View.VISIBLE);
+            getActivity().findViewById(R.id.empty_text).setVisibility(View.VISIBLE);
+            getActivity().findViewById(R.id.cube).setVisibility(View.VISIBLE);
+            getActivity().findViewById(R.id.reload).setVisibility(View.VISIBLE);
+            //   Import.snack(getActivity().findViewById(R.id.content_event_list), "No data available. Try for computer science");
         }
     }
 

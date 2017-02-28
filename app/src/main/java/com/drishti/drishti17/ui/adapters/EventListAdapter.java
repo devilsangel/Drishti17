@@ -14,12 +14,14 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.drishti.drishti17.R;
 import com.drishti.drishti17.ui.EventPage;
+import com.drishti.drishti17.util.UIUtil;
 import com.drishti.drishti17.util.db.EventTable;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by droidcafe on 2/5/2017
@@ -33,12 +35,14 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
     private FirebaseStorage storage = FirebaseStorage.getInstance();
     private Context context;
     static String from;
+    private Random random;
 
     public EventListAdapter(List<EventTable> eventList, Context context, String from) {
         this.from = from;
         this.eventList = eventList;
         this.context = context;
 
+        random = new Random();
     }
 
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -53,6 +57,9 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
     public void onBindViewHolder(final ViewHolder holder, int position) {
         EventTable event = eventList.get(position);
 
+        int placeholder = random.nextInt(context.getResources().getInteger(R.integer.blur_limit));
+        int error = random.nextInt(context.getResources().getInteger(R.integer.logo_limit));
+
         if (event.image != null &&event.image.startsWith("https://firebasestorage.googleapis.com/"))
         {
             Log.d(TAG, "onBindViewHolder: image url "+event.image);
@@ -60,6 +67,16 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
             Glide.with(context)
                     .using(new FirebaseImageLoader())
                     .load(gsReference)
+                    .error(UIUtil.getBackgroundImage(context,"drishti_logo"+error))
+                    .placeholder(UIUtil.getBackgroundImage(context,"blur"+placeholder))
+                    .crossFade()
+                    .into(holder.backImage);
+        }else{
+            Glide.with(context)
+                    .load(event.image)
+                    .error(UIUtil.getBackgroundImage(context,"drishti_logo"+error))
+                    .placeholder(UIUtil.getBackgroundImage(context,"blur"+placeholder))
+                    .crossFade()
                     .into(holder.backImage);
         }
 
