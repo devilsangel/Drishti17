@@ -68,22 +68,23 @@ public class UIUtil {
         return drawable;
     }
 
+    @TargetApi(Build.VERSION_CODES.M)
     public static void showPrompt(Activity activity, View target,
-                                  String primaryText, String secondaryText,
-                                  String sharedKey) {
+                                  String primaryText, String secondaryText) {
         new MaterialTapTargetPrompt.Builder(activity)
                 .setTarget(target)
                 .setPrimaryText(primaryText)
                 .setSecondaryText(secondaryText)
+                .setFocalColour(activity.getColor(R.color.black))
                 .setOnHidePromptListener(new MaterialTapTargetPrompt.OnHidePromptListener() {
                     @Override
                     public void onHidePrompt(MotionEvent event, boolean tappedTarget) {
-                        //Do something such as storing a value so that this prompt is never shown again
+                        Log.d(TAG, "onHidePrompt: prompt hidden");
                     }
 
                     @Override
                     public void onHidePromptComplete() {
-
+                        Log.d(TAG, "onHidePromptComplete: prompt hidden complete");
                     }
                 })
                 .show();

@@ -14,7 +14,7 @@ public class Global {
 
     //Shared preference keys
     public static final String PREF_EVENT_CURRENT_VERSION = "event_current_version";
-    public static final String PREF_HOME_FIRST = "help_prompt_home";
-    public static final String PREF_EVENTS_LIST_FIRST = "help_prompt_event_list";
-    public static final String PREF_EVENTS_PAGE_FIRST = "help_prompt_event_page";
+    public static final String PREF_HOME_PROMPT_SHOWN = "help_prompt_home";
+    public static final String PREF_EVENTS_LIST_PROMPT_SHOWN = "help_prompt_event_list";
+    public static final String PREF_EVENTS_PAGE_PROMPT_SHOWN = "help_prompt_event_page";
 }

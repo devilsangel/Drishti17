@@ -61,5 +61,52 @@
     </string-array>
 
 
+    <string-array name="dev_names">
+        <item>Nirmal Kumar</item>
+        <item>Kevin Joseph</item>
+        <item>Jayadeep</item>
+        <item>Mohammad Nisham</item>
+        <item>Amruth</item>
+    </string-array>
+
+    <string-array name="dev_roles">
+        <item>App Designer | Android Developer</item>
+        <item>Android Developer</item>
+        <item>Backened Developer</item>
+        <item>Backened Developer</item>
+        <item>Android Developer</item>
+    </string-array>
+
+    <string-array name="dev_mail">
+        <item>ksnirm@gmail.com</item>
+        <item>josephkevin1995@gmail.com</item>
+        <item>kmjayadeep@gmail.com</item>
+        <item>mnnishamk1995@gmail.com</item>
+        <item>amrith.mn@cet.ac.in</item>
+    </string-array>
+
+    <string-array name="dev_phone">
+        <item>9446089570</item>
+        <item>7559099023</item>
+        <item>9567125807</item>
+        <item>9497267385</item>
+        <item>7034376024</item>
+    </string-array>
+
+    <string-array name="dev_backgroud">
+        <item>tab_highlight3</item>
+        <item>blue_grad3</item>
+        <item>purple_grad3</item>
+        <item>nav_color4</item>
+        <item>violet</item>
+    </string-array>
+
+    <string-array name="dev_pic">
+        <item>dummy_user2</item>
+        <item>dummy_user1</item>
+        <item>dummy_user2</item>
+        <item>dummy_user1</item>
+        <item>dummy_user2</item>
+    </string-array>
 
 </resources>

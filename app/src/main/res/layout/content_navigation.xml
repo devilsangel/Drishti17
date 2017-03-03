@@ -5,221 +5,219 @@
     android:id="@+id/content_navigation"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary_nav"
+    android:background="@drawable/grad_blue"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:transitionName="@string/transition_navigation_icon"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.drishti.drishti17.ui.NavigationActivity"
-    android:transitionName="@string/transition_navigation_icon"
     tools:showIn="@layout/activity_navigation">
 
     <LinearLayout
+        android:id="@+id/layout_center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/layout_center"
         android:layout_centerInParent="true"
         android:layout_margin="15dp"
         android:orientation="vertical">
 
         <ImageView
             android:id="@+id/navigate_home"
+            style="@style/nav_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/circle_back_red"
-            style="@style/nav_image"
+            android:background="@drawable/circle_border"
             android:src="@drawable/ic_home_white_36dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Home"
+        <com.drishti.drishti17.ui.factory.SourceSansTextView
             android:id="@+id/text_home"
             style="@style/nav_text"
-            />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Home" />
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/layout_center_top"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/layout_center_top"
         android:layout_above="@id/layout_center"
         android:layout_alignLeft="@id/layout_center"
+        android:layout_marginBottom="8dp"
         android:orientation="vertical">
 
         <ImageView
             android:id="@+id/navigate_event"
+            style="@style/nav_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/circle_back"
-            style="@style/nav_image"
+            android:background="@drawable/circle_border"
             android:src="@drawable/ic_sort_by_alpha_white_24dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Events"
+        <com.drishti.drishti17.ui.factory.SourceSansTextView
             android:id="@+id/text_events"
             style="@style/nav_text"
-            />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Events" />
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/layout_center_bottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/layout_center_bottom"
-        android:layout_below="@id/layout_center"
         android:layout_alignLeft="@id/layout_center"
-        android:orientation="vertical">
+        android:layout_below="@id/layout_center"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:paddingLeft="-5dp">
 
         <ImageView
             android:id="@+id/navigate_expo"
+            style="@style/nav_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/circle_back_yellow"
-            style="@style/nav_image"
+            android:background="@drawable/circle_border"
             android:src="@drawable/ic_polymer_white_24dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cet Talks"
+        <com.drishti.drishti17.ui.factory.SourceSansTextView
             android:id="@+id/text_expo"
             style="@style/nav_text"
-            />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cet Talks" />
     </LinearLayout>
-
-   <LinearLayout
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_alignTop="@id/layout_center_top"
-       android:layout_marginTop="25dp"
-       android:layout_marginBottom="25dp"
-       android:layout_alignBottom="@id/layout_center_bottom"
-       android:layout_toLeftOf="@id/layout_center"
-       android:orientation="vertical">
-
-       <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="0dp"
-           android:id="@+id/layout_left_top"
-           android:layout_gravity="center"
-           android:layout_weight=".5"
-           android:gravity="center"
-           android:orientation="vertical">
-
-           <ImageView
-               android:id="@+id/navigate_schedule"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:background="@drawable/circle_back_purple"
-               style="@style/nav_image"
-               android:src="@drawable/ic_event_white_24dp" />
-
-           <TextView
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:text="Schedule"
-               android:id="@+id/text_schedule"
-               style="@style/nav_text"
-               />
-       </LinearLayout>
-
-       <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="0dp"
-           android:id="@+id/layout_left_bottom"
-           android:layout_gravity="center"
-           android:layout_weight=".5"
-           android:gravity="center"
-           android:orientation="vertical">
-
-           <ImageView
-               android:id="@+id/navigate_map"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:background="@drawable/circle_back_blue"
-               style="@style/nav_image"
-               android:src="@drawable/ic_map_white_24dp" />
-
-           <TextView
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:text="Map"
-               android:id="@+id/text_map"
-               style="@style/nav_text"
-               />
-       </LinearLayout>
-
-   </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@id/layout_center_top"
-        android:layout_marginTop="25dp"
-        android:layout_marginBottom="25dp"
         android:layout_alignBottom="@id/layout_center_bottom"
+        android:layout_alignTop="@id/layout_center_top"
+        android:layout_marginBottom="25dp"
+        android:layout_marginTop="25dp"
+        android:layout_toLeftOf="@id/layout_center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/layout_left_top"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="10dp"
+            android:layout_weight=".5"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/navigate_schedule"
+                style="@style/nav_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/circle_border"
+                android:src="@drawable/ic_event_white_24dp" />
+
+            <com.drishti.drishti17.ui.factory.SourceSansTextView
+                android:id="@+id/text_schedule"
+                style="@style/nav_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Schedule" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_left_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="10dp"
+            android:layout_weight=".5"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/navigate_map"
+                style="@style/nav_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/circle_border"
+                android:src="@drawable/ic_map_white_24dp" />
+
+            <com.drishti.drishti17.ui.factory.SourceSansTextView
+                android:id="@+id/text_map"
+                style="@style/nav_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Map" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/layout_center_bottom"
+        android:layout_alignTop="@id/layout_center_top"
+        android:layout_marginBottom="25dp"
+        android:layout_marginTop="25dp"
         android:layout_toRightOf="@id/layout_center"
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/layout_right_top"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:id="@+id/layout_right_top"
             android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
             android:layout_weight=".5"
             android:gravity="center"
             android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/navigate_profile"
+                style="@style/nav_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/circle_back_black"
-                style="@style/nav_image"
+                android:background="@drawable/circle_border"
                 android:src="@drawable/ic_perm_identity_white_24dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Profile"
+            <com.drishti.drishti17.ui.factory.SourceSansTextView
                 android:id="@+id/text_profile"
                 style="@style/nav_text"
-                />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Profile" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/layout_right_bottom"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:id="@+id/layout_right_bottom"
             android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
             android:layout_weight=".5"
             android:gravity="center"
+
             android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/navigate_dev"
+                style="@style/nav_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/circle_back_green"
-                style="@style/nav_image"
+                android:background="@drawable/circle_border"
                 android:src="@drawable/ic_developer_mode_white_24dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Developers"
+            <com.drishti.drishti17.ui.factory.SourceSansTextView
                 android:id="@+id/text_dev"
                 style="@style/nav_text"
-                />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Developers" />
         </LinearLayout>
 
     </LinearLayout>
-
-
-
 
 
 </RelativeLayout>

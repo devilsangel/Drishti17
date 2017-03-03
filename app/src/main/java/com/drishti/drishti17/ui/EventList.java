@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -19,8 +20,10 @@ import com.drishti.drishti17.R;
 import com.drishti.drishti17.async.services.EventsSyncService;
 import com.drishti.drishti17.ui.factory.ProgressDialog;
 import com.drishti.drishti17.ui.fragments.CompetitionListFragment;
+import com.drishti.drishti17.util.Global;
 import com.drishti.drishti17.util.GuillotineUtil;
 import com.drishti.drishti17.util.Import;
+import com.drishti.drishti17.util.UIUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,7 +40,8 @@ public class EventList extends AppCompatActivity implements
     View contentHamburger;
     String dept;
 
-    boolean isWorkshop;
+    boolean isWorkshop, isFirstTime;
+    int currentFragment = 0;
     BroadcastReceiver downloadCompleteReceiver;
     ProgressDialog progressDialog;
 
@@ -59,6 +63,7 @@ public class EventList extends AppCompatActivity implements
         registerReceivers();
 
         setUpUI();
+        doHelpAction();
         findViewById(R.id.reload).setOnClickListener(this);
     }
 
@@ -91,7 +96,8 @@ public class EventList extends AppCompatActivity implements
                 if (intent.getAction().matches("com.drishti.drishti17.EVENT_LIST_UPDATED")) {
                     Log.d(TAG, "onReceive: event flipList download finished");
                     progressDialog.disMissProgressDialog();
-                    setUpFragmentUi(0);
+                    if (intent.getBooleanExtra("isSyncSucess", false))
+                        setUpFragmentUi(currentFragment);
                 }
             }
         };
@@ -99,28 +105,28 @@ public class EventList extends AppCompatActivity implements
     }
 
     private void handleNavigation() {
-        if(isWorkshop){
+        if (isWorkshop) {
             contentHamburger.setVisibility(View.GONE);
             TextView title = (TextView) toolbar.findViewById(R.id.title);
             title.setText("Workshops");
-        }else{
-            new GuillotineUtil(this).setUpNav(root, findViewById(R.id.content_hamburger), toolbar, this);
+        } else {
+            new GuillotineUtil(this).setUpNav(root, contentHamburger, toolbar, this);
         }
     }
 
     private void setUpUI() {
-        if(Import.isEventDownloading()){
+        if (Import.isEventDownloading()) {
             progressDialog.showProgressDialog();
-        }else{
-            setUpFragmentUi(0);
+        } else {
+            setUpFragmentUi(currentFragment);
         }
     }
 
 
     private void setUpFragmentUi(int isEventWorkshop) {
 
-        String where = isWorkshop ?  "is_workshop = 1 ":
-                "category = ? and is_workshop = "+isEventWorkshop;
+        String where = isWorkshop ? "is_workshop = 1 " :
+                "category = ? and is_workshop = " + isEventWorkshop;
 
         Log.d(TAG, "setUpFragmentUi: setting up fragments");
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -130,7 +136,7 @@ public class EventList extends AppCompatActivity implements
             Log.d(TAG, "setUpFragmentUi: some fragment already present");
             fragmentTransaction.remove(competitions);
         }
-        Fragment deptListFragment = CompetitionListFragment.newInstance(dept,where);
+        Fragment deptListFragment = CompetitionListFragment.newInstance(dept, where);
         fragmentTransaction.add(R.id.content_event_list, deptListFragment, "competitions");
         fragmentTransaction.commit();
 
@@ -143,11 +149,13 @@ public class EventList extends AppCompatActivity implements
         switch (id) {
             case R.id.competitions_group:
                 text = getString(R.string.competitions);
-                setUpFragmentUi(0);
+                currentFragment = 0;
+                setUpFragmentUi(currentFragment);
                 break;
             case R.id.workshops_group:
                 text = getString(R.string.workshops);
-                setUpFragmentUi(1);
+                currentFragment = 1;
+                setUpFragmentUi(currentFragment);
                 break;
             case R.id.informals_group:
                 text = getString(R.string.informals);
@@ -160,7 +168,7 @@ public class EventList extends AppCompatActivity implements
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.reload:
                 reload();
                 break;
@@ -172,4 +180,23 @@ public class EventList extends AppCompatActivity implements
         EventsSyncService.startDownload(this);
 
     }
+
+    private void doHelpAction() {
+        if (Import.checkShowPrompt(this, Global.PREF_EVENTS_LIST_PROMPT_SHOWN)) {
+            isFirstTime = true;
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Log.d(TAG, "run: ");
+                    if (isFirstTime && !isWorkshop)
+                        UIUtil.showPrompt(EventList.this, contentHamburger,
+                                getString(R.string.prompt_event_list_title),
+                                getString(R.string.prompt_event_list_desp,dept));
+                }
+            }, 4000);
+        }
+    }
+
 }
+

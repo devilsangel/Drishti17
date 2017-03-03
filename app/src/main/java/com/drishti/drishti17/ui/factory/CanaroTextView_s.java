@@ -1,0 +1,24 @@
+package com.drishti.drishti17.ui.factory;
+
+import android.content.Context;
+import android.util.AttributeSet;
+import android.widget.TextView;
+
+import com.drishti.drishti17.util.Import;
+
+
+public class CanaroTextView_s extends TextView {
+    public CanaroTextView_s(Context context) {
+        this(context, null);
+    }
+
+    public CanaroTextView_s(Context context, AttributeSet attrs) {
+        this(context, attrs, 0);
+    }
+
+    public CanaroTextView_s(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        Import.settypefaces(context,"canaro_extra_bold.otf",this);
+    }
+
+}

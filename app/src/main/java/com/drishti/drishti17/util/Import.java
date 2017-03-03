@@ -60,8 +60,6 @@ public class Import {
     }
 
 
-
-
     public static boolean isVersionOK(int base_version) {
         return (Build.VERSION.SDK_INT >= base_version);
     }
@@ -112,15 +110,27 @@ public class Import {
         activity.startActivity(intent);
     }
 
-    public static String  getStringSharedPerf(Context context, String sharedKey) {
+    public static String getStringSharedPerf(Context context, String sharedKey) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(Global.SHARED_PREF, 0);
         return sharedPreferences.getString(sharedKey, "");
     }
 
-    public static void setSharedPref(Context context, String sharedKey, String  value) {
+    public static boolean getBooleanSharedPref(Context context, String sharedKey) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Global.SHARED_PREF, 0);
+        return sharedPreferences.getBoolean(sharedKey, false);
+    }
+
+    public static void setSharedPref(Context context, String sharedKey, String value) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(Global.SHARED_PREF, 0);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(sharedKey, value);
+        editor.apply();
+    }
+
+    public static void setSharedPref(Context context, String sharedKey, boolean value) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Global.SHARED_PREF, 0);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(sharedKey, value);
         editor.apply();
     }
 
@@ -139,14 +149,14 @@ public class Import {
             cacheExpiration = 0;
         }
 
-        Log.d(TAG, "fetchRemoteConfig: cache expiration "+cacheExpiration);
+        Log.d(TAG, "fetchRemoteConfig: cache expiration " + cacheExpiration);
         remoteConfig.fetch(cacheExpiration).addOnCompleteListener(activity, new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
-                    Log.d(TAG, "onComplete: before activating "+remoteConfig.getString("event_current_version"));
+                if (task.isSuccessful()) {
+                    Log.d(TAG, "onComplete: before activating " + remoteConfig.getString("event_current_version"));
                     remoteConfig.activateFetched();
-                    Log.d(TAG, "onComplete: after activating "+remoteConfig.getString("event_current_version"));
+                    Log.d(TAG, "onComplete: after activating " + remoteConfig.getString("event_current_version"));
                     onConfigActivated(context);
                 }
             }
@@ -154,7 +164,21 @@ public class Import {
     }
 
     public static void onConfigActivated(Context context) {
-        if(EventsSyncService.checkDownload(context))
+        if (EventsSyncService.checkDownload(context))
             EventsSyncService.startDownload(context);
+    }
+
+    public static boolean checkShowPrompt(Context context, String promptKey) {
+        Log.d(TAG, "checkShowPrompt: "+getBooleanSharedPref(context, promptKey));
+        return !getBooleanSharedPref(context, promptKey);
+    }
+
+    public static void setPromptShown(Context context, String promptKey) {
+        setSharedPref(context, promptKey, false);
+    }
+
+    public static int getColorId(Context context, String colorId) {
+        String uri = "color/" + colorId;
+        return context.getResources().getIdentifier(uri, null, context.getPackageName());
     }
 }

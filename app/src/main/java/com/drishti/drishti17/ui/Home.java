@@ -2,6 +2,7 @@ package com.drishti.drishti17.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -13,6 +14,7 @@ import com.drishti.drishti17.ui.adapters.HomeFlipAdapter;
 import com.drishti.drishti17.ui.factory.ProgressDialog;
 import com.drishti.drishti17.util.ApiClient;
 import com.drishti.drishti17.util.ApiInterface;
+import com.drishti.drishti17.util.Global;
 import com.drishti.drishti17.util.Import;
 import com.drishti.drishti17.util.NavUtil;
 import com.drishti.drishti17.util.UIUtil;
@@ -38,6 +40,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener,
     FloatingActionButton fab;
     ProgressDialog progressDialog;
     List<HighLightModel> flipList;
+    private boolean isFirstTime = false;
 
     private FlipView mFlipView;
     private HomeFlipAdapter mAdapter;
@@ -56,6 +59,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener,
         Log.d(TAG, "onCreate: going to start");
         Import.fetchRemoteConfig(this, this);
 
+        doHelpAction();
 //        EventTable.deleteAll(EventTable.class);
     }
 
@@ -88,7 +92,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener,
                     Log.d(TAG, "onResponse: size of highligths " + highLightModels.size());
                     setupFlip(highLightModels);
                 } else {
-                    Log.e(TAG, "onResponse: response unsucessful " );
+                    Log.e(TAG, "onResponse: response unsucessful ");
                     handleEmptyFlip();
                 }
             }
@@ -130,8 +134,8 @@ public class Home extends AppCompatActivity implements View.OnClickListener,
                 null, null);
         List<HighLightModel> flipList = new ArrayList<>();
         for (EventTable item : eventModels) {
-            HighLightModel flipModel = new HighLightModel(item.name,item.description,
-                    item.image,item.server_id);
+            HighLightModel flipModel = new HighLightModel(item.name, item.description,
+                    item.image, item.server_id);
 
             flipList.add(flipModel);
         }
@@ -160,6 +164,10 @@ public class Home extends AppCompatActivity implements View.OnClickListener,
         switch (view.getId()) {
             case R.id.fab:
                 NavUtil.openNavigation(this, this, fab);
+                if(isFirstTime){
+                    isFirstTime = !isFirstTime;
+                     Import.setPromptShown(this,Global.PREF_HOME_PROMPT_SHOWN);
+                }
                 break;
         }
     }
@@ -174,7 +182,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener,
 
     @Override
     public void onPageRequested(int page) {
-        Log.d(TAG, "onPageRequested: page "+page);
+        Log.d(TAG, "onPageRequested: page " + page);
     }
 
     @Override
@@ -185,4 +193,19 @@ public class Home extends AppCompatActivity implements View.OnClickListener,
     }
 
 
+    private void doHelpAction() {
+        if (Import.checkShowPrompt(this, Global.PREF_HOME_PROMPT_SHOWN)) {
+            isFirstTime = true;
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Log.d(TAG, "run: ");
+                    if(isFirstTime)
+                        UIUtil.showPrompt(Home.this, fab, getString(R.string.prompt_home_title),
+                                getString(R.string.prompt_home_desp));
+                }
+            }, 5000);
+        }
+    }
 }

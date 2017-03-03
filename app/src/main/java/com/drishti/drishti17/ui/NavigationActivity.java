@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 
 import com.drishti.drishti17.R;
 import com.drishti.drishti17.ui.transition.FabTransform;
@@ -33,13 +32,13 @@ public class NavigationActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void setupUI() {
-        Import.settypefaces(this,"SourceSansPro-Regular.otf", (TextView) findViewById(R.id.text_home));
+     /*   Import.settypefaces(this,"SourceSansPro-Regular.otf", (TextView) findViewById(R.id.text_home));
         Import.settypefaces(this,"SourceSansPro-Regular.otf", (TextView) findViewById(R.id.text_events));
         Import.settypefaces(this,"SourceSansPro-Regular.otf", (TextView) findViewById(R.id.text_expo));
         Import.settypefaces(this,"SourceSansPro-Regular.otf", (TextView) findViewById(R.id.text_dev));
         Import.settypefaces(this,"SourceSansPro-Regular.otf", (TextView) findViewById(R.id.text_schedule));
         Import.settypefaces(this,"SourceSansPro-Regular.otf", (TextView) findViewById(R.id.text_profile));
-        Import.settypefaces(this,"SourceSansPro-Regular.otf", (TextView) findViewById(R.id.text_map));
+        Import.settypefaces(this,"SourceSansPro-Regular.otf", (TextView) findViewById(R.id.text_map));*/
 
         findViewById(R.id.layout_center_top).setOnClickListener(this);
         findViewById(R.id.layout_center_bottom).setOnClickListener(this);

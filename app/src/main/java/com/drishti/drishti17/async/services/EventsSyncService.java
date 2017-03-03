@@ -34,7 +34,7 @@ public class EventsSyncService extends IntentService {
         FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.getInstance();
         String currentVersion = Import.getStringSharedPerf(context, Global.PREF_EVENT_CURRENT_VERSION);
         String remoteVersion = remoteConfig.getString("event_current_version");
-        return (currentVersion == null)|| !currentVersion.equals(remoteVersion);
+        return (currentVersion == null) || !currentVersion.equals(remoteVersion);
     }
 
     public static void startDownload(Context context) {
@@ -49,6 +49,9 @@ public class EventsSyncService extends IntentService {
         Import.setEventDownloadingStatus(true);
         if (NetworkUtil.isNetworkAvailable(this))
             download();
+        else{
+            sendBroadcast(false);
+        }
     }
 
     @Override
@@ -56,9 +59,6 @@ public class EventsSyncService extends IntentService {
         super.onDestroy();
         Import.setEventDownloadingStatus(false);
 
-        Intent intent = new Intent();
-        intent.setAction("com.drishti.drishti17.EVENT_LIST_UPDATED");
-        sendBroadcast(intent);
     }
 
     void download() {
@@ -69,6 +69,7 @@ public class EventsSyncService extends IntentService {
             @Override
             public void onResponse(Call<List<EventModel>> call, Response<List<EventModel>> response) {
                 Log.d(TAG, "onResponse");
+
                 if (response.isSuccessful()) {
                     cleanTable();
                     List<EventModel> eventModels = response.body();
@@ -78,24 +79,36 @@ public class EventsSyncService extends IntentService {
                         EventTable eventTable = new EventTable(model);
                         eventTable.save();
                     }
+                    sendBroadcast(true);
+
                 } else {
                     Log.d(TAG, "onResponse: response failed");
+                    sendBroadcast(false);
                 }
+
             }
 
             @Override
             public void onFailure(Call<List<EventModel>> call, Throwable t) {
                 Log.e(TAG, "onFailure: failed call", t);
+                sendBroadcast(false);
             }
         });
 
         FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.getInstance();
         String remoteVersion = remoteConfig.getString("event_current_version");
-        Import.setSharedPref(this,Global.PREF_EVENT_CURRENT_VERSION,remoteVersion);
+        Import.setSharedPref(this, Global.PREF_EVENT_CURRENT_VERSION, remoteVersion);
     }
 
     private void cleanTable() {
         EventTable.deleteAll(EventTable.class);
+    }
+
+    private void sendBroadcast(boolean isSyncSucess) {
+        Intent intent = new Intent();
+        intent.setAction("com.drishti.drishti17.EVENT_LIST_UPDATED");
+        intent.putExtra("isSyncSucess", isSyncSucess);
+        sendBroadcast(intent);
     }
 
 

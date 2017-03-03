@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#10151C</color>
     <color name="colorAccent">#f25f5c</color>
 
-    <color name="colorPrimary_nav">#E02828</color>
+    <color name="colorPrimary_nav">#1B232E</color>
     <color name="black_overlay">#66000000</color>
     <color name="black_overlay_dark">#af000000</color>
 
@@ -60,6 +60,22 @@
     <color name="black">#000000</color>
     <color name="grey">#5A5A5E</color>
     <color name="blur">#25ffffff</color>
+
+    <color name="blue_grad1">#9180FF</color>
+    <color name="blue_grad2">#6299FF</color>
+    <color name="blue_grad3">#09CAFF</color>
+
+    <color name="purple_grad1">#A976F6</color>
+    <color name="purple_grad2">#D372C5</color>
+    <color name="purple_grad3">#F96E99</color>
+
+    <color name="nav_color1">#abd2fa</color>
+    <color name="nav_color2">#33658a</color>
+    <color name="nav_color3">#091540</color>
+    <color name="nav_color4">#f26419</color>
+    <color name="nav_color5">#f6ae2d</color>
+    <color name="nav_color6">#3d518c</color>
+    <color name="nav_color7">#1b2cc1</color>
 
 </resources>
 

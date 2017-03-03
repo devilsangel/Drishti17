@@ -63,6 +63,7 @@ public class CompetitionListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         if (!Import.isEventDownloading()) {
+            Log.d(TAG, "onViewCreated: loading events");
             loadEvents();
         }
     }
@@ -91,7 +92,7 @@ public class CompetitionListFragment extends Fragment {
             List<EventTable> eventModels = EventTable.find(EventTable.class,
                     where, where.contains("?") ? args : null);
 
-            Log.d(TAG, "loadEvents: event no " + eventModels.size());
+            Log.d(TAG, "loadEvents: total no of event " + eventModels.size());
             return eventModels;
         }
 

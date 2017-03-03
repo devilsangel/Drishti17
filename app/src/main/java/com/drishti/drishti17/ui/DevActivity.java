@@ -4,11 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.HorizontalScrollView;
 
 import com.drishti.drishti17.R;
+import com.drishti.drishti17.ui.adapters.DevListAdapter;
 import com.drishti.drishti17.util.NavUtil;
 import com.drishti.drishti17.util.UIUtil;
 
@@ -30,28 +31,15 @@ public class DevActivity extends AppCompatActivity implements View.OnClickListen
         ButterKnife.bind(this);
         fab.setOnClickListener(this);
 
-        HorizontalScrollView hs = (HorizontalScrollView) findViewById(R.id.scroll_list);
+        setUI();
+    }
 
-        final View test = findViewById(R.id.test);
-        test.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d(TAG, "onCreate: " + test.getTop() + " " + test.getLeft());
+    private void setUI() {
+        RecyclerView devlist = (RecyclerView) findViewById(R.id.dev_list);
+        devlist.setHasFixedSize(true);
+        devlist.setLayoutManager(new LinearLayoutManager(this));
+        devlist.setAdapter(new DevListAdapter(this,this));
 
-            }
-        });
-
-       /* for (int i = 0; i < 8; i++) {
-            final int j = i;
-            Log.d(TAG, "onCreate: i is "+i);
-            hs.getChildAt(i).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Import.toast(DevActivity.this,"Position is "+j);
-
-                }
-            });
-        }*/
     }
 
     @Override

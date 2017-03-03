@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/layout_user"
+        style="@style/dev_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="130dp"
+        android:layout_marginTop="0dp"
+        android:minHeight="160dp"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:visibility="visible">
+
+        <com.drishti.drishti17.ui.factory.CanaroTextView_s
+            android:id="@+id/name"
+            style="@style/dev_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <com.drishti.drishti17.ui.factory.SourceSansTextView
+            android:id="@+id/role"
+            style="@style/dev_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/name"
+            android:layout_marginBottom="10dp" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="1dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/role"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/lines_grey" />
+
+        <ImageView
+            android:id="@+id/mail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/role"
+            android:layout_toLeftOf="@id/divider"
+            android:padding="10dp"
+            android:src="@drawable/icon_mail" />
+
+        <ImageView
+            android:id="@+id/phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/role"
+            android:layout_toRightOf="@id/divider"
+            android:padding="10dp"
+            android:src="@drawable/icon_phone" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/layout_user"
+        android:layout_alignTop="@id/layout_user"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="-140dp"
+        android:layout_marginTop="10dp"
+        android:layout_toLeftOf="@id/layout_user"
+        android:scaleType="centerCrop" />
+
+
+</RelativeLayout>
