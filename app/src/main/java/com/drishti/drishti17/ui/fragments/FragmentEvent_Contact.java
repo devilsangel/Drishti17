@@ -85,8 +85,16 @@ public class FragmentEvent_Contact extends Fragment {
     private void setContact(int parentView, String name,
                             String phone, String email, final int mode) {
 
+        if(name == null || name.equals("")){
+           getActivity().findViewById(R.id.sep).setVisibility(View.GONE);
+            return;
+        }
+
+
         View parent = getActivity().findViewById(parentView);
 
+        View icon = parent.findViewById(R.id.icon_name);
+        icon.setVisibility(View.VISIBLE);
         TextView nameView = (TextView) parent.findViewById(R.id.name);
         nameView.setText(name);
 

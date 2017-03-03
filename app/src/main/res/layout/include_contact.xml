@@ -11,7 +11,7 @@
         android:layout_marginLeft="20dp"
         android:padding="10dp"
         android:src="@drawable/icon_man"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
     <com.drishti.drishti17.ui.factory.SourceSansTextView
         android:id="@+id/name"
