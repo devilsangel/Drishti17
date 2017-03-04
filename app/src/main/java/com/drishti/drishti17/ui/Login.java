@@ -190,10 +190,12 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
+                final FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
 
                     // User is signed in
+                    Global.uid=user.getUid();
+                    Global.user=user.getDisplayName();
                     final ApiInterface service = ApiClient.getService();
                     AuthUtil.getFirebaseToken(new AuthUtil.Listener() {
                         @Override
@@ -203,8 +205,10 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                                 @Override
                                 public void onResponse(Call<Student> call, Response<Student> response) {
                                     Student student=response.body();
+                                    Global.id=student.id;
                                     if(student.registered){
                                         Global.isguest=false;
+                                        Global.college=student.college;
                                         startActivity(new Intent(Login.this,Home.class));
                                         finish();
                                     }else{

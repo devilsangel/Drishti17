@@ -42,4 +42,6 @@ public interface ApiInterface {
     @GET("public/college")
     Call<List<College>> getAllColleges();
 
+    @GET("student/event")
+    Call<List<EventModel>> getUserEvents(@Header("x-auth-token") String idToken);
 }

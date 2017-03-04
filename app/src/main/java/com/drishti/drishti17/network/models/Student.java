@@ -7,10 +7,10 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class Student {
-    public int id,score;
+    public int score;
     @SerializedName("normalizedScore")
     public int gunt_score;
-    public String name,uid,phone,picture,collegeId;
+    public String name,uid,phone,picture,collegeId,college,id;
     public enum Accomodation{none,male,female};
     public boolean registered;
 }
