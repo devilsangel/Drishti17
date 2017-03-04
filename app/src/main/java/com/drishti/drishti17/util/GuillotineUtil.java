@@ -14,7 +14,7 @@ import com.drishti.drishti17.R;
 import com.yalantis.guillotine.animation.GuillotineAnimation;
 
 /**
- * Created by droidcafe on 2/9/2017
+ * Created by nirmal on 2/9/2017
  */
 
 public class GuillotineUtil implements View.OnClickListener {

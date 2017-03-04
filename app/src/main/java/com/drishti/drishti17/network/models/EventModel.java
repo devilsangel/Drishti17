@@ -5,7 +5,7 @@ import android.database.Cursor;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by droidcafe on 2/9/2017
+ * Created by nirmal on 2/9/2017
  */
 
 public class EventModel {

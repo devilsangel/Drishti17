@@ -19,14 +19,13 @@ import android.widget.Toast;
 
 import com.drishti.drishti17.BuildConfig;
 import com.drishti.drishti17.R;
-import com.drishti.drishti17.async.services.EventsSyncService;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 
 /**
- * Created by droidcafe on 2/2/2017.
+ * Created by nirmal on 2/2/2017.
  */
 
 public class Import {
@@ -176,8 +175,7 @@ public class Import {
     }
 
     public static void onConfigActivated(Context context) {
-        if (EventsSyncService.checkDownload(context))
-            EventsSyncService.startDownload(context);
+        Log.d(TAG, "onConfigActivated: config activated");
     }
 
     public static boolean checkShowPrompt(Context context, String promptKey) {

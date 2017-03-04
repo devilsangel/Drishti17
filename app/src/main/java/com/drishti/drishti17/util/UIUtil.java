@@ -27,7 +27,7 @@ import java.util.Random;
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 /**
- * Created by droidcafe on 2/9/2017.
+ * Created by nirmal on 2/9/2017
  */
 
 public class UIUtil {

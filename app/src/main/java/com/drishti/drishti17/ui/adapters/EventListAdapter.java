@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Created by droidcafe on 2/5/2017
+ * Created by nirmal on 2/5/2017
  */
 
 public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.ViewHolder> {

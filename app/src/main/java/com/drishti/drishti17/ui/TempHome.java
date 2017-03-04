@@ -7,7 +7,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.drishti.drishti17.R;
-import com.drishti.drishti17.async.services.FCMService;
 
 public class TempHome extends AppCompatActivity implements View.OnClickListener {
 
@@ -17,11 +16,11 @@ public class TempHome extends AppCompatActivity implements View.OnClickListener 
         setContentView(R.layout.activity_temp_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-       findViewById(R.id.button_home).setOnClickListener(this);
-       findViewById(R.id.button_login).setOnClickListener(this);
-       findViewById(R.id.button_qr).setOnClickListener(this);
-       findViewById(R.id.button_events).setOnClickListener(this);
-       findViewById(R.id.button_event_detail).setOnClickListener(this);
+        findViewById(R.id.button_home).setOnClickListener(this);
+        findViewById(R.id.button_login).setOnClickListener(this);
+        findViewById(R.id.button_qr).setOnClickListener(this);
+        findViewById(R.id.button_events).setOnClickListener(this);
+        findViewById(R.id.button_event_detail).setOnClickListener(this);
         findViewById(R.id.button_register).setOnClickListener(this);
         findViewById(R.id.button_map).setOnClickListener(this);
         findViewById(R.id.button_radio).setOnClickListener(this);

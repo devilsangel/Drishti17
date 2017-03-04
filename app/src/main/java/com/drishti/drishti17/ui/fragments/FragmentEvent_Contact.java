@@ -59,11 +59,11 @@ public class FragmentEvent_Contact extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         Log.d(TAG, "onViewCreated: view created " + paddingHeight);
-        changePadding(paddingHeight);
+        setUI(paddingHeight);
     }
 
 
-    public void changePadding(int paddingHeight) {
+    public void setUI(int paddingHeight) {
         this.paddingHeight = paddingHeight;
         final View view1 = getActivity().findViewById(R.id.content_contact);
         view1.setPadding(0, paddingHeight, 0,

@@ -20,7 +20,7 @@ import com.drishti.drishti17.util.UIUtil;
 import java.util.HashMap;
 
 /**
- * Created by droidcafe on 2/10/2017
+ * Created by nirmal on 2/10/2017
  */
 
 public class DepartmentListAdapter extends RecyclerView.Adapter<DepartmentListAdapter.ViewHolder> {

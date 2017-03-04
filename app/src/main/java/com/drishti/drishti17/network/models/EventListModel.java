@@ -3,7 +3,7 @@ package com.drishti.drishti17.network.models;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by droidcafe on 2/5/2017
+ * Created by nirmal on 2/5/2017
  */
 
 public class EventListModel {

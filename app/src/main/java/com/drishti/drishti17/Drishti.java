@@ -6,7 +6,7 @@ import android.content.Context;
 import com.facebook.stetho.Stetho;
 
 /**
- * Created by droidcafe on 2/12/2017
+ * Created by nirmal on 2/12/2017
  */
 public class Drishti extends Application{
 

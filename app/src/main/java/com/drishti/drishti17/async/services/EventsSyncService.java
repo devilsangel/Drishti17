@@ -12,7 +12,6 @@ import com.drishti.drishti17.util.ApiInterface;
 import com.drishti.drishti17.util.Global;
 import com.drishti.drishti17.util.Import;
 import com.drishti.drishti17.util.NetworkUtil;
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 
 import java.util.List;
 
@@ -31,10 +30,9 @@ public class EventsSyncService extends IntentService {
 
     public static boolean checkDownload(Context context) {
 
-        FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.getInstance();
         String currentVersion = Import.getStringSharedPerf(context, Global.PREF_EVENT_CURRENT_VERSION);
-        String remoteVersion = remoteConfig.getString("event_current_version");
-        return (currentVersion == null) || !currentVersion.equals(remoteVersion);
+        String remoteVersion = Import.getStringSharedPerf(context, Global.PREF_EVENT_UPDATE_VERSION);
+        return (currentVersion == null) || remoteVersion == null || !currentVersion.equals(remoteVersion);
     }
 
     public static void startDownload(Context context) {
@@ -49,7 +47,7 @@ public class EventsSyncService extends IntentService {
         Import.setEventDownloadingStatus(true);
         if (NetworkUtil.isNetworkAvailable(this))
             download();
-        else{
+        else {
             sendBroadcast(false);
         }
     }
@@ -74,7 +72,7 @@ public class EventsSyncService extends IntentService {
                     Log.d(TAG, "onResponse: event list " + eventModels.size());
                     for (EventModel model : eventModels) {
                         Log.d(TAG, "onResponse: event " + model.name + " " + model.isWorkshop);
-                        EventsTable.insert(EventsSyncService.this,model);
+                        EventsTable.insert(EventsSyncService.this, model);
                     }
                     sendBroadcast(true);
 
@@ -92,9 +90,13 @@ public class EventsSyncService extends IntentService {
             }
         });
 
-        FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.getInstance();
-        String remoteVersion = remoteConfig.getString("event_current_version");
-        Import.setSharedPref(this, Global.PREF_EVENT_CURRENT_VERSION, remoteVersion);
+        String remoteVersion = Import.getStringSharedPerf(this, Global.PREF_EVENT_UPDATE_VERSION);
+        if (remoteVersion == null) {
+            Import.setSharedPref(this, Global.PREF_EVENT_UPDATE_VERSION, 1);
+            Import.setSharedPref(this, Global.PREF_EVENT_CURRENT_VERSION, 1);
+        } else {
+            Import.setSharedPref(this, Global.PREF_EVENT_CURRENT_VERSION, remoteVersion);
+        }
     }
 
     private void cleanTable() {

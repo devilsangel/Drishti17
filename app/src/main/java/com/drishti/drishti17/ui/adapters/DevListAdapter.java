@@ -15,7 +15,7 @@ import com.drishti.drishti17.util.Import;
 import com.drishti.drishti17.util.UIUtil;
 
 /**
- * Created by droidcafe on 3/3/2017
+ * Created by nirmal on 3/3/2017
  */
 
 public class DevListAdapter extends RecyclerView.Adapter<DevListAdapter.ViewHolder> {

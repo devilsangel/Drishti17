@@ -11,7 +11,7 @@ import com.drishti.drishti17.util.Global;
 import com.drishti.drishti17.util.Import;
 
 /**
- * Created by droidcafe on 3/4/2017.
+ * Created by nirmal on 3/4/2017.
  */
 
 public class DBOpenHelper  extends SQLiteOpenHelper {

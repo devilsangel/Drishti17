@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Created by droidcafe on 2/19/2017
+ * Created by nirmal on 2/19/2017
  */
 
 public class HomeFlipAdapter extends BaseAdapter {

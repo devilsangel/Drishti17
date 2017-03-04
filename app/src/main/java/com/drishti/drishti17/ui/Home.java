@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.drishti.drishti17.R;
+import com.drishti.drishti17.async.services.EventsSyncService;
 import com.drishti.drishti17.db.DBOpenHelper;
 import com.drishti.drishti17.db.EventsTable;
 import com.drishti.drishti17.network.models.EventModel;
@@ -59,7 +60,8 @@ public class Home extends AppCompatActivity implements View.OnClickListener,
         progressDialog = new ProgressDialog(this);
 
         Log.d(TAG, "onCreate: going to start");
-        Import.fetchRemoteConfig(this, this);
+        if (EventsSyncService.checkDownload(this))
+            EventsSyncService.startDownload(this);
 
         doHelpAction();
         DBOpenHelper.newInstance(this).returnSQl();
@@ -133,7 +135,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener,
     }
 
     private void handleEmptyFlip() {
-        List<EventModel> eventModels = EventsTable.getAllEventsMinified(this,null,null,null);
+        List<EventModel> eventModels = EventsTable.getAllEventsMinified(this, null, null, null);
         List<HighLightModel> flipList = new ArrayList<>();
         for (EventModel item : eventModels) {
             HighLightModel flipModel = new HighLightModel(item.name, item.description,
