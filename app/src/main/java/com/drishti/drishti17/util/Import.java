@@ -77,12 +77,12 @@ public class Import {
     public static String daytoDate(String day) {
         if (day == null) return null;
         switch (day) {
-            case "1":
+            case "17":
+                return "17/3/17";
+            case "18":
+                return "18/3/17";
+            case "19":
                 return "19/3/17";
-            case "2":
-                return "20/3/17";
-            case "3":
-                return "21/3/17";
         }
         return null;
     }

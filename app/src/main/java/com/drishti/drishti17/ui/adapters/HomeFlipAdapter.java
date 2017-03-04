@@ -55,7 +55,7 @@ public class HomeFlipAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return position< items.size() ? items.get(position).getId() : -1;
+        return position < items.size() && position >=  0 ? items.get(position).getId() : -1;
     }
 
     @Override
@@ -83,7 +83,7 @@ public class HomeFlipAdapter extends BaseAdapter {
 
 
         holder.title.setText(items.get(position).getName());
-        holder.desp.setText(items.get(position).getPromo());
+        UIUtil.printHTML(holder.desp, items.get(position).getPromo());
 
         // int id = Import.getBackgroundImage(context,items.get(position).getImage());
         UIUtil.loadPic(context, holder.promo, items.get(position).getImage(), placeholder, error);

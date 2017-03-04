@@ -61,11 +61,11 @@ public class FragmentEvent_General extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         Log.d(TAG, "onViewCreated: view created " + paddingTop);
-        changePadding(paddingTop);
+        setUI(paddingTop);
     }
 
 
-    public void changePadding(int paddingHeight) {
+    public void setUI(int paddingHeight) {
         this.paddingTop = paddingHeight;
         final View view1 = getActivity().findViewById(R.id.content_general);
         view1.setPadding(0, paddingHeight, 0,
@@ -89,7 +89,7 @@ public class FragmentEvent_General extends Fragment {
 
         setFirstView(R.id.layout_reg, "Rs " + eventItem.regFee, R.drawable.icon_fees);
 
-        setNoMembers();
+         setNoMembers();
 
         Log.d(TAG, "loadUI: is workshop " + eventItem.isWorkshop);
         if (eventItem.isWorkshop) {
@@ -99,17 +99,25 @@ public class FragmentEvent_General extends Fragment {
         }
     }
 
-    private void setFirstView(int parentView, String text, int iconDrawable) {
-        if (text == null || text.equals("0"))
+    private void setFirstView(int parentViewId, String text, int iconDrawable) {
+        View parentView = getActivity().findViewById(parentViewId);
+        if (text == null || text.equals("0")) {
             return;
-        setView(parentView, R.id.text1, R.id.icon1, text, iconDrawable);
+        }
+        Log.d(TAG, "setFirstView: ");
+        parentView.findViewById(R.id.layout1).setVisibility(View.VISIBLE);
+        setView(parentViewId, R.id.text1, R.id.icon1, text, iconDrawable);
     }
 
     private void setSecondView(int parentViewId, String text, int iconDrawable) {
-        if (text == null || text.equals("0"))
-            return;
         View parentView = getActivity().findViewById(parentViewId);
-        parentView.findViewById(R.id.line).setVisibility(View.VISIBLE);
+
+        if (text == null || text.equals("0")) {
+            return;
+        }
+        // disapperDivider(parentView);
+        Log.d(TAG, "setSecondView: setting second view");
+        parentView.findViewById(R.id.layout2).setVisibility(View.VISIBLE);
         setView(parentViewId, R.id.text2, R.id.icon2, text, iconDrawable);
     }
 
@@ -130,6 +138,10 @@ public class FragmentEvent_General extends Fragment {
     private void setView(int parentViewId, int textViewId, int iconId, String text, int iconDrawable) {
 
         View parentView = getActivity().findViewById(parentViewId);
+        Log.d(TAG, "setView: visibility of parent view " + parentView.isShown());
+        if (!parentView.isShown()) parentView.setVisibility(View.VISIBLE);
+
+
         ImageView icon = (ImageView) parentView.findViewById(iconId);
         icon.setVisibility(View.VISIBLE);
 
@@ -142,6 +154,10 @@ public class FragmentEvent_General extends Fragment {
 
     }
 
+    private void disapperDivider(View parentView) {
+        parentView.findViewById(R.id.line).setVisibility(View.VISIBLE);
+    }
+
     private void loadWorkshop() {
         getActivity().findViewById(R.id.layout_prize).setVisibility(View.GONE);
     }
@@ -151,19 +167,19 @@ public class FragmentEvent_General extends Fragment {
         if (eventItem.prize1 != 0) {
             View first = prize.findViewById(R.id.include_first);
             setIncludeView(first, R.drawable.icon_first,
-                    "Rs "+eventItem.prize1);
+                    "Rs " + eventItem.prize1);
         }
         if (eventItem.prize2 != 0) {
             prize.findViewById(R.id.line_prize1).setVisibility(View.VISIBLE);
             View second = prize.findViewById(R.id.include_second);
             setIncludeView(second, R.drawable.icon_second,
-                    "Rs. "+eventItem.prize2);
+                    "Rs. " + eventItem.prize2);
         }
         if (eventItem.prize3 != 0) {
             prize.findViewById(R.id.line_prize2).setVisibility(View.VISIBLE);
             View third = prize.findViewById(R.id.include_third);
             setIncludeView(third, R.drawable.icon_third,
-                    "Rs. "+eventItem.prize3);
+                    "Rs. " + eventItem.prize3);
         }
     }
 

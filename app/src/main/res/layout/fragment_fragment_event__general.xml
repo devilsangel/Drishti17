@@ -29,12 +29,18 @@
             android:layout_below="@id/title" />
 
         <include
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
             android:id="@+id/layout_time"
-            layout="@layout/include_event_detail_item" />
+            layout="@layout/include_event_detail_item"
+            android:visibility="gone"/>
 
         <include
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
             android:id="@+id/layout_reg"
-            layout="@layout/include_event_detail_item" />
+            layout="@layout/include_event_detail_item"
+            android:visibility="gone"/>
 
 
         <LinearLayout
@@ -88,26 +94,6 @@
                 android:visibility="gone" />
         </LinearLayout>
 
-        <!--  <ImageView
-              android:id="@+id/icon_location"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-
-              android:layout_marginLeft="10dp"
-              android:padding="10dp"
-              android:src="@drawable/icon_location" />
-
-          <com.drishti.drishti17.ui.factory.ProximaTextView
-              android:id="@+id/location"
-              style="@style/event_text"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_alignBottom="@id/icon_location"
-              android:layout_alignTop="@id/icon_location"
-              android:layout_toRightOf="@id/icon_location"
-              android:gravity="center"
-              android:text="CS Department"
-              android:textColor="@color/white" />-->
 
     </LinearLayout>
 </ScrollView>

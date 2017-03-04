@@ -8,6 +8,8 @@ import com.drishti.drishti17.util.Import;
 
 
 public class SourceSansTextView extends TextView {
+
+    private static final String TAG = SourceSansTextView.class.getSimpleName();
     public SourceSansTextView(Context context) {
         this(context, null);
     }
@@ -21,4 +23,7 @@ public class SourceSansTextView extends TextView {
         Import.settypefaces(context,"SourceSansPro-Regular.otf",this);
     }
 
+    @Override
+    public void scrollTo(int x, int y) {
+    }
 }

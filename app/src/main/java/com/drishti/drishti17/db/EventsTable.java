@@ -35,6 +35,13 @@ public class EventsTable {
     public final static String[] tableNames = {dbMetaData.tableNames[0]};
 
     public static int insert(Context context, EventModel eventtable) {
+
+        if(eventtable.day == null || eventtable.day.equals(""))
+            eventtable.day = "To be announced";
+
+
+        if(eventtable.time == null || eventtable.time.equals(""))
+            eventtable.time = "To be announced";
         String[] passString = {eventtable.name, eventtable.description, eventtable.format,
                 eventtable.category, eventtable.image, eventtable.day, eventtable.time,
                 eventtable.contactName1, eventtable.contactPhone1, eventtable.contactEmail1,
