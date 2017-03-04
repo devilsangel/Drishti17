@@ -3,7 +3,7 @@
     android:shape="oval">
 
     <solid
-        android:color="@color/palette_yellow"/>
+        android:color="@color/nav_color5"/>
 
     <corners
         android:bottomLeftRadius="2dp"

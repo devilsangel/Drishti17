@@ -7,24 +7,23 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 import android.widget.TextView;
 
 import com.drishti.drishti17.R;
+import com.drishti.drishti17.network.models.EventModel;
 import com.drishti.drishti17.util.UIUtil;
-import com.drishti.drishti17.util.db.EventTable;
 
 
 public class FragmentEvent_Rules extends Fragment {
 
     private static final String TAG = FragmentEvent_Rules.class.getSimpleName();
     private int paddingHeight;
-    private EventTable eventItem;
+    private EventModel eventItem;
 
     public FragmentEvent_Rules() {
     }
 
-    public static FragmentEvent_Rules newInstance(int tabHeight, EventTable eventItem) {
+    public static FragmentEvent_Rules newInstance(int tabHeight, EventModel eventItem) {
         FragmentEvent_Rules fragment = new FragmentEvent_Rules();
         fragment.setEventItem(eventItem);
 
@@ -76,7 +75,7 @@ public class FragmentEvent_Rules extends Fragment {
         UIUtil.printHTML(textView,rules);
     }
 
-    private void setEventItem(EventTable eventItem) {
+    private void setEventItem(EventModel eventItem) {
         this.eventItem = eventItem;
     }
 

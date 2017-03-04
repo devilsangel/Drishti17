@@ -12,22 +12,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.drishti.drishti17.R;
+import com.drishti.drishti17.network.models.EventModel;
 import com.drishti.drishti17.util.Import;
 import com.drishti.drishti17.util.UIUtil;
-import com.drishti.drishti17.util.db.EventTable;
 
 
 public class FragmentEvent_Contact extends Fragment {
 
     private static final String TAG = FragmentEvent_Contact.class.getSimpleName();
     private int paddingHeight;
-    private EventTable eventItem;
+    private EventModel eventItem;
 
     public FragmentEvent_Contact() {
         // Required empty public constructor
     }
 
-    public static FragmentEvent_Contact newInstance(int tabHeight, EventTable eventItem) {
+    public static FragmentEvent_Contact newInstance(int tabHeight, EventModel eventItem) {
         FragmentEvent_Contact fragment = new FragmentEvent_Contact();
         fragment.setEventItem(eventItem);
 
@@ -85,8 +85,16 @@ public class FragmentEvent_Contact extends Fragment {
     private void setContact(int parentView, String name,
                             String phone, String email, final int mode) {
 
+        if(name == null || name.equals("")){
+           getActivity().findViewById(R.id.sep).setVisibility(View.GONE);
+            return;
+        }
+
+
         View parent = getActivity().findViewById(parentView);
 
+        View icon = parent.findViewById(R.id.icon_name);
+        icon.setVisibility(View.VISIBLE);
         TextView nameView = (TextView) parent.findViewById(R.id.name);
         nameView.setText(name);
 
@@ -158,7 +166,7 @@ public class FragmentEvent_Contact extends Fragment {
 
     }
 
-    private void setEventItem(EventTable eventItem) {
+    private void setEventItem(EventModel eventItem) {
         this.eventItem = eventItem;
     }
 

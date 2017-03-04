@@ -13,10 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.drishti.drishti17.R;
+import com.drishti.drishti17.db.EventsTable;
+import com.drishti.drishti17.network.models.EventModel;
 import com.drishti.drishti17.ui.adapters.EventListAdapter;
 import com.drishti.drishti17.ui.factory.ProgressDialog;
 import com.drishti.drishti17.util.Import;
-import com.drishti.drishti17.util.db.EventTable;
 
 import java.util.List;
 
@@ -63,6 +64,7 @@ public class CompetitionListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         if (!Import.isEventDownloading()) {
+            Log.d(TAG, "onViewCreated: loading events");
             loadEvents();
         }
     }
@@ -71,7 +73,7 @@ public class CompetitionListFragment extends Fragment {
         new AsyncLoad().execute(deptKey);
     }
 
-    class AsyncLoad extends AsyncTask<String, Void, List<EventTable>> {
+    class AsyncLoad extends AsyncTask<String, Void, List<EventModel>> {
 
         ProgressDialog progressDialog;
 
@@ -84,30 +86,30 @@ public class CompetitionListFragment extends Fragment {
         }
 
         @Override
-        protected List<EventTable> doInBackground(String... strings) {
+        protected List<EventModel> doInBackground(String... strings) {
             String deptKey = strings[0];
 
             String[] args = {deptKey};
-            List<EventTable> eventModels = EventTable.find(EventTable.class,
-                    where, where.contains("?") ? args : null);
+            List<EventModel> eventModels = EventsTable.getAllEventsMinified(getContext(),
+                    where, where.contains("?") ? args : null, null);
 
-            Log.d(TAG, "loadEvents: event no " + eventModels.size());
+            Log.d(TAG, "loadEvents: total no of event " + eventModels.size());
             return eventModels;
         }
 
         @Override
-        protected void onPostExecute(List<EventTable> eventTables) {
-            super.onPostExecute(eventTables);
+        protected void onPostExecute(List<EventModel> eventModelList) {
+            super.onPostExecute(eventModelList);
 
             progressDialog.disMissProgressDialog();
-            if (eventTables.size() == 0) {
+            if (eventModelList.size() == 0) {
                 onFailure();
             } else {
-                onSuccess(eventTables);
+                onSuccess(eventModelList);
             }
         }
 
-        private void onSuccess(List<EventTable> deptMap) {
+        private void onSuccess(List<EventModel> deptMap) {
 
             if (getActivity() == null)
                 return;

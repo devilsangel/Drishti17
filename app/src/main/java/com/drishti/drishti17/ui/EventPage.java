@@ -13,22 +13,21 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 
 import com.drishti.drishti17.R;
+import com.drishti.drishti17.db.EventsTable;
+import com.drishti.drishti17.network.models.EventModel;
 import com.drishti.drishti17.ui.fragments.FragmentEvent_Contact;
 import com.drishti.drishti17.ui.fragments.FragmentEvent_General;
 import com.drishti.drishti17.ui.fragments.FragmentEvent_Rules;
 import com.drishti.drishti17.util.Import;
-import com.drishti.drishti17.util.db.EventTable;
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
-
-import java.util.List;
 
 public class EventPage extends AppCompatActivity implements ViewPager.OnPageChangeListener {
 
     private static final String TAG = EventPage.class.getSimpleName();
     private int position;
-    private int tabHeight,paddingHeight;
+    private int tabHeight, paddingHeight;
     private int id;
-    private EventTable eventItem;
+    private EventModel eventItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +44,7 @@ public class EventPage extends AppCompatActivity implements ViewPager.OnPageChan
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             id = bundle.getInt("id");
-        }else{
+        } else {
             id = 2;
         }
     }
@@ -73,29 +72,28 @@ public class EventPage extends AppCompatActivity implements ViewPager.OnPageChan
     }
 
 
-    class AsyncLoad extends AsyncTask<Integer, Void, EventTable> {
+    class AsyncLoad extends AsyncTask<Integer, Void, EventModel> {
 
         int id;
 
         @Override
-        protected EventTable doInBackground(Integer... integers) {
-            Log.d(TAG, "doInBackground: padding "+paddingHeight +" tab "+tabHeight);
+        protected EventModel doInBackground(Integer... integers) {
+            Log.d(TAG, "doInBackground: padding " + paddingHeight + " tab " + tabHeight);
             id = integers[0];
 
-            String where = "serverid = " + id;
-            List<EventTable> eventItems = EventTable.find(EventTable.class, where, null);
+            String where = "server_id = " + id;
+            EventModel model = EventsTable.getEvent(EventPage.this, where, null, null);
 
             Log.d(TAG, "doInBackground: no of qualified events " + id);
-            if(eventItems.isEmpty())
-                return null;
-            return eventItems.get(0);
+
+            return model;
         }
 
         @Override
-        protected void onPostExecute(EventTable eventItem) {
+        protected void onPostExecute(EventModel eventItem) {
             super.onPostExecute(eventItem);
 
-            if(eventItem == null)
+            if (eventItem == null)
                 return;
 
             EventPage.this.eventItem = eventItem;
@@ -161,13 +159,13 @@ public class EventPage extends AppCompatActivity implements ViewPager.OnPageChan
             Fragment fragment = null;
             switch (position) {
                 case 0:
-                    fragment = FragmentEvent_General.getInstance(tabHeight,eventItem);
+                    fragment = FragmentEvent_General.getInstance(tabHeight, eventItem);
                     break;
                 case 1:
-                    fragment = FragmentEvent_Rules.newInstance(tabHeight,eventItem);
+                    fragment = FragmentEvent_Rules.newInstance(tabHeight, eventItem);
                     break;
                 case 2:
-                    fragment = FragmentEvent_Contact.newInstance(tabHeight,eventItem);
+                    fragment = FragmentEvent_Contact.newInstance(tabHeight, eventItem);
                     break;
             }
             return fragment;

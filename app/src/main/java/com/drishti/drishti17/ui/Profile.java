@@ -27,7 +27,6 @@ import com.drishti.drishti17.util.ApiInterface;
 import com.drishti.drishti17.util.AuthUtil;
 import com.drishti.drishti17.util.Global;
 import com.drishti.drishti17.util.NavUtil;
-import com.drishti.drishti17.util.db.EventTable;
 
 import net.glxn.qrgen.android.QRCode;
 

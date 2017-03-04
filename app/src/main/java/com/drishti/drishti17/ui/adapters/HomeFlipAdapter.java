@@ -27,7 +27,7 @@ public class HomeFlipAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     private Callback callback;
     private List<HighLightModel> items = new ArrayList<>();
-    Random random ;
+    Random random;
 
     public interface Callback {
         public void onPageRequested(int page);
@@ -55,7 +55,7 @@ public class HomeFlipAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return items.get(position).getId();
+        return position< items.size() ? items.get(position).getId() : -1;
     }
 
     @Override
@@ -85,8 +85,8 @@ public class HomeFlipAdapter extends BaseAdapter {
         holder.title.setText(items.get(position).getName());
         holder.desp.setText(items.get(position).getPromo());
 
-       // int id = Import.getBackgroundImage(context,items.get(position).getImage());
-        UIUtil.loadPic(context,holder.promo,items.get(position).getImage(),placeholder,error);
+        // int id = Import.getBackgroundImage(context,items.get(position).getImage());
+        UIUtil.loadPic(context, holder.promo, items.get(position).getImage(), placeholder, error);
 
         /*Glide.with(context)
                 .load(items.get(position).getImage())

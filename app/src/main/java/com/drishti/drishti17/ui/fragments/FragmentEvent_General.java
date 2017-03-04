@@ -15,23 +15,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.drishti.drishti17.R;
+import com.drishti.drishti17.network.models.EventModel;
 import com.drishti.drishti17.util.Import;
 import com.drishti.drishti17.util.UIUtil;
-import com.drishti.drishti17.util.db.EventTable;
 
 public class FragmentEvent_General extends Fragment {
 
 
     private static final String TAG = FragmentEvent_General.class.getSimpleName();
     private int paddingTop;
-    private EventTable eventItem;
+    private EventModel eventItem;
 
     public FragmentEvent_General() {
         // Required empty public constructor
     }
 
     public static FragmentEvent_General getInstance(int paddingTop,
-                                                    EventTable eventItem) {
+                                                    EventModel eventItem) {
 
         FragmentEvent_General fragmentEvent_general = new FragmentEvent_General();
 
@@ -116,7 +116,7 @@ public class FragmentEvent_General extends Fragment {
     private void setNoMembers() {
         int icon_pic;
         String mem;
-        if (eventItem.isgroup) {
+        if (eventItem.group) {
             icon_pic = R.drawable.icon_users;
             mem = getResources().getQuantityString(R.plurals.members,
                     eventItem.maxPerGroup, eventItem.maxPerGroup);
@@ -182,7 +182,7 @@ public class FragmentEvent_General extends Fragment {
     }
 
 
-    private void setEventItem(EventTable eventItem) {
+    private void setEventItem(EventModel eventItem) {
         this.eventItem = eventItem;
     }
 
