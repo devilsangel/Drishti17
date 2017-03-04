@@ -5,8 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.drishti.drishti17.db.EventsTable;
-import com.drishti.drishti17.network.models.EventModel;
+import com.drishti.drishti17.db.HighlightsTable;
+import com.drishti.drishti17.network.models.HighLightModel;
 import com.drishti.drishti17.util.ApiClient;
 import com.drishti.drishti17.util.ApiInterface;
 import com.drishti.drishti17.util.Global;
@@ -20,34 +20,36 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class EventsSyncService extends IntentService {
+public class HighlightSyncService extends IntentService {
 
-    private static final String TAG = EventsSyncService.class.getSimpleName();
+    private static final String TAG = HighlightSyncService.class.getSimpleName();
 
-    public EventsSyncService() {
-        super("EventsSyncService");
+    public HighlightSyncService() {
+        super("HighlightSyncService");
     }
 
     public static boolean checkDownload(Context context) {
 
-        String currentVersion = Import.getStringSharedPerf(context, Global.PREF_EVENT_CURRENT_VERSION);
-        String remoteVersion = Import.getStringSharedPerf(context, Global.PREF_EVENT_UPDATE_VERSION);
+        String currentVersion = Import.getStringSharedPerf(context, Global.PREF_HIGHLIGHT_UPDATE_VERSION);
+        String remoteVersion = Import.getStringSharedPerf(context, Global.PREF_HIGHLIGHT_CURRENT_VERSION);
         return (currentVersion == null) || remoteVersion == null || !currentVersion.equals(remoteVersion);
     }
 
     public static void startDownload(Context context) {
         Log.d(TAG, "startDownload: starting");
-        Intent intent = new Intent(context, EventsSyncService.class);
+        Intent intent = new Intent(context, HighlightSyncService.class);
         context.startService(intent);
     }
 
     @Override
     protected void onHandleIntent(Intent intent) {
 
-        Import.setEventDownloadingStatus(true);
+        Log.d(TAG, "onHandleIntent: starting");
+        Import.setHighlightDownloadingStatus(true);
         if (NetworkUtil.isNetworkAvailable(this))
             download();
         else {
+            Log.d(TAG, "onHandleIntent: no net");
             sendBroadcast(false);
         }
     }
@@ -55,24 +57,24 @@ public class EventsSyncService extends IntentService {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Import.setEventDownloadingStatus(false);
+        Import.setHighlightDownloadingStatus(false);
 
     }
 
     void download() {
+        Log.d(TAG, "download: ");
         ApiInterface service = ApiClient.getService();
-        service.getEventList().enqueue(new Callback<List<EventModel>>() {
+        service.getHightlightList().enqueue(new Callback<List<HighLightModel>>() {
             @Override
-            public void onResponse(Call<List<EventModel>> call, Response<List<EventModel>> response) {
+            public void onResponse(Call<List<HighLightModel>> call, Response<List<HighLightModel>> response) {
                 Log.d(TAG, "onResponse");
 
                 if (response.isSuccessful()) {
                     cleanTable();
-                    List<EventModel> eventModels = response.body();
-                    Log.d(TAG, "onResponse: event list " + eventModels.size());
-                    for (EventModel model : eventModels) {
-                        Log.d(TAG, "onResponse: event " + model.name + " " + model.isWorkshop);
-                        EventsTable.insert(EventsSyncService.this, model);
+                    List<HighLightModel> highLightModels = response.body();
+                    Log.d(TAG, "onResponse: highlight list " + highLightModels.size());
+                    for (HighLightModel model : highLightModels) {
+                        HighlightsTable.insert(HighlightSyncService.this, model);
                     }
                     sendBroadcast(true);
 
@@ -84,29 +86,29 @@ public class EventsSyncService extends IntentService {
             }
 
             @Override
-            public void onFailure(Call<List<EventModel>> call, Throwable t) {
+            public void onFailure(Call<List<HighLightModel>> call, Throwable t) {
                 Log.e(TAG, "onFailure: failed call", t);
                 sendBroadcast(false);
             }
         });
 
-        String remoteVersion = Import.getStringSharedPerf(this, Global.PREF_EVENT_UPDATE_VERSION);
+        String remoteVersion = Import.getStringSharedPerf(this, Global.PREF_HIGHLIGHT_UPDATE_VERSION);
         if (remoteVersion == null) {
-            Log.d(TAG, "download: initial setting");
-            Import.setSharedPref(this, Global.PREF_EVENT_UPDATE_VERSION, "1");
-            Import.setSharedPref(this, Global.PREF_EVENT_CURRENT_VERSION, "1");
+            Import.setSharedPref(this, Global.PREF_HIGHLIGHT_CURRENT_VERSION, "1");
+            Import.setSharedPref(this, Global.PREF_HIGHLIGHT_UPDATE_VERSION, "1");
         } else {
-            Import.setSharedPref(this, Global.PREF_EVENT_CURRENT_VERSION, remoteVersion);
+            Import.setSharedPref(this, Global.PREF_HIGHLIGHT_CURRENT_VERSION, remoteVersion);
         }
     }
 
     private void cleanTable() {
-        EventsTable.deleteAll(this);
+        HighlightsTable.deleteAll(this);
     }
 
     private void sendBroadcast(boolean isSyncSucess) {
+        Log.d(TAG, "sendBroadcast "+isSyncSucess);
         Intent intent = new Intent();
-        intent.setAction("com.drishti.drishti17.EVENT_LIST_UPDATED");
+        intent.setAction("com.drishti.drishti17.HIGHLIGHT_LIST_UPDATED");
         intent.putExtra("isSyncSucess", isSyncSucess);
         sendBroadcast(intent);
     }

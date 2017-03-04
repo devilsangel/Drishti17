@@ -4,4 +4,13 @@
         <key>event_current_version</key>
         <value>7</value>
     </entry>
+
+    <entry>
+        <key>highlight_instant_sync</key>
+        <value>true</value>
+    </entry>
+    <entry>
+        <key>event_instant_sync</key>
+        <value>false</value>
+    </entry>
 </defaultsMap>

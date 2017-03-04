@@ -20,9 +20,6 @@ public class EventsTable {
 
     private static final String TAG = EventsTable.class.getSimpleName();
 
-    /**
-     * data_created_at - default current_timestamp
-     */
     public final static String[][] columnNames = {
             dbMetaData.columnNames[0]
     };

@@ -29,7 +29,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class EventList extends AppCompatActivity implements
-        GuillotineUtil.OnNavigationClickListener, View.OnClickListener {
+        GuillotineUtil.OnNavigationClickListener, View.OnClickListener, UIUtil.OnPromptActionCompleted {
 
     private static final String TAG = EventList.class.getSimpleName();
     @BindView(R.id.toolbar)
@@ -112,6 +112,7 @@ public class EventList extends AppCompatActivity implements
         } else {
             new GuillotineUtil(this).setUpNav(root, contentHamburger, toolbar, this);
         }
+
     }
 
     private void setUpUI() {
@@ -160,6 +161,7 @@ public class EventList extends AppCompatActivity implements
             case R.id.informals_group:
                 text = getString(R.string.informals);
                 break;
+
         }
 
         title.setText(text);
@@ -192,11 +194,19 @@ public class EventList extends AppCompatActivity implements
                     if (isFirstTime && !isWorkshop)
                         UIUtil.showPrompt(EventList.this, contentHamburger,
                                 getString(R.string.prompt_event_list_title),
-                                getString(R.string.prompt_event_list_desp,dept));
+                                getString(R.string.prompt_event_list_desp, dept),
+                                getResources().getColor(R.color.black), EventList.this);
                 }
-            }, 4000);
+            }, 1000);
         }
     }
 
+    @Override
+    public void actionPerformed() {
+        if (isFirstTime) {
+            isFirstTime = !isFirstTime;
+            Import.setPromptShown(this, Global.PREF_EVENTS_LIST_PROMPT_SHOWN);
+        }
+    }
 }
 

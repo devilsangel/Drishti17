@@ -67,9 +67,17 @@ public class Import {
     public static boolean isEventDownloading() {
         return Global.isDownloading;
     }
+    public static boolean isHighlightDownloading() {
+        return Global.isHighlightDownloading;
+    }
 
     public static void setEventDownloadingStatus(boolean isDownloading) {
         Global.isDownloading = isDownloading;
+
+    }
+
+    public static void setHighlightDownloadingStatus(boolean isDownloading) {
+        Global.isHighlightDownloading = isDownloading;
 
     }
 
@@ -111,7 +119,7 @@ public class Import {
 
     public static String getStringSharedPerf(Context context, String sharedKey) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(Global.SHARED_PREF, 0);
-        return sharedPreferences.getString(sharedKey, "");
+        return sharedPreferences.getString(sharedKey, null);
     }
 
     public static boolean getBooleanSharedPref(Context context, String sharedKey) {
@@ -139,6 +147,7 @@ public class Import {
     }
 
     public static void setSharedPref(Context context, String sharedKey, int value) {
+        Log.d(TAG, "setSharedPref: setting int "+value);
         SharedPreferences sharedPreferences = context.getSharedPreferences(Global.SHARED_PREF, 0);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt(sharedKey, value);

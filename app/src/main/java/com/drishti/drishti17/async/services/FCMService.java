@@ -6,6 +6,7 @@ import com.drishti.drishti17.util.Global;
 import com.drishti.drishti17.util.Import;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 
 import java.util.Map;
 
@@ -27,19 +28,32 @@ public class FCMService extends FirebaseMessagingService {
 
             Map<String, String> dataReceived = remoteMessage.getData();
             if (dataReceived.get("type").equals("EVENT_SYNC")) {
-                changeEventSyncConfig(dataReceived);
+                eventUpdated(dataReceived);
+            }else  if (dataReceived.get("type").equals("HIGHLIGHT_SYNC")) {
+                highLightUpdated(dataReceived);
             }
         }
 
 
     }
 
-    private void changeEventSyncConfig(Map<String, String> dataReceived) {
+    private void highLightUpdated(Map<String, String> dataReceived) {
+        String highlight_version = dataReceived.get("highlight_version");
+        Log.d(TAG, "eventUpdated: event version " + highlight_version);
+
+        Import.setSharedPref(this, Global.PREF_HIGHLIGHT_UPDATE_VERSION, highlight_version);
+        if (FirebaseRemoteConfig.getInstance().getBoolean("highlight_instant_sync"))
+            EventsSyncService.startDownload(this);
+
+    }
+
+    private void eventUpdated(Map<String, String> dataReceived) {
         String event_version = dataReceived.get("event_version");
-        Log.d(TAG, "changeEventSyncConfig: event version " + event_version);
+        Log.d(TAG, "eventUpdated: event version " + event_version);
 
         Import.setSharedPref(this, Global.PREF_EVENT_UPDATE_VERSION, event_version);
-        EventsSyncService.startDownload(this);
+        if (FirebaseRemoteConfig.getInstance().getBoolean("event_instant_sync"))
+            HighlightSyncService.startDownload(this);
 
     }
 }

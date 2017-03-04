@@ -1,6 +1,10 @@
 package com.drishti.drishti17.ui;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
@@ -10,8 +14,10 @@ import android.view.View;
 
 import com.drishti.drishti17.R;
 import com.drishti.drishti17.async.services.EventsSyncService;
+import com.drishti.drishti17.async.services.HighlightSyncService;
 import com.drishti.drishti17.db.DBOpenHelper;
 import com.drishti.drishti17.db.EventsTable;
+import com.drishti.drishti17.db.HighlightsTable;
 import com.drishti.drishti17.network.models.EventModel;
 import com.drishti.drishti17.network.models.HighLightModel;
 import com.drishti.drishti17.ui.adapters.HomeFlipAdapter;
@@ -23,7 +29,6 @@ import com.drishti.drishti17.util.Import;
 import com.drishti.drishti17.util.NavUtil;
 import com.drishti.drishti17.util.UIUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -36,7 +41,7 @@ import se.emilsjolander.flipview.OverFlipMode;
 
 
 public class Home extends AppCompatActivity implements View.OnClickListener,
-        HomeFlipAdapter.Callback, FlipView.OnOverFlipListener {
+        HomeFlipAdapter.Callback, FlipView.OnOverFlipListener, UIUtil.OnPromptActionCompleted {
 
     private static final String TAG = Home.class.getSimpleName();
     @BindView(R.id.fab)
@@ -47,6 +52,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener,
 
     private FlipView mFlipView;
     private HomeFlipAdapter mAdapter;
+    BroadcastReceiver downloadCompleteReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,11 +66,9 @@ public class Home extends AppCompatActivity implements View.OnClickListener,
         progressDialog = new ProgressDialog(this);
 
         Log.d(TAG, "onCreate: going to start");
-        if (EventsSyncService.checkDownload(this))
-            EventsSyncService.startDownload(this);
 
-        doHelpAction();
-        DBOpenHelper.newInstance(this).returnSQl();
+        performInitial();
+        registerReceivers();
 //        EventTable.deleteAll(EventTable.class);
     }
 
@@ -73,7 +77,10 @@ public class Home extends AppCompatActivity implements View.OnClickListener,
         super.onResume();
 
         if (flipList == null) {
-            syncFlip();
+            if (Import.isHighlightDownloading())
+                progressDialog.showProgressDialog();
+            else
+                loadFlip();
         }
     }
 
@@ -83,44 +90,46 @@ public class Home extends AppCompatActivity implements View.OnClickListener,
         if (progressDialog != null) {
             progressDialog.disMissProgressDialog();
         }
+        if (downloadCompleteReceiver != null)
+            unregisterReceiver(downloadCompleteReceiver);
     }
 
-    private void syncFlip() {
-        Log.d(TAG, "syncFlip: ");
-        progressDialog.showProgressDialog();
-        ApiInterface service = ApiClient.getService();
-        service.getHightlightList().enqueue(new Callback<List<HighLightModel>>() {
+    private void performInitial() {
+        Import.fetchRemoteConfig(this, this);
+        DBOpenHelper.newInstance(this).returnSQl();
+
+        if (EventsSyncService.checkDownload(this)) {
+            EventsSyncService.startDownload(this);
+        }
+
+        if (HighlightSyncService.checkDownload(this))
+            HighlightSyncService.startDownload(this);
+
+    }
+
+    private void registerReceivers() {
+        downloadCompleteReceiver = new BroadcastReceiver() {
             @Override
-            public void onResponse(Call<List<HighLightModel>> call, Response<List<HighLightModel>> response) {
-                if (response.isSuccessful()) {
-                    List<HighLightModel> highLightModels = response.body();
-                    Log.d(TAG, "onResponse: size of highligths " + highLightModels.size());
-                    setupFlip(highLightModels);
-                } else {
-                    Log.e(TAG, "onResponse: response unsucessful ");
-                    handleEmptyFlip();
+            public void onReceive(Context context, Intent intent) {
+                if (intent.getAction().matches("com.drishti.drishti17.HIGHLIGHT_LIST_UPDATED")) {
+                    Log.d(TAG, "onReceive: event flipList download finished");
+                    progressDialog.disMissProgressDialog();
+                    if (intent.getBooleanExtra("isSyncSucess", false))
+                        loadFlip();
                 }
             }
+        };
+        registerReceiver(downloadCompleteReceiver, new IntentFilter("com.drishti.drishti17.HIGHLIGHT_LIST_UPDATED"));
 
-            @Override
-            public void onFailure(Call<List<HighLightModel>> call, Throwable t) {
-                Log.e(TAG, "onFailure: failed highlight sync", t);
-                handleEmptyFlip();
-            }
-
-
-        });
     }
 
-    private void setupFlip(List<HighLightModel> flipList) {
+    private void loadFlip() {
+        new AsyncLoad().execute();
+    }
 
-        if (progressDialog != null)
-            progressDialog.disMissProgressDialog();
+    private void onSuccess(List<HighLightModel> flipList) {
+        progressDialog.disMissProgressDialog();
 
-        if (flipList == null || flipList.isEmpty()) {
-            handleEmptyList();
-            return;
-        }
         handleFlip();
         this.flipList = flipList;
         mFlipView = (FlipView) findViewById(R.id.flipview);
@@ -132,20 +141,44 @@ public class Home extends AppCompatActivity implements View.OnClickListener,
         mFlipView.setOverFlipMode(OverFlipMode.RUBBER_BAND);
         mFlipView.setEmptyView(findViewById(R.id.cube));
         mFlipView.setOnOverFlipListener(this);
+
+        doHelpAction();
     }
 
-    private void handleEmptyFlip() {
-        List<EventModel> eventModels = EventsTable.getAllEventsMinified(this, null, null, null);
-        List<HighLightModel> flipList = new ArrayList<>();
-        for (EventModel item : eventModels) {
-            HighLightModel flipModel = new HighLightModel(item.name, item.description,
-                    item.image, item.server_id);
+    private void onFailure() {
+        Log.d(TAG, "handleEmptyList");
+        progressDialog.disMissProgressDialog();
 
-            flipList.add(flipModel);
-        }
+        findViewById(R.id.flipview).setVisibility(View.GONE);
+        findViewById(R.id.cube).setVisibility(View.VISIBLE);
+        findViewById(R.id.empty_text).setVisibility(View.VISIBLE);
+        findViewById(R.id.empty_view).setVisibility(View.VISIBLE);
 
-        Log.d(TAG, "loadEvents: event no " + eventModels.size());
-        setupFlip(flipList);
+        doHelpAction();
+    }
+
+    private void syncFlip() {
+        Log.d(TAG, "syncFlip: ");
+        ApiInterface service = ApiClient.getService();
+        service.getHightlightList().enqueue(new Callback<List<HighLightModel>>() {
+            @Override
+            public void onResponse(Call<List<HighLightModel>> call, Response<List<HighLightModel>> response) {
+                if (response.isSuccessful()) {
+                    List<HighLightModel> highLightModels = response.body();
+                    Log.d(TAG, "onResponse: size of highligths " + highLightModels.size());
+                    onSuccess(highLightModels);
+                } else {
+                    Log.e(TAG, "onResponse: response unsucessful ");
+                    Home.this.onFailure();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<HighLightModel>> call, Throwable t) {
+                Log.e(TAG, "onFailure: failed highlight sync", t);
+                Home.this.onFailure();
+            }
+        });
     }
 
     private void handleFlip() {
@@ -155,23 +188,14 @@ public class Home extends AppCompatActivity implements View.OnClickListener,
         findViewById(R.id.flipview).setVisibility(View.VISIBLE);
     }
 
-    private void handleEmptyList() {
-        Log.d(TAG, "handleEmptyList");
-        findViewById(R.id.flipview).setVisibility(View.GONE);
-        findViewById(R.id.cube).setVisibility(View.VISIBLE);
-        findViewById(R.id.empty_text).setVisibility(View.VISIBLE);
-        findViewById(R.id.empty_view).setVisibility(View.VISIBLE);
-    }
+
+
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.fab:
                 NavUtil.openNavigation(this, this, fab);
-                if (isFirstTime) {
-                    isFirstTime = !isFirstTime;
-                    Import.setPromptShown(this, Global.PREF_HOME_PROMPT_SHOWN);
-                }
                 break;
         }
     }
@@ -207,9 +231,58 @@ public class Home extends AppCompatActivity implements View.OnClickListener,
                     Log.d(TAG, "run: ");
                     if (isFirstTime)
                         UIUtil.showPrompt(Home.this, fab, getString(R.string.prompt_home_title),
-                                getString(R.string.prompt_home_desp));
+                                getString(R.string.prompt_home_desp),
+                                getResources().getColor(R.color.white), Home.this);
                 }
-            }, 5000);
+            }, 1000);
         }
     }
+
+    @Override
+    public void actionPerformed() {
+        if (isFirstTime) {
+            isFirstTime = !isFirstTime;
+            Import.setPromptShown(this, Global.PREF_HOME_PROMPT_SHOWN);
+        }
+    }
+
+    class AsyncLoad extends AsyncTask<Void, Void, List<HighLightModel>> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog.showProgressDialog();
+
+        }
+
+        @Override
+        protected List<HighLightModel> doInBackground(Void... strings) {
+
+            List<HighLightModel> models = HighlightsTable.getHightLight(Home.this, null, null, null);
+            Log.d(TAG, "loadhightl: total no of event " + models.size());
+
+            if (models.size() == 0) {
+                List<EventModel> eventModels = EventsTable.getAllEventsMinified(Home.this, null, null, null);
+                for (EventModel item : eventModels) {
+                    HighLightModel flipModel = new HighLightModel(item.name, item.description,
+                            item.image, item.id, item.server_id);
+
+                    models.add(flipModel);
+                }
+            }
+            return models;
+        }
+
+        @Override
+        protected void onPostExecute(List<HighLightModel> highLightModels) {
+            super.onPostExecute(highLightModels);
+
+            if (highLightModels.size() == 0) {
+                    syncFlip();
+            } else {
+                onSuccess(highLightModels);
+            }
+        }
+    }
+
 }

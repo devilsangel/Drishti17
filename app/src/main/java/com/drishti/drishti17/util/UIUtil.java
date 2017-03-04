@@ -68,27 +68,34 @@ public class UIUtil {
         return drawable;
     }
 
-    @TargetApi(Build.VERSION_CODES.M)
     public static void showPrompt(Activity activity, View target,
-                                  String primaryText, String secondaryText) {
+                                  String primaryText, String secondaryText, int colorId,
+                                  final OnPromptActionCompleted actionCompleted) {
         new MaterialTapTargetPrompt.Builder(activity)
                 .setTarget(target)
                 .setPrimaryText(primaryText)
                 .setSecondaryText(secondaryText)
-                .setFocalColour(activity.getColor(R.color.black))
+                .setFocalColour(colorId)
                 .setOnHidePromptListener(new MaterialTapTargetPrompt.OnHidePromptListener() {
                     @Override
                     public void onHidePrompt(MotionEvent event, boolean tappedTarget) {
-                        Log.d(TAG, "onHidePrompt: prompt hidden");
+
                     }
 
                     @Override
                     public void onHidePromptComplete() {
                         Log.d(TAG, "onHidePromptComplete: prompt hidden complete");
+                        actionCompleted.actionPerformed();
                     }
                 })
+                .setAutoDismiss(false)
                 .show();
     }
+
+    public interface OnPromptActionCompleted {
+        void actionPerformed();
+    }
+
 
 
     public static int getBackgroundImage(Context context, String imageName) {

@@ -178,4 +178,8 @@ public class EventPage extends AppCompatActivity implements ViewPager.OnPageChan
         }
     }
 
+    void checkRegisterStatus() {
+
+    }
+
 }
