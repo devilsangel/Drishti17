@@ -12,7 +12,6 @@ import com.drishti.drishti17.util.ApiInterface;
 import com.drishti.drishti17.util.Global;
 import com.drishti.drishti17.util.Import;
 import com.drishti.drishti17.util.NetworkUtil;
-import com.drishti.drishti17.util.db.EventTable;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 
 import java.util.List;
@@ -63,8 +62,6 @@ public class EventsSyncService extends IntentService {
     }
 
     void download() {
-        EventTable.findById(EventTable.class, 1);
-        Log.d(TAG, "download: starting download");
         ApiInterface service = ApiClient.getService();
         service.getEventList().enqueue(new Callback<List<EventModel>>() {
             @Override
@@ -77,8 +74,6 @@ public class EventsSyncService extends IntentService {
                     Log.d(TAG, "onResponse: event list " + eventModels.size());
                     for (EventModel model : eventModels) {
                         Log.d(TAG, "onResponse: event " + model.name + " " + model.isWorkshop);
-                        //EventTable eventTable = new EventTable(model);
-                       // eventTable.save();
                         EventsTable.insert(EventsSyncService.this,model);
                     }
                     sendBroadcast(true);
@@ -103,7 +98,6 @@ public class EventsSyncService extends IntentService {
     }
 
     private void cleanTable() {
-       // EventTable.deleteAll(EventTable.class);
         EventsTable.deleteAll(this);
     }
 

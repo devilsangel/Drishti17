@@ -89,7 +89,7 @@ public class EventsTable {
     }
 
     public static Cursor selectEventMinified(Context context, String selection, String[] selectionArgs, String orderby) {
-        int[] columnno = {0, 1, 2, 5, 6};
+        int[] columnno = {0, 1, 2,3, 5, 6};
         return select(context, 0, columnno, selection, selectionArgs, orderby);
     }
 
@@ -102,7 +102,7 @@ public class EventsTable {
         for (int i = 0; i < columnNos[0]; i++) {
             columnNo[i] = i;
         }
-        Cursor eventCursor = select(context,0,columnNo,selection,selectionArgs,orderby);
+        Cursor eventCursor = select(context, 0, columnNo, selection, selectionArgs, orderby);
         EventModel model = new EventModel();
         while (eventCursor.moveToNext()) {
             model = cursorToModel(eventCursor);
@@ -118,6 +118,7 @@ public class EventsTable {
             model.id = eventCursor.getInt(eventCursor.getColumnIndex(columnNames[0][0]));
             model.server_id = eventCursor.getInt(eventCursor.getColumnIndex(columnNames[0][1]));
             model.name = eventCursor.getString(eventCursor.getColumnIndex(columnNames[0][2]));
+            model.description = eventCursor.getString(eventCursor.getColumnIndex(columnNames[0][3]));
             model.category = eventCursor.getString(eventCursor.getColumnIndex(columnNames[0][5]));
             model.image = eventCursor.getString(eventCursor.getColumnIndex(columnNames[0][6]));
 
@@ -156,7 +157,7 @@ public class EventsTable {
         model.isWorkshop = eventCursor.getInt(eventCursor.getColumnIndex(columnNames[0][21])) == 1;
         model.group = eventCursor.getInt(eventCursor.getColumnIndex(columnNames[0][22])) == 1;
 
-        return  model;
+        return model;
 
     }
 

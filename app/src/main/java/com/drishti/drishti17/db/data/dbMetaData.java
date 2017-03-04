@@ -1,16 +1,12 @@
 package com.drishti.drishti17.db.data;
 
-import android.database.Cursor;
-
-import com.drishti.drishti17.network.models.EventModel;
-
 /**
  * Created by droidcafe on 3/4/2017.
  */
 
 public class dbMetaData {
     public static final String DATABASE_SCHEMA = "db_drishti.db";
-    public static int DATABASE_VERSION = 6;
+    public static int DATABASE_VERSION = 1;
     public static int DATABASE_VERSION_LEGACY = DATABASE_VERSION - 1;
 
 

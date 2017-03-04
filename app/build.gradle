@@ -59,7 +59,6 @@ dependencies {
     compile 'com.firebaseui:firebase-ui-storage:0.6.0'
     compile 'com.github.Yalantis:GuillotineMenu-Android:1.2'
     compile 'com.github.devlight.navigationtabstrip:navigationtabstrip:1.0.4'
-    compile 'com.github.satyan:sugar:1.4'
     compile 'com.jaredrummler:material-spinner:1.1.0'
     compile 'io.gsonfire:gson-fire:1.8.0'
     compile 'com.facebook.android:facebook-android-sdk:4.18.0'
@@ -67,8 +66,6 @@ dependencies {
     compile 'hanks.xyz:htextview-library:0.1.5'
     compile 'se.emilsjolander:android-flipview:1.1.0'
     compile 'uk.co.samuelwall:material-tap-target-prompt:1.9.3'
-
-    compile 'com.facebook.stetho:stetho:1.4.1'
 
     compile 'org.greenrobot:greendao:3.2.0'
     testCompile 'junit:junit:4.12'
