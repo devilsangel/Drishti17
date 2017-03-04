@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.drishti.drishti17.db.EventsTable;
 import com.drishti.drishti17.network.models.EventModel;
 import com.drishti.drishti17.util.ApiClient;
 import com.drishti.drishti17.util.ApiInterface;
@@ -76,8 +77,9 @@ public class EventsSyncService extends IntentService {
                     Log.d(TAG, "onResponse: event list " + eventModels.size());
                     for (EventModel model : eventModels) {
                         Log.d(TAG, "onResponse: event " + model.name + " " + model.isWorkshop);
-                        EventTable eventTable = new EventTable(model);
-                        eventTable.save();
+                        //EventTable eventTable = new EventTable(model);
+                       // eventTable.save();
+                        EventsTable.insert(EventsSyncService.this,model);
                     }
                     sendBroadcast(true);
 
@@ -101,7 +103,8 @@ public class EventsSyncService extends IntentService {
     }
 
     private void cleanTable() {
-        EventTable.deleteAll(EventTable.class);
+       // EventTable.deleteAll(EventTable.class);
+        EventsTable.deleteAll(this);
     }
 
     private void sendBroadcast(boolean isSyncSucess) {

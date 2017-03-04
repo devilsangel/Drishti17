@@ -120,6 +120,11 @@ public class Import {
         return sharedPreferences.getBoolean(sharedKey, false);
     }
 
+    public static int getIntSharedPref(Context context, String sharedKey) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Global.SHARED_PREF, 0);
+        return sharedPreferences.getInt(sharedKey, -1);
+    }
+
     public static void setSharedPref(Context context, String sharedKey, String value) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(Global.SHARED_PREF, 0);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -131,6 +136,13 @@ public class Import {
         SharedPreferences sharedPreferences = context.getSharedPreferences(Global.SHARED_PREF, 0);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(sharedKey, value);
+        editor.apply();
+    }
+
+    public static void setSharedPref(Context context, String sharedKey, int value) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Global.SHARED_PREF, 0);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(sharedKey, value);
         editor.apply();
     }
 

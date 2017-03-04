@@ -2,6 +2,7 @@ package com.drishti.drishti17;
 
 import android.content.Context;
 
+import com.facebook.stetho.Stetho;
 import com.orm.SugarApp;
 
 /**
@@ -14,6 +15,7 @@ public class Drishti extends SugarApp{
     public void onCreate() {
         super.onCreate();
 
+        Stetho.initializeWithDefaults(this);
         sContext = getApplicationContext();
     }
 

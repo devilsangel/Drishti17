@@ -13,9 +13,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.drishti.drishti17.R;
+import com.drishti.drishti17.network.models.EventModel;
 import com.drishti.drishti17.ui.EventPage;
 import com.drishti.drishti17.util.UIUtil;
-import com.drishti.drishti17.util.db.EventTable;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -29,7 +29,7 @@ import java.util.Random;
 
 public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.ViewHolder> {
 
-    private List<EventTable> eventList;
+    private List<EventModel> eventList;
     private static final String TAG = EventListAdapter.class.getSimpleName();
 
     private FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -37,7 +37,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
     static String from;
     private Random random;
 
-    public EventListAdapter(List<EventTable> eventList, Context context, String from) {
+    public EventListAdapter(List<EventModel> eventList, Context context, String from) {
         this.from = from;
         this.eventList = eventList;
         this.context = context;
@@ -55,7 +55,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        EventTable event = eventList.get(position);
+        EventModel event = eventList.get(position);
 
         int placeholder = random.nextInt(context.getResources().getInteger(R.integer.blur_limit));
         int error = random.nextInt(context.getResources().getInteger(R.integer.logo_limit));

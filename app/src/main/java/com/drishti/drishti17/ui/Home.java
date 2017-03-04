@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.drishti.drishti17.R;
+import com.drishti.drishti17.db.DBOpenHelper;
 import com.drishti.drishti17.network.models.HighLightModel;
 import com.drishti.drishti17.ui.adapters.HomeFlipAdapter;
 import com.drishti.drishti17.ui.factory.ProgressDialog;
@@ -60,6 +61,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener,
         Import.fetchRemoteConfig(this, this);
 
         doHelpAction();
+        DBOpenHelper.newInstance(this).returnSQl();
 //        EventTable.deleteAll(EventTable.class);
     }
 
@@ -164,9 +166,9 @@ public class Home extends AppCompatActivity implements View.OnClickListener,
         switch (view.getId()) {
             case R.id.fab:
                 NavUtil.openNavigation(this, this, fab);
-                if(isFirstTime){
+                if (isFirstTime) {
                     isFirstTime = !isFirstTime;
-                     Import.setPromptShown(this,Global.PREF_HOME_PROMPT_SHOWN);
+                    Import.setPromptShown(this, Global.PREF_HOME_PROMPT_SHOWN);
                 }
                 break;
         }
@@ -201,7 +203,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener,
                 @Override
                 public void run() {
                     Log.d(TAG, "run: ");
-                    if(isFirstTime)
+                    if (isFirstTime)
                         UIUtil.showPrompt(Home.this, fab, getString(R.string.prompt_home_title),
                                 getString(R.string.prompt_home_desp));
                 }

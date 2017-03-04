@@ -11,8 +11,14 @@ public class Global {
     public static boolean isguest=true;
 
 
+    public final static int SUCCESS_CODE = 200;
 
     //Shared preference keys
+
+
+    public static final String PREF_DB_STATUS = "db_status";
+    public static final String PREF_DB_VERSION = "db_version";
+    public static final String PREF_DB_VERSION_LEGACY = "db_version_legacy";
     public static final String PREF_EVENT_CURRENT_VERSION = "event_current_version";
     public static final String PREF_HOME_PROMPT_SHOWN = "help_prompt_home";
     public static final String PREF_EVENTS_LIST_PROMPT_SHOWN = "help_prompt_event_list";

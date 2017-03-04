@@ -113,7 +113,12 @@
         <activity
             android:name=".ui.DevActivity"
             android:label="@string/title_activity_dev"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <provider
+            android:name=".db.DbContentProvider"
+            android:authorities="com.drishti.drishti17.dbprovider"
+            android:exported="false"/>
     </application>
 
 </manifest>
