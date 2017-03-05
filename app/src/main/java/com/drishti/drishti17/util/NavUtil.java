@@ -19,6 +19,7 @@ import com.drishti.drishti17.ui.Home;
 import com.drishti.drishti17.ui.NavigationActivity;
 import com.drishti.drishti17.ui.Profile;
 import com.drishti.drishti17.ui.Schedule;
+import com.drishti.drishti17.ui.SponsorActivity;
 import com.drishti.drishti17.ui.transition.FabTransform;
 
 import java.util.Collections;
@@ -39,7 +40,7 @@ public class NavUtil {
     static {
         Map<Integer, Class> tempMap = new HashMap<>();
         tempMap.put(1, Schedule.class);
-        tempMap.put(2, Home.class);
+        tempMap.put(2, SponsorActivity.class);
         tempMap.put(3, Departments.class);
         tempMap.put(4, Home.class);
         tempMap.put(5, Cetalks.class);

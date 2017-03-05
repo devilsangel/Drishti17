@@ -76,7 +76,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(" ");
-        Bitmap myBitmap = QRCode.from(Global.id).withColor(0xff000000,0x00000000).withSize(300,300).bitmap();
+        Bitmap myBitmap = QRCode.from(Global.id).withColor(0xffffffff,0x00000000).withSize(250,250).bitmap();
         qr.setImageBitmap(myBitmap);
         name.setText(Global.user);
         college.setText(Global.college);
@@ -104,10 +104,10 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
                                 workshopCount++;
                             else
                                 eventCount++;
-                            if(e.day.equals("1")) {
+                            if(e.day.equals("1")||e.day.equals("17")) {
                                 eventList1.add(e.name);
                                 timeList1.add(e.time);
-                            }else if(e.day.equals("2")){
+                            }else if(e.day.equals("2")||e.day.equals("18")){
                                 eventList2.add(e.name);
                                 timeList2.add(e.time);
                             }else{
@@ -116,7 +116,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
                             }
                         }
                         wc.setText(workshopCount+"");
-                        ec.setText(workshopCount+"");
+                        ec.setText(eventCount+"");
                         d1.setAdapter(new ProfileScheduleAdapter(Profile.this,eventList1,timeList1));
                         CardView c1=(CardView)findViewById(R.id.c1);
                         ViewGroup.LayoutParams params=c1.getLayoutParams();
@@ -126,13 +126,13 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
                         d2.setAdapter(new ProfileScheduleAdapter(Profile.this,eventList2,timeList2));
                         CardView c2=(CardView)findViewById(R.id.c2);
                         params=c2.getLayoutParams();
-                        params.height=250+120*eventList1.size();
+                        params.height=250+120*eventList2.size();
                         c2.setLayoutParams(params);
 
                         d3.setAdapter(new ProfileScheduleAdapter(Profile.this,eventList3,timeList3));
                         CardView c3=(CardView)findViewById(R.id.c3);
                         params=c3.getLayoutParams();
-                        params.height=250+120*eventList1.size();
+                        params.height=250+120*eventList3.size();
                         c3.setLayoutParams(params);
                     }
 

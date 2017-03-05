@@ -193,7 +193,7 @@ public class Import {
     }
 
     public static void setPromptShown(Context context, String promptKey) {
-        setSharedPref(context, promptKey, false);
+        setSharedPref(context, promptKey, true);
     }
 
     public static int getColorId(Context context, String colorId) {
