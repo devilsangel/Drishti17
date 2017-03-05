@@ -43,6 +43,9 @@ public class UIUtil {
     }
 
     public static void printHTML(TextView textView, String htmlText) {
+        if(textView == null || htmlText == null || htmlText.equals(""))
+            return;
+
         textView.setText(parseHTML(htmlText));
         textView.setMovementMethod(LinkMovementMethod.getInstance());
     }

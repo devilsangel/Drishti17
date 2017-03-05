@@ -29,7 +29,7 @@ public class FCMService extends FirebaseMessagingService {
             Map<String, String> dataReceived = remoteMessage.getData();
             if (dataReceived.get("type").equals("EVENT_SYNC")) {
                 eventUpdated(dataReceived);
-            }else  if (dataReceived.get("type").equals("HIGHLIGHT_SYNC")) {
+            } else if (dataReceived.get("type").equals("HIGHLIGHT_SYNC")) {
                 highLightUpdated(dataReceived);
             }
         }
@@ -38,22 +38,32 @@ public class FCMService extends FirebaseMessagingService {
     }
 
     private void highLightUpdated(Map<String, String> dataReceived) {
-        String highlight_version = dataReceived.get("highlight_version");
-        Log.d(TAG, "eventUpdated: event version " + highlight_version);
 
-        Import.setSharedPref(this, Global.PREF_HIGHLIGHT_UPDATE_VERSION, highlight_version);
+        Log.d(TAG, "highLightUpdated: ");
+        String current_Version = Import.getStringSharedPerf(this, Global.PREF_HIGHLIGHT_UPDATE_VERSION);
+        if (current_Version != null) {
+            int current = Integer.parseInt(current_Version);
+            current_Version = String.valueOf(++current);
+        } else
+            current_Version = "1";
+
+        Import.setSharedPref(this, Global.PREF_HIGHLIGHT_UPDATE_VERSION, current_Version);
         if (FirebaseRemoteConfig.getInstance().getBoolean("highlight_instant_sync"))
-            EventsSyncService.startDownload(this);
+            HighlightSyncService.startDownload(this);
 
     }
 
     private void eventUpdated(Map<String, String> dataReceived) {
-        String event_version = dataReceived.get("event_version");
-        Log.d(TAG, "eventUpdated: event version " + event_version);
+        String current_Version = Import.getStringSharedPerf(this, Global.PREF_EVENT_UPDATE_VERSION);
+        if (current_Version != null) {
+            int current = Integer.parseInt(current_Version);
+            current_Version = String.valueOf(++current);
+        } else
+            current_Version = "1";
 
-        Import.setSharedPref(this, Global.PREF_EVENT_UPDATE_VERSION, event_version);
+        Import.setSharedPref(this, Global.PREF_EVENT_UPDATE_VERSION, current_Version);
         if (FirebaseRemoteConfig.getInstance().getBoolean("event_instant_sync"))
-            HighlightSyncService.startDownload(this);
+            EventsSyncService.startDownload(this);
 
     }
 }

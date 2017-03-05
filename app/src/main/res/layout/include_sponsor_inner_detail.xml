@@ -21,6 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:padding="10dp"
+            android:scaleType="centerInside"
             android:src="@drawable/icon_location"
             android:visibility="visible" />
 
@@ -31,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:textColor="@color/white"
+            android:textColor="@color/colorPrimary"
             android:visibility="visible" />
 
     </LinearLayout>
@@ -43,7 +44,7 @@
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
         android:background="@color/lines_grey"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/layout2"
@@ -70,7 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:textColor="@color/white"
+            android:textColor="@color/colorPrimary"
             android:visibility="visible" />
 
     </LinearLayout>
