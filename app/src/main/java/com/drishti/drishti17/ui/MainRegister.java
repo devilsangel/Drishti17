@@ -116,6 +116,7 @@ public class MainRegister extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onResponse(Call<String> call, retrofit2.Response<String> response) {
                         Toast.makeText(getApplicationContext(),"Registration Successful",Toast.LENGTH_SHORT);
+                        Global.college=college;
                         Global.isguest=false;
                         startActivity(new Intent(MainRegister.this,Home.class));
                         finish();

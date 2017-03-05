@@ -74,6 +74,7 @@ dependencies {
 
     compile 'com.google.firebase:firebase-messaging:10.0.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+    compile 'com.github.kenglxn.QRGen:android:2.2.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

@@ -10,6 +10,10 @@ public class Global {
     public static boolean isDownloading = false;
     public static boolean isHighlightDownloading = false;
     public static boolean isguest=true;
+    public static String uid;
+    public static String id;
+    public static String user;
+    public static String college;
 
 
     public final static int SUCCESS_CODE = 200;
