@@ -13,6 +13,7 @@
     <string name="map">Map</string>
     <string name="profile">Profile</string>
     <string name="developers">Developers</string>
+    <string name="registered">Registered</string>
 
     <string name="title_activity_events">Events</string>
     <string name="title_activity_schedule">Schedule</string>

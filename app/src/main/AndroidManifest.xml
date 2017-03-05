@@ -125,7 +125,12 @@
         <activity
             android:name=".ui.SponsorActivity"
             android:label="@string/title_activity_sponsor"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity
+            android:name=".ui.EventRegister"
+            android:label="Add Group Members"
+            android:theme="@style/Registration.NoActionBAr"/>
     </application>
 
 </manifest>
