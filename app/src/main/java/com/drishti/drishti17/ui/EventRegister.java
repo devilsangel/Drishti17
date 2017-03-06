@@ -68,20 +68,20 @@ public class EventRegister extends AppCompatActivity {
                         progressDialog.disMissProgressDialog();
                         if(response.code()==200){
                             if(names.size()==(maxcount-1)){
-                                Toast.makeText(EventRegister.this,"Maximum Group Members Reached",Toast.LENGTH_SHORT).show();
+                                Snackbar.make(findViewById(R.id.content_event_register),"Maximum Group Members Reached. Do not add yourself",Snackbar.LENGTH_SHORT).show();
                             }else {
                                 group.add(response.body().id);
                                 names.add(response.body().name);
                                 grpList.setAdapter(new GrpListAdapter(EventRegister.this,names));
                             }
                         }else
-                            Toast.makeText(EventRegister.this,"Please try again",Toast.LENGTH_SHORT).show();
+                            Snackbar.make(findViewById(R.id.content_event_register),"Please try again",Snackbar.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onFailure(Call<Student> call, Throwable t) {
                         progressDialog.disMissProgressDialog();
-                        Toast.makeText(EventRegister.this,"Please try again",Toast.LENGTH_SHORT).show();
+                        Snackbar.make(findViewById(R.id.content_event_register),"Please try again",Snackbar.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -100,17 +100,17 @@ public class EventRegister extends AppCompatActivity {
                             public void onResponse(Call<String> call, Response<String> response) {
                                 progressDialog.disMissProgressDialog();
                                 if(response.code()==200) {
-                                    Toast.makeText(EventRegister.this, "Successful", Toast.LENGTH_LONG).show();
+                                    Snackbar.make(findViewById(R.id.content_event_register),"Success",Snackbar.LENGTH_SHORT).show();
                                     finish();
                                 }
                                 else
-                                    Toast.makeText(EventRegister.this,"Try Again",Toast.LENGTH_LONG).show();
+                                    Snackbar.make(findViewById(R.id.content_event_register),"Please try again",Snackbar.LENGTH_SHORT).show();
                             }
 
                             @Override
                             public void onFailure(Call<String> call, Throwable t) {
                                 progressDialog.disMissProgressDialog();
-                                Toast.makeText(EventRegister.this,"Try Again",Toast.LENGTH_LONG).show();
+                                Snackbar.make(findViewById(R.id.content_event_register),"Please try again",Snackbar.LENGTH_SHORT).show();
                             }
                         });
                     }
@@ -124,6 +124,8 @@ public class EventRegister extends AppCompatActivity {
         if (bundle != null) {
             eventId = bundle.getInt("id");
             maxcount=bundle.getInt("max-count");
+
+
         } else {
             eventId = 2;
         }

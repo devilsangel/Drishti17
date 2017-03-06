@@ -17,6 +17,7 @@ public class Drishti extends Application{
 
         Stetho.initializeWithDefaults(this);
         sContext = getApplicationContext();
+        
     }
 
 
