@@ -67,6 +67,7 @@ public class Import {
     public static boolean isEventDownloading() {
         return Global.isDownloading;
     }
+
     public static boolean isHighlightDownloading() {
         return Global.isHighlightDownloading;
     }
@@ -84,10 +85,13 @@ public class Import {
     public static String daytoDate(String day) {
         if (day == null) return null;
         switch (day) {
+            case "1":
             case "17":
                 return "17/3/17";
+            case "2":
             case "18":
                 return "18/3/17";
+            case "3":
             case "19":
                 return "19/3/17";
         }
@@ -147,7 +151,7 @@ public class Import {
     }
 
     public static void setSharedPref(Context context, String sharedKey, int value) {
-        Log.d(TAG, "setSharedPref: setting int "+value);
+        Log.d(TAG, "setSharedPref: setting int " + value);
         SharedPreferences sharedPreferences = context.getSharedPreferences(Global.SHARED_PREF, 0);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt(sharedKey, value);
@@ -188,7 +192,7 @@ public class Import {
     }
 
     public static boolean checkShowPrompt(Context context, String promptKey) {
-        Log.d(TAG, "checkShowPrompt: "+getBooleanSharedPref(context, promptKey));
+        Log.d(TAG, "checkShowPrompt: " + getBooleanSharedPref(context, promptKey));
         return !getBooleanSharedPref(context, promptKey);
     }
 

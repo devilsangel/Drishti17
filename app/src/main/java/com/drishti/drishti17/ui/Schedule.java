@@ -1,71 +1,50 @@
 package com.drishti.drishti17.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.drishti.drishti17.R;
+import com.drishti.drishti17.util.NavUtil;
 import com.drishti.drishti17.util.UIUtil;
-import com.gigamole.navigationtabstrip.NavigationTabStrip;
 
-public class Schedule extends AppCompatActivity {
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
-    private ViewPager mViewPager;
+public class Schedule extends AppCompatActivity implements View.OnClickListener {
 
-    private NavigationTabStrip mTopNavigationTabStrip;
-    private NavigationTabStrip mCenterNavigationTabStrip;
-    private NavigationTabStrip mBottomNavigationTabStrip;
+    @BindView(R.id.fab)
+    FloatingActionButton fab;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
-        UIUtil.setToolBar(this,"Schedule");
+        UIUtil.setToolBar(this, "Schedule");
 
-        initUI();
-        setUI();
-
-    }
-
-    private void initUI() {
-        mViewPager = (ViewPager) findViewById(R.id.vp);
-        mTopNavigationTabStrip = (NavigationTabStrip) findViewById(R.id.nts_top);
-        mCenterNavigationTabStrip = (NavigationTabStrip) findViewById(R.id.nts_center);
-        mBottomNavigationTabStrip = (NavigationTabStrip) findViewById(R.id.nts_bottom);
-    }
-
-    private void setUI() {
-        mViewPager.setAdapter(new PagerAdapter() {
-            @Override
-            public int getCount() {
-                return 3;
-            }
-
-            @Override
-            public boolean isViewFromObject(final View view, final Object object) {
-                return view.equals(object);
-            }
-
-            @Override
-            public void destroyItem(final View container, final int position, final Object object) {
-                ((ViewPager) container).removeView((View) object);
-            }
-
-            @Override
-            public Object instantiateItem(final ViewGroup container, final int position) {
-                final View view = new View(getBaseContext());
-                container.addView(view);
-                return view;
-            }
-        });
-
-
-        mCenterNavigationTabStrip.setViewPager(mViewPager, 1);
-        mBottomNavigationTabStrip.setTabIndex(1, true);
-
+        ButterKnife.bind(this);
+        fab.setOnClickListener(this);
 
     }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.fab   :
+                NavUtil.openNavigation(this, this, fab);
+                break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (NavUtil.isFromNav(requestCode)) {
+            NavUtil.handleNavigation(this, this, resultCode);
+        }
+    }
+
 }

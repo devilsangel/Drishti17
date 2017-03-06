@@ -16,15 +16,16 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_margin="1dp"
+        android:background="@color/white"
         android:padding="10dp"
         android:text="Register"
-        android:textColor="@color/white" />
+        android:textColor="@color/event_grad1" />
     <Button
         android:background="?android:attr/selectableItemBackground"
         android:id="@+id/regbut"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
+        android:textColor="@color/event_grad1"
         android:layout_alignBottom="@id/register"
         android:layout_alignTop="@id/register"/>
 

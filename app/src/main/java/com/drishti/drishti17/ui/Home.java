@@ -70,7 +70,6 @@ public class Home extends AppCompatActivity implements View.OnClickListener,
 
         performInitial();
         registerReceivers();
-//        EventTable.deleteAll(EventTable.class);
     }
 
     @Override
@@ -138,14 +137,14 @@ public class Home extends AppCompatActivity implements View.OnClickListener,
         mFlipView = (FlipView) findViewById(R.id.flipview);
         mAdapter = new HomeFlipAdapter(this, flipList);
 
-        mAdapter.setCallback(this);
+       // mAdapter.setCallback(this);
         mFlipView.setAdapter(mAdapter);
         mFlipView.peakNext(false);
         mFlipView.setOverFlipMode(OverFlipMode.RUBBER_BAND);
         mFlipView.setEmptyView(findViewById(R.id.cube));
         mFlipView.setOnOverFlipListener(this);
 
-        doHelpAction();
+
     }
 
     private void onFailure() {
@@ -157,7 +156,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener,
         findViewById(R.id.empty_text).setVisibility(View.VISIBLE);
         findViewById(R.id.empty_view).setVisibility(View.VISIBLE);
 
-        doHelpAction();
+
     }
 
     private void syncFlip() {

@@ -9,9 +9,13 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.drishti.drishti17.R;
 import com.drishti.drishti17.network.models.HighLightModel;
 import com.drishti.drishti17.util.UIUtil;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +28,7 @@ import java.util.Random;
 public class HomeFlipAdapter extends BaseAdapter {
 
     private static final String TAG = HomeFlipAdapter.class.getSimpleName();
-    private LayoutInflater inflater;
-    private Callback callback;
+
     private List<HighLightModel> items = new ArrayList<>();
     Random random;
 
@@ -34,14 +37,10 @@ public class HomeFlipAdapter extends BaseAdapter {
     }
 
     public HomeFlipAdapter(Context context, List<HighLightModel> flipList) {
-        inflater = LayoutInflater.from(context);
         items = flipList;
         random = new Random();
     }
 
-    public void setCallback(Callback callback) {
-        this.callback = callback;
-    }
 
     @Override
     public int getCount() {
@@ -55,12 +54,14 @@ public class HomeFlipAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return position < items.size() && position >=  0 ? items.get(position).getId() : -1;
+        return position < items.size() && position >= 0 ? items.get(position).getId() : -1;
     }
 
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
         ViewHolder holder;
+        LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
+
         if (view == null) {
             Log.d(TAG, "getView: initialising");
             holder = new ViewHolder();
@@ -78,21 +79,36 @@ public class HomeFlipAdapter extends BaseAdapter {
 
 
         Context context = view.getContext();
-        int placeholder = random.nextInt(context.getResources().getInteger(R.integer.blur_limit));
-        int error = random.nextInt(context.getResources().getInteger(R.integer.logo_limit));
-
+        // int placeholder = random.nextInt(context.getResources().getInteger(R.integer.blur_limit));
+        //  int error = random.nextInt(context.getResources().getInteger(R.integer.logo_limit));
 
         holder.title.setText(items.get(position).getName());
         UIUtil.printHTML(holder.desp, items.get(position).getPromo());
 
         // int id = Import.getBackgroundImage(context,items.get(position).getImage());
-        UIUtil.loadPic(context, holder.promo, items.get(position).getImage(), placeholder, error);
+        // UIUtil.loadPic(context, holder.promo, items.get(position).getImage(), placeholder, error);
 
-        /*Glide.with(context)
-                .load(items.get(position).getImage())
-                .error(R.drawable.drishti_logo1)
-                .crossFade()
-                .into(holder.promo);*/
+        String imageUrl = items.get(position).getImage();
+        if (imageUrl != null && imageUrl.startsWith("https://firebasestorage.googleapis.com/")) {
+            StorageReference gsReference = FirebaseStorage.getInstance().getReferenceFromUrl(imageUrl);
+            Glide.with(context)
+                    .using(new FirebaseImageLoader())
+                    .load(gsReference)
+                    .error(UIUtil.getBackgroundImage(context, "drishti_logo" + 0))
+                    .crossFade()
+                    .into(holder.promo);
+        } else {
+            Glide.with(context)
+                    .load(imageUrl)
+                    .error(R.drawable.drishti_logo1)
+                    .into(holder.promo);
+        }
+
+//        Glide.with(context)
+//                .load(items.get(position).getImage())
+//                .error(R.drawable.drishti_logo1)
+//                .crossFade()
+//                .into(holder.promo);
         return view;
     }
 

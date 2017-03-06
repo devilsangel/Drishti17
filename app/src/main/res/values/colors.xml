@@ -2,7 +2,8 @@
 <resources>
     <color name="colorPrimary">#1B232E</color>
     <color name="colorPrimaryDark">#10151C</color>
-    <color name="colorAccent">#f25f5c</color>
+    <color name="colorAccent">#ff0022</color>
+    <color name="colorAccent_sec">#ff0022</color>
 
     <color name="colorPrimary_nav">#1B232E</color>
     <color name="black_overlay">#66000000</color>
@@ -27,6 +28,9 @@
     <color name="scrim">#99323232</color>
     <color name="divider">#BDBDBD</color>
     <color name="lines_grey">#65CDC5BF</color>
+    <color name="navy">#5e548e</color>
+    <color name="yankee">#231942</color>
+
 
     <color name="guillotine_background">#444153</color>
     <color name="guillotine_background_dark">#383547</color>
@@ -76,6 +80,10 @@
     <color name="nav_color5">#f6ae2d</color>
     <color name="nav_color6">#3d518c</color>
     <color name="nav_color7">#1b2cc1</color>
+
+    <color name="fab_color">#f25f5c</color>
+    <color name="nav_primaryColor">#09CAFF</color>
+    <color name="nav_primary_dark">#09CAFF</color>
 
 </resources>
 

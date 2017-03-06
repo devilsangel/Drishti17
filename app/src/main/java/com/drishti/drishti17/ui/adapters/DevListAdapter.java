@@ -11,8 +11,12 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.drishti.drishti17.R;
+import com.drishti.drishti17.db.data.StaticData;
 import com.drishti.drishti17.util.Import;
 import com.drishti.drishti17.util.UIUtil;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 /**
  * Created by nirmal on 3/3/2017
@@ -32,7 +36,7 @@ public class DevListAdapter extends RecyclerView.Adapter<DevListAdapter.ViewHold
         mail = context.getResources().getStringArray(R.array.dev_mail);
         phone = context.getResources().getStringArray(R.array.dev_phone);
         color = context.getResources().getStringArray(R.array.dev_backgroud);
-        pic = context.getResources().getStringArray(R.array.dev_pic);
+        pic = StaticData.devPicsUrl;
     }
 
     @Override
@@ -49,7 +53,15 @@ public class DevListAdapter extends RecyclerView.Adapter<DevListAdapter.ViewHold
         holder.role.setText(roles[position]);
         holder.layout.setBackgroundColor(context.getResources().getColor(Import.getColorId(context, color[position])));
 
-        Glide.with(context).load(UIUtil.getBackgroundImage(context, pic[position])).into(holder.user);
+        StorageReference gsReference = FirebaseStorage.getInstance().getReferenceFromUrl(pic[position]);
+        Glide.with(context)
+                .using(new FirebaseImageLoader())
+                .load(gsReference)
+                .placeholder(UIUtil.getBackgroundImage(context, "blur4"))
+                .error(UIUtil.getBackgroundImage(context, "drishti_logo" + 1))
+                .crossFade()
+                .into(holder.user);
+
         holder.mail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
