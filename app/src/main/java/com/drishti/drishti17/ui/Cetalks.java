@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.drishti.drishti17.async.services.RadioService;
 import com.drishti.drishti17.ui.factory.Blur.Blur;
 import com.drishti.drishti17.ui.factory.ProgressDialog;
 import com.drishti.drishti17.util.NavUtil;
+import com.drishti.drishti17.util.NetworkUtil;
 import com.ohoussein.playpause.PlayPauseView;
 
 import butterknife.BindView;
@@ -52,6 +54,10 @@ public class Cetalks extends AppCompatActivity implements View.OnClickListener {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!NetworkUtil.isNetworkAvailable(Cetalks.this)){
+                    Snackbar.make(findViewById(R.id.content_cetalks),"Network Unavailable",Snackbar.LENGTH_LONG).show();
+                    return;
+                }
                 Intent service = new Intent(Cetalks.this, RadioService.class);
                 if (!RadioService.iSRunning) {
                     service.setAction(Constants.ACTION.STARTFOREGROUND_ACTION);
