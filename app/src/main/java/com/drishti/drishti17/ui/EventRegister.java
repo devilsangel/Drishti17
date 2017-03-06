@@ -68,7 +68,7 @@ public class EventRegister extends AppCompatActivity {
                         progressDialog.disMissProgressDialog();
                         if(response.code()==200){
                             if(names.size()==(maxcount-1)){
-                                Snackbar.make(findViewById(R.id.content_event_register),"Maximum Group Members Reached",Snackbar.LENGTH_SHORT).show();
+                                Snackbar.make(findViewById(R.id.content_event_register),"Maximum Group Members Reached. Do not add yourself",Snackbar.LENGTH_SHORT).show();
                             }else {
                                 group.add(response.body().id);
                                 names.add(response.body().name);
@@ -124,6 +124,8 @@ public class EventRegister extends AppCompatActivity {
         if (bundle != null) {
             eventId = bundle.getInt("id");
             maxcount=bundle.getInt("max-count");
+
+
         } else {
             eventId = 2;
         }

@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -23,6 +24,7 @@ import com.drishti.drishti17.util.ApiClient;
 import com.drishti.drishti17.util.ApiInterface;
 import com.drishti.drishti17.util.AuthUtil;
 import com.drishti.drishti17.util.Global;
+import com.drishti.drishti17.util.NetworkUtil;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -110,35 +112,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         mContentView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (flag) {
-                    flag = false;
-                    PropertyValuesHolder p6 = PropertyValuesHolder.ofFloat("scaleX", 1f);
-                    PropertyValuesHolder p7 = PropertyValuesHolder.ofFloat("scaleY", 1f);
-                    PropertyValuesHolder p8 = PropertyValuesHolder.ofFloat("y", logo.getY() / 2);
-                    ObjectAnimator anim3 = ObjectAnimator.ofPropertyValuesHolder(logo, p6, p7, p8);
-                    anim3.setDuration(1000);
-                    anim3.addListener(new Animator.AnimatorListener() {
-                        @Override
-                        public void onAnimationStart(Animator animation) {
-                        }
 
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            show();
-                        }
-
-                        @Override
-                        public void onAnimationCancel(Animator animation) {
-
-                        }
-
-                        @Override
-                        public void onAnimationRepeat(Animator animation) {
-
-                        }
-                    });
-                    anim3.start();
-                }
             }
         });
         hide();
@@ -162,6 +136,55 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                 PropertyValuesHolder p5 = PropertyValuesHolder.ofFloat("scaleY", 1.45f);
                 ObjectAnimator anim1 = ObjectAnimator.ofPropertyValuesHolder(logo, p4, p5);
                 anim1.setDuration(100);
+                anim1.addListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        if (flag) {
+                            flag = false;
+                            PropertyValuesHolder p6 = PropertyValuesHolder.ofFloat("scaleX", 1f);
+                            PropertyValuesHolder p7 = PropertyValuesHolder.ofFloat("scaleY", 1f);
+                            PropertyValuesHolder p8 = PropertyValuesHolder.ofFloat("y", logo.getY() / 2);
+                            ObjectAnimator anim3 = ObjectAnimator.ofPropertyValuesHolder(logo, p6, p7, p8);
+                            anim3.setDuration(1000);
+                            anim3.addListener(new Animator.AnimatorListener() {
+                                @Override
+                                public void onAnimationStart(Animator animation) {
+                                }
+
+                                @Override
+                                public void onAnimationEnd(Animator animation) {
+                                    show();
+                                }
+
+                                @Override
+                                public void onAnimationCancel(Animator animation) {
+
+                                }
+
+                                @Override
+                                public void onAnimationRepeat(Animator animation) {
+
+                                }
+                            });
+                            anim3.start();
+                        }
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+
+                    }
+                });
                 anim1.start();
             }
 
@@ -240,6 +263,10 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         gPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!NetworkUtil.isNetworkAvailable(Login.this)){
+                    Toast.makeText(Login.this,"Network Unavailable",Toast.LENGTH_LONG).show();
+                    return;
+                }
                 autoLogin=false;
                 Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
                 startActivityForResult(signInIntent, RC_SIGN_IN);
@@ -249,6 +276,10 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
         fbButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!NetworkUtil.isNetworkAvailable(Login.this)){
+                    Toast.makeText(Login.this,"Network Unavailable",Toast.LENGTH_LONG).show();
+                    return;
+                }
                 autoLogin=false;
                 LoginManager.getInstance().logInWithReadPermissions(Login.this,Arrays.asList("email","public_profile"));
             }

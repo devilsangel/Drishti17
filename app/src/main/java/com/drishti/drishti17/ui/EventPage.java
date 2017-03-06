@@ -1,5 +1,6 @@
 package com.drishti.drishti17.ui;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -9,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -26,7 +28,9 @@ import com.drishti.drishti17.ui.fragments.FragmentEvent_Rules;
 import com.drishti.drishti17.util.ApiClient;
 import com.drishti.drishti17.util.ApiInterface;
 import com.drishti.drishti17.util.AuthUtil;
+import com.drishti.drishti17.util.Global;
 import com.drishti.drishti17.util.Import;
+import com.drishti.drishti17.util.NetworkUtil;
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
 
 import retrofit2.Call;
@@ -55,6 +59,26 @@ public class EventPage extends AppCompatActivity implements ViewPager.OnPageChan
         findViewById(R.id.regbut).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!NetworkUtil.isNetworkAvailable(EventPage.this)) {
+                    Snackbar.make(findViewById(R.id.content_event_page), "Network Unavailable", Snackbar.LENGTH_LONG).show();
+                    return;
+                }
+                if(Global.isguest){
+                    new AlertDialog.Builder(EventPage.this).setMessage("You must complete Drishti registration in order to register for event")
+                            .setPositiveButton("Register Now", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    startActivity(new Intent(EventPage.this,MainRegister.class));
+                                }
+                            })
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            }).show();
+                    return;
+                }
                 if(isRegistered){
                     Snackbar.make(findViewById(R.id.content_event_page),"Already Registered",Snackbar.LENGTH_SHORT).show();
                     return;
@@ -110,6 +134,7 @@ public class EventPage extends AppCompatActivity implements ViewPager.OnPageChan
     protected void onResume() {
         super.onResume();
         setColor();
+        checkRegisterStatus();
     }
 
     private void initUI() {
@@ -236,33 +261,37 @@ public class EventPage extends AppCompatActivity implements ViewPager.OnPageChan
     }
 
     void checkRegisterStatus() {
-        progressDialog.showProgressDialog();
-        AuthUtil.getFirebaseToken(new AuthUtil.Listener() {
-            @Override
-            public void tokenObtained(String token) {
-                ApiInterface service=ApiClient.getService();
-                Call<EventRegistrationModel> call=service.isRegistered(token,id);
-                call.enqueue(new Callback<EventRegistrationModel>() {
-                    @Override
-                    public void onResponse(Call<EventRegistrationModel> call, Response<EventRegistrationModel> response) {
-                        progressDialog.disMissProgressDialog();
-                        if(response.code()==200){
-                            if(response.body().isRegistered){
-                                isRegistered=true;
-                                ((Button)findViewById(R.id.register)).setText(R.string.registered);
+        if(NetworkUtil.isNetworkAvailable(getApplicationContext())) {
+            progressDialog.showProgressDialog();
+            AuthUtil.getFirebaseToken(new AuthUtil.Listener() {
+                @Override
+                public void tokenObtained(String token) {
+                    ApiInterface service = ApiClient.getService();
+                    Call<EventRegistrationModel> call = service.isRegistered(token, id);
+                    call.enqueue(new Callback<EventRegistrationModel>() {
+                        @Override
+                        public void onResponse(Call<EventRegistrationModel> call, Response<EventRegistrationModel> response) {
+                            progressDialog.disMissProgressDialog();
+                            if (response.code() == 200) {
+                                if (response.body().isRegistered) {
+                                    isRegistered = true;
+                                    ((Button) findViewById(R.id.register)).setText(R.string.registered);
+                                }
+                            } else {
+
                             }
-                        }else{
-
                         }
-                    }
 
-                    @Override
-                    public void onFailure(Call<EventRegistrationModel> call, Throwable t) {
-                        progressDialog.disMissProgressDialog();
-                    }
-                });
-            }
-        });
+                        @Override
+                        public void onFailure(Call<EventRegistrationModel> call, Throwable t) {
+                            progressDialog.disMissProgressDialog();
+                        }
+                    });
+                }
+            });
+        }else {
+            Snackbar.make(findViewById(R.id.content_event_page),"Network Unavailable",Snackbar.LENGTH_LONG).show();
+        }
     }
 
 }
