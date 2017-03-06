@@ -1,7 +1,9 @@
 package com.drishti.drishti17.ui;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
@@ -96,7 +98,8 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(" ");
-        Bitmap myBitmap = QRCode.from(Global.id).withColor(0xffffffff,0x00000000).withSize(250,250).bitmap();
+        SharedPreferences sharedPreferences=getSharedPreferences("drishti", Context.MODE_PRIVATE);
+        Bitmap myBitmap = QRCode.from(sharedPreferences.getString("id","blank")).withColor(0xff1B232E,0xff33658a).withSize(250,250).bitmap();
         qr.setImageBitmap(myBitmap);
         name.setText(Global.user);
         college.setText(Global.college);
