@@ -142,7 +142,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/circle_border"
-                android:src="@drawable/ic_map_white_24dp" />
+                android:src="@drawable/ic_attach_money_white_24dp" />
 
             <com.drishti.drishti17.ui.factory.SourceSansTextView
                 android:id="@+id/text_map"
