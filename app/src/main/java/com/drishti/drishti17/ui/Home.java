@@ -28,6 +28,7 @@ import com.drishti.drishti17.util.Global;
 import com.drishti.drishti17.util.Import;
 import com.drishti.drishti17.util.NavUtil;
 import com.drishti.drishti17.util.UIUtil;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.List;
 
@@ -104,6 +105,8 @@ public class Home extends AppCompatActivity implements View.OnClickListener,
 
         if (HighlightSyncService.checkDownload(this))
             HighlightSyncService.startDownload(this);
+
+        FirebaseMessaging.getInstance().subscribeToTopic("drishti");
 
     }
 

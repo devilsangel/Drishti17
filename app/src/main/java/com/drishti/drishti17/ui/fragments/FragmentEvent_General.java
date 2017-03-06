@@ -81,7 +81,8 @@ public class FragmentEvent_General extends Fragment {
         TextView title = (TextView) getActivity().findViewById(R.id.title);
         TextView desp = (TextView) getActivity().findViewById(R.id.description);
 
-        title.setText(eventItem.name);
+        if (eventItem.name != null || eventItem.equals(""))
+            title.setText(eventItem.name);
         UIUtil.printHTML(desp, eventItem.description);
 
         setFirstView(R.id.layout_time, Import.daytoDate(eventItem.day), R.drawable.icon_date);
@@ -89,7 +90,7 @@ public class FragmentEvent_General extends Fragment {
 
         setFirstView(R.id.layout_reg, "Rs " + eventItem.regFee, R.drawable.icon_fees);
 
-         setNoMembers();
+        setNoMembers();
 
         Log.d(TAG, "loadUI: is workshop " + eventItem.isWorkshop);
         if (eventItem.isWorkshop) {
