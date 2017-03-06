@@ -94,6 +94,7 @@ public class HomeFlipAdapter extends BaseAdapter {
             Glide.with(context)
                     .using(new FirebaseImageLoader())
                     .load(gsReference)
+                    .placeholder(UIUtil.getBackgroundImage(context, "drishti_logo" + 1))
                     .error(UIUtil.getBackgroundImage(context, "drishti_logo" + 0))
                     .crossFade()
                     .into(holder.promo);
