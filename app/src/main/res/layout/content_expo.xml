@@ -14,26 +14,11 @@
     tools:context="com.drishti.drishti17.ui.NavigationActivity"
     tools:showIn="@layout/activity_expo">
 
-   <LinearLayout
-       android:id="@+id/layout_user1"
-       android:layout_width="match_parent"
-       android:layout_height="170dp"
-       android:background="@color/purple_grad3"
-       android:layout_marginBottom="10dp"
-       android:layout_marginLeft="130dp"
-       android:layout_marginTop="30dp">
-
-       <TextView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="Hai there!! What is up"/>
-   </LinearLayout>
-    <ImageView
-        android:id="@+id/user_2"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="40dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/dummy_user2" />
-
+    <se.emilsjolander.flipview.FlipView
+        android:id="@+id/flipview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:orientation="vertical"
+      />
 </RelativeLayout>

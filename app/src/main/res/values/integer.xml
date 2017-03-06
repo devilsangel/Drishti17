@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <integer name="blur_limit">7</integer>
+    <integer name="blur_limit">6</integer>
     <integer name="logo_limit">2</integer>
     <integer name="error_limit">2</integer>
 </resources>

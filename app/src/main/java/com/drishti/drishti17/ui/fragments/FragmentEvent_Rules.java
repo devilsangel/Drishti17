@@ -71,8 +71,20 @@ public class FragmentEvent_Rules extends Fragment {
         }
 
         String rules = eventItem.format;
+        rules = preCheckRules(rules);
+
+        Log.d(TAG, "loadUI: ");
         TextView textView = (TextView) getActivity().findViewById(R.id.rules);
         UIUtil.printHTML(textView,rules);
+    }
+
+    private String preCheckRules(String rules) {
+        if (rules == null || rules.equals("")) {
+            rules = "Hurray!! No rules for this event. Go Wild!!";
+        }
+
+        //TODO handle img regex search here
+        return rules;
     }
 
     private void setEventItem(EventModel eventItem) {

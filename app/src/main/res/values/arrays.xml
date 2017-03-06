@@ -66,7 +66,7 @@
         <item>Kevin Joseph</item>
         <item>Jayadeep</item>
         <item>Mohammad Nisham</item>
-        <item>Amruth</item>
+        <item>Sharath</item>
     </string-array>
 
     <string-array name="dev_roles">
@@ -74,7 +74,7 @@
         <item>Android Developer</item>
         <item>Backened Developer</item>
         <item>Backened Developer</item>
-        <item>Android Developer</item>
+        <item>Website Developer</item>
     </string-array>
 
     <string-array name="dev_mail">
@@ -82,7 +82,7 @@
         <item>josephkevin1995@gmail.com</item>
         <item>kmjayadeep@gmail.com</item>
         <item>mnnishamk1995@gmail.com</item>
-        <item>amrith.mn@cet.ac.in</item>
+        <item>sarathchandran@cet.ac.in</item>
     </string-array>
 
     <string-array name="dev_phone">
@@ -90,15 +90,15 @@
         <item>7559099023</item>
         <item>9567125807</item>
         <item>9497267385</item>
-        <item>7034376024</item>
+        <item>9497322346</item>
     </string-array>
 
     <string-array name="dev_backgroud">
         <item>tab_highlight3</item>
         <item>blue_grad3</item>
         <item>purple_grad3</item>
-        <item>nav_color4</item>
-        <item>violet</item>
+        <item>yankee</item>
+        <item>navy</item>
     </string-array>
 
     <string-array name="dev_pic">

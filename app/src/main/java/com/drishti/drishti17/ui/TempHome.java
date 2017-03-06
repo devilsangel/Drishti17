@@ -51,7 +51,7 @@ public class TempHome extends AppCompatActivity implements View.OnClickListener 
                 startActivity(new Intent(this, MapsActivity.class));
                 break;
             case R.id.button_radio:
-                startActivity(new Intent(this, SponsorActivity.class));
+                startActivity(new Intent(this, Expo.class));
                 break;
         }
 

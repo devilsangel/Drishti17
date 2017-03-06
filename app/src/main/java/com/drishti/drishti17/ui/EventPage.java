@@ -225,7 +225,7 @@ public class EventPage extends AppCompatActivity implements ViewPager.OnPageChan
 
         findViewById(R.id.tab_host).setBackground(drawable);
         findViewById(R.id.vp).setBackground(drawable);
-        findViewById(R.id.register).setBackground(drawable);
+        ((Button)findViewById(R.id.register)).setTextColor(getResources().getColor(color));
         Import.setStatusBarColor(this, this, color);
 
     }

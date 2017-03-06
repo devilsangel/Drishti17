@@ -76,7 +76,7 @@ public class NavUtil {
     private static void startFabTransition(Activity activity, Context context, View fab) {
         Intent intent = new Intent(context, NavigationActivity.class);
         FabTransform.addExtras(intent,
-                ContextCompat.getColor(context, R.color.colorPrimary_nav), R.drawable.ic_menu_white_24dp);
+                ContextCompat.getColor(context, R.color.colorAccent), R.drawable.ic_menu_white_24dp);
         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(activity, fab,
                 context.getString(R.string.transition_navigation_icon));
         activity.startActivityForResult(intent, RC_NAVIGATION_ITEM_CLICKED, options.toBundle());

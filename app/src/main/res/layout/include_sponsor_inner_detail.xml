@@ -17,22 +17,17 @@
 
         <ImageView
             android:id="@+id/icon1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_gravity="center"
             android:padding="10dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/icon_location"
             android:visibility="visible" />
 
         <com.drishti.drishti17.ui.factory.SourceSansTextView
             android:id="@+id/text1"
-            style="@style/event_text"
+            style="@style/sponsor_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:textColor="@color/colorPrimary"
             android:visibility="visible" />
 
     </LinearLayout>
@@ -56,22 +51,18 @@
 
         <ImageView
             android:id="@+id/icon2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_gravity="center"
             android:padding="10dp"
-            android:src="@drawable/icon_phone"
 
             android:visibility="visible" />
 
         <com.drishti.drishti17.ui.factory.SourceSansTextView
             android:id="@+id/text2"
-            style="@style/event_text"
+            style="@style/sponsor_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:textColor="@color/colorPrimary"
             android:visibility="visible" />
 
     </LinearLayout>
