@@ -1,7 +1,16 @@
 package com.drishti.drishti17.async.services;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import com.drishti.drishti17.R;
+import com.drishti.drishti17.ui.Login;
 import com.drishti.drishti17.util.Global;
 import com.drishti.drishti17.util.Import;
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -32,6 +41,10 @@ public class FCMService extends FirebaseMessagingService {
             } else if (dataReceived.get("type").equals("HIGHLIGHT_SYNC")) {
                 highLightUpdated(dataReceived);
             }
+        }
+        if(remoteMessage.getNotification()!=null){
+            Log.d("bloo","bloo");
+            sendNotification(remoteMessage.getNotification().getTitle(),remoteMessage.getNotification().getBody());
         }
 
 
@@ -65,5 +78,25 @@ public class FCMService extends FirebaseMessagingService {
         if (FirebaseRemoteConfig.getInstance().getBoolean("event_instant_sync"))
             EventsSyncService.startDownload(this);
 
+    }
+    private void sendNotification(String messageTitle,String messageBody) {
+        Intent intent = new Intent(this, Login.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
+                PendingIntent.FLAG_ONE_SHOT);
+
+        Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.drawable.icon)
+                .setContentTitle(messageTitle)
+                .setContentText(messageBody)
+                .setAutoCancel(true)
+                .setSound(defaultSoundUri)
+                .setContentIntent(pendingIntent);
+
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
     }
 }
