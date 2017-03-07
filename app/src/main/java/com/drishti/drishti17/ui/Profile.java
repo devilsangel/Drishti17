@@ -7,14 +7,12 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,7 +20,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.drishti.drishti17.R;
@@ -36,13 +33,10 @@ import com.drishti.drishti17.util.Global;
 import com.drishti.drishti17.util.NavUtil;
 import com.drishti.drishti17.util.NetworkUtil;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.iid.FirebaseInstanceId;
 
 import net.glxn.qrgen.android.QRCode;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -99,7 +93,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(" ");
         SharedPreferences sharedPreferences=getSharedPreferences("drishti", Context.MODE_PRIVATE);
-        Bitmap myBitmap = QRCode.from(sharedPreferences.getString("id","blank")).withColor(0xff1B232E,0xff33658a).withSize(250,250).bitmap();
+        Bitmap myBitmap = QRCode.from(sharedPreferences.getString("id","blank")).withColor(0xff1B232E,0xffffffff).withSize(250,250).bitmap();
         qr.setImageBitmap(myBitmap);
         name.setText(Global.user);
         college.setText(Global.college);
