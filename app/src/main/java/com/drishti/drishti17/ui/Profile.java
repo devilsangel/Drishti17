@@ -128,10 +128,14 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
                             progressDialog.disMissProgressDialog();
                             ArrayList<String> eventList1 = new ArrayList<String>();
                             ArrayList<String> timeList1 = new ArrayList<String>();
+                            ArrayList<Integer> idList1=new ArrayList<Integer>();
                             ArrayList<String> eventList2 = new ArrayList<String>();
                             ArrayList<String> timeList2 = new ArrayList<String>();
+                            ArrayList<Integer> idList2=new ArrayList<Integer>();
                             ArrayList<String> eventList3 = new ArrayList<String>();
                             ArrayList<String> timeList3 = new ArrayList<String>();
+                            ArrayList<Integer> idList3=new ArrayList<Integer>();
+
                             ArrayList<EventModel> events = (ArrayList<EventModel>) response.body();
                             int workshopCount = 0, eventCount = 0;
                             for (EventModel e : events) {
@@ -142,29 +146,32 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
                                 if (e.day.equals("1") || e.day.equals("17")) {
                                     eventList1.add(e.name);
                                     timeList1.add(e.time);
+                                    idList1.add(e.server_id);
                                 } else if (e.day.equals("2") || e.day.equals("18")) {
                                     eventList2.add(e.name);
                                     timeList2.add(e.time);
+                                    idList2.add(e.server_id);
                                 } else {
                                     eventList3.add(e.name);
                                     timeList3.add(e.time);
+                                    idList3.add(e.server_id);
                                 }
                             }
                             wc.setText(workshopCount + "");
                             ec.setText(eventCount + "");
-                            d1.setAdapter(new ProfileScheduleAdapter(Profile.this, eventList1, timeList1));
+                            d1.setAdapter(new ProfileScheduleAdapter(Profile.this, eventList1, timeList1,idList1));
                             CardView c1 = (CardView) findViewById(R.id.c1);
                             ViewGroup.LayoutParams params = c1.getLayoutParams();
                             params.height = 250 + 120 * eventList1.size();
                             c1.setLayoutParams(params);
 
-                            d2.setAdapter(new ProfileScheduleAdapter(Profile.this, eventList2, timeList2));
+                            d2.setAdapter(new ProfileScheduleAdapter(Profile.this, eventList2, timeList2,idList2));
                             CardView c2 = (CardView) findViewById(R.id.c2);
                             params = c2.getLayoutParams();
                             params.height = 250 + 120 * eventList2.size();
                             c2.setLayoutParams(params);
 
-                            d3.setAdapter(new ProfileScheduleAdapter(Profile.this, eventList3, timeList3));
+                            d3.setAdapter(new ProfileScheduleAdapter(Profile.this, eventList3, timeList3,idList3));
                             CardView c3 = (CardView) findViewById(R.id.c3);
                             params = c3.getLayoutParams();
                             params.height = 250 + 120 * eventList3.size();
