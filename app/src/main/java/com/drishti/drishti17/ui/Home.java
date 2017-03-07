@@ -145,7 +145,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener,
 
        // mAdapter.setCallback(this);
         mFlipView.setAdapter(mAdapter);
-        mFlipView.peakNext(false);
+      //  mFlipView.peakNext(false);
         mFlipView.setOverFlipMode(OverFlipMode.RUBBER_BAND);
         mFlipView.setEmptyView(findViewById(R.id.cube));
         mFlipView.setOnOverFlipListener(this);

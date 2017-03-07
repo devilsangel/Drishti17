@@ -3,8 +3,6 @@ package com.drishti.drishti17;
 import android.app.Application;
 import android.content.Context;
 
-import com.facebook.stetho.Stetho;
-
 /**
  * Created by nirmal on 2/12/2017
  */
@@ -15,7 +13,7 @@ public class Drishti extends Application{
     public void onCreate() {
         super.onCreate();
 
-        Stetho.initializeWithDefaults(this);
+
         sContext = getApplicationContext();
         
     }
