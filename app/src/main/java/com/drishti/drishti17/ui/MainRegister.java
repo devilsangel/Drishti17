@@ -72,7 +72,7 @@ public class MainRegister extends AppCompatActivity implements View.OnClickListe
                     cnames.add(c.name);
                     searchList.put(c.name,c.id);
                 }
-                ArrayAdapter<String> list=new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_list_item_1,cnames);
+                ArrayAdapter<String> list=new ArrayAdapter<String>(getApplicationContext(),R.layout.dropdown,cnames);
                 collegeName.setDropDownBackgroundResource(R.color.colorPrimary);
                 collegeName.setAdapter(list);
                 collegeName.setThreshold(0);
@@ -87,7 +87,7 @@ public class MainRegister extends AppCompatActivity implements View.OnClickListe
     public void submit(){
         final String college =collegeName.getText().toString();
         if(searchList.get(college)==null){
-            collegeName.setError("Select College from flipList or choose others");
+            collegeName.setError("Select College from dropdown List or choose others");
             return;
         }
         final String number=pNumber.getText().toString();

@@ -83,10 +83,10 @@
         android:layout_alignParentBottom="true">
         <Button
             android:background="?android:attr/selectableItemBackground"
-            android:id="@+id/subreg"
+            android:text="Skip"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Submit"
+            android:id="@+id/skip"
             android:textColor="@color/white"
             android:layout_alignRight="@+id/sep"/>
         <View
@@ -98,9 +98,9 @@
             android:layout_height="2dp"
             android:layout_centerHorizontal="true" />
         <Button
-            android:id="@+id/skip"
+            android:id="@+id/subreg"
             android:background="?android:attr/selectableItemBackground"
-            android:text="Skip"
+            android:text="Submit"
             android:textColor="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
