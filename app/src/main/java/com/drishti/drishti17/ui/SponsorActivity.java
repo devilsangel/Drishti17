@@ -12,8 +12,11 @@ import android.view.View;
 import com.drishti.drishti17.R;
 import com.drishti.drishti17.db.data.SponsorMap;
 import com.drishti.drishti17.ui.adapters.SponsorListAdapter;
+import com.drishti.drishti17.util.Global;
+import com.drishti.drishti17.util.Import;
 import com.drishti.drishti17.util.NavUtil;
 import com.drishti.drishti17.util.UIUtil;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.Map;
 
@@ -28,6 +31,8 @@ public class SponsorActivity extends AppCompatActivity implements View.OnClickLi
 
     @BindView(R.id.fab)
     FloatingActionButton fab;
+    private FirebaseAnalytics mFirebaseAnalytics;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +49,10 @@ public class SponsorActivity extends AppCompatActivity implements View.OnClickLi
 
         loadSponsors();
         setUI();
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        Import.recordScreenView(this,"Sponsor",mFirebaseAnalytics);
+        mFirebaseAnalytics.logEvent(Global.FIRE_SPON_OPEN,new Bundle());
 
     }
 

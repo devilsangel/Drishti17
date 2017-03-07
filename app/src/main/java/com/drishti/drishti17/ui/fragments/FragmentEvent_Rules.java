@@ -11,7 +11,10 @@ import android.widget.TextView;
 
 import com.drishti.drishti17.R;
 import com.drishti.drishti17.network.models.EventModel;
+import com.drishti.drishti17.util.Global;
+import com.drishti.drishti17.util.Import;
 import com.drishti.drishti17.util.UIUtil;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 
 public class FragmentEvent_Rules extends Fragment {
@@ -19,6 +22,7 @@ public class FragmentEvent_Rules extends Fragment {
     private static final String TAG = FragmentEvent_Rules.class.getSimpleName();
     private int paddingHeight;
     private EventModel eventItem;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     public FragmentEvent_Rules() {
     }
@@ -40,6 +44,10 @@ public class FragmentEvent_Rules extends Fragment {
         if (getArguments() != null) {
             paddingHeight = getArguments().getInt("padding_height");
         }
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(getContext());
+        Import.recordScreenView(getActivity(),"Fragment rules",mFirebaseAnalytics);
+        mFirebaseAnalytics.logEvent(Global.FIRE_EVENT_RULES_OPEN,new Bundle());
     }
 
     @Override

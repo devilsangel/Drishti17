@@ -3,6 +3,7 @@ package com.drishti.drishti17.async.services;
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 
 import com.drishti.drishti17.db.HighlightsTable;
@@ -12,6 +13,7 @@ import com.drishti.drishti17.util.ApiInterface;
 import com.drishti.drishti17.util.Global;
 import com.drishti.drishti17.util.Import;
 import com.drishti.drishti17.util.NetworkUtil;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.List;
 
@@ -23,6 +25,7 @@ import retrofit2.Response;
 public class HighlightSyncService extends IntentService {
 
     private static final String TAG = HighlightSyncService.class.getSimpleName();
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     public HighlightSyncService() {
         super("HighlightSyncService");
@@ -52,6 +55,9 @@ public class HighlightSyncService extends IntentService {
             Log.d(TAG, "onHandleIntent: no net");
             sendBroadcast(false);
         }
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        mFirebaseAnalytics.logEvent(Global.FIRE_HIGHTLIGHT_SYNC_SERVICE_START,new Bundle());
     }
 
     @Override
@@ -77,6 +83,8 @@ public class HighlightSyncService extends IntentService {
                         HighlightsTable.insert(HighlightSyncService.this, model);
                     }
                     sendBroadcast(true);
+                    mFirebaseAnalytics.logEvent(Global.FIRE_HIGHTLIGHT_SYNC_START,new Bundle());
+
 
                 } else {
                     Log.d(TAG, "onResponse: response failed");

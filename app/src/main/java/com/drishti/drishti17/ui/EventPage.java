@@ -32,6 +32,7 @@ import com.drishti.drishti17.util.Global;
 import com.drishti.drishti17.util.Import;
 import com.drishti.drishti17.util.NetworkUtil;
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,6 +47,8 @@ public class EventPage extends AppCompatActivity implements ViewPager.OnPageChan
     private EventModel eventItem;
     ProgressDialog progressDialog;
     Boolean isRegistered=false;
+    private FirebaseAnalytics mFirebaseAnalytics;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,9 +59,17 @@ public class EventPage extends AppCompatActivity implements ViewPager.OnPageChan
         initUI();
         progressDialog=new ProgressDialog(EventPage.this);
         checkRegisterStatus();
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        Import.recordScreenView(this,"Event Page",mFirebaseAnalytics);
+        mFirebaseAnalytics.logEvent(Global.FIRE_EVENT_PAGE_OPEN,new Bundle());
+
+
         findViewById(R.id.regbut).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mFirebaseAnalytics.logEvent(Global.FIRE_REGISTER_CLICK,new Bundle());
+
                 if(!NetworkUtil.isNetworkAvailable(EventPage.this)) {
                     Snackbar.make(findViewById(R.id.content_event_page), "Network Unavailable", Snackbar.LENGTH_LONG).show();
                     return;

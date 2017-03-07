@@ -18,8 +18,11 @@ import com.drishti.drishti17.async.services.Constants;
 import com.drishti.drishti17.async.services.RadioService;
 import com.drishti.drishti17.ui.factory.Blur.Blur;
 import com.drishti.drishti17.ui.factory.ProgressDialog;
+import com.drishti.drishti17.util.Global;
+import com.drishti.drishti17.util.Import;
 import com.drishti.drishti17.util.NavUtil;
 import com.drishti.drishti17.util.NetworkUtil;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.ohoussein.playpause.PlayPauseView;
 
 import butterknife.BindView;
@@ -31,6 +34,7 @@ public class Cetalks extends AppCompatActivity implements View.OnClickListener {
     IntentFilter intentFilter;
     ProgressDialog progressDialog;
     FloatingActionButton fab;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +78,10 @@ public class Cetalks extends AppCompatActivity implements View.OnClickListener {
         });
         Blur blur=new Blur((ImageView)findViewById(R.id.radiobg),getApplicationContext(),5,5);
         blur.applyBlur(true,(findViewById(R.id.l1)));
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        Import.recordScreenView(this,"Cetalks",mFirebaseAnalytics);
+        mFirebaseAnalytics.logEvent(Global.FIRE_TALK_OPEN,new Bundle());
     }
 
     @Override

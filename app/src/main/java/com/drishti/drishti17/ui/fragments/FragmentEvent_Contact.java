@@ -13,8 +13,10 @@ import android.widget.TextView;
 
 import com.drishti.drishti17.R;
 import com.drishti.drishti17.network.models.EventModel;
+import com.drishti.drishti17.util.Global;
 import com.drishti.drishti17.util.Import;
 import com.drishti.drishti17.util.UIUtil;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 
 public class FragmentEvent_Contact extends Fragment {
@@ -22,6 +24,7 @@ public class FragmentEvent_Contact extends Fragment {
     private static final String TAG = FragmentEvent_Contact.class.getSimpleName();
     private int paddingHeight;
     private EventModel eventItem;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     public FragmentEvent_Contact() {
         // Required empty public constructor
@@ -44,6 +47,10 @@ public class FragmentEvent_Contact extends Fragment {
         if (getArguments() != null) {
             paddingHeight = getArguments().getInt("padding_height");
         }
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(getContext());
+        Import.recordScreenView(getActivity(),"Fragment Contact",mFirebaseAnalytics);
+        mFirebaseAnalytics.logEvent(Global.FIRE_EVENT_CONTACT_OPEN,new Bundle());
     }
 
 
@@ -171,6 +178,8 @@ public class FragmentEvent_Contact extends Fragment {
     }
 
     private void sendMail(int mode){
+        mFirebaseAnalytics.logEvent(Global.FIRE_CONTACT_MAIL_CLICK,new Bundle());
+
         String address;
         if(mode == 1){
             address = eventItem.contactEmail1;
@@ -184,6 +193,9 @@ public class FragmentEvent_Contact extends Fragment {
     }
 
     private void callPhone(int mode) {
+        mFirebaseAnalytics.logEvent(Global.FIRE_CONTACT_PHONE_CLICK,new Bundle());
+
+
         String phone;
         if (mode == 1) {
             phone = eventItem.contactPhone1;

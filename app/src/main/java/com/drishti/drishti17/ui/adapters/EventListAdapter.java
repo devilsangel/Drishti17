@@ -15,8 +15,10 @@ import com.bumptech.glide.Glide;
 import com.drishti.drishti17.R;
 import com.drishti.drishti17.network.models.EventModel;
 import com.drishti.drishti17.ui.EventPage;
+import com.drishti.drishti17.util.Global;
 import com.drishti.drishti17.util.UIUtil;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -36,12 +38,14 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
     private Context context;
     static String from;
     private Random random;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     public EventListAdapter(List<EventModel> eventList, Context context, String from) {
         this.from = from;
         this.eventList = eventList;
         this.context = context;
 
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
         random = new Random();
     }
 
@@ -113,6 +117,8 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
         }
 
         void proceedDetail() {
+            mFirebaseAnalytics.logEvent(Global.FIRE_EVENT_CLICK,new Bundle());
+
             Log.d(TAG, "proceedDetail: "+eventList.get(getAdapterPosition()).server_id);
             Intent intent_expand = new Intent(view.getContext(), EventPage.class);
             Bundle bundle = new Bundle();

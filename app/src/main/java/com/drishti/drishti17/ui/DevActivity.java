@@ -10,8 +10,11 @@ import android.view.View;
 
 import com.drishti.drishti17.R;
 import com.drishti.drishti17.ui.adapters.DevListAdapter;
+import com.drishti.drishti17.util.Global;
+import com.drishti.drishti17.util.Import;
 import com.drishti.drishti17.util.NavUtil;
 import com.drishti.drishti17.util.UIUtil;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,6 +24,7 @@ public class DevActivity extends AppCompatActivity implements View.OnClickListen
     private static final String TAG = DevActivity.class.getSimpleName();
     @BindView(R.id.fab)
     FloatingActionButton fab;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +34,9 @@ public class DevActivity extends AppCompatActivity implements View.OnClickListen
 
         ButterKnife.bind(this);
         fab.setOnClickListener(this);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        Import.recordScreenView(this,"Dev page",mFirebaseAnalytics);
+        mFirebaseAnalytics.logEvent(Global.FIRE_DEV_OPEN,new Bundle());
 
         setUI();
     }

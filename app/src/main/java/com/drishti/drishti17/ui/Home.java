@@ -28,6 +28,7 @@ import com.drishti.drishti17.util.Global;
 import com.drishti.drishti17.util.Import;
 import com.drishti.drishti17.util.NavUtil;
 import com.drishti.drishti17.util.UIUtil;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.List;
@@ -50,6 +51,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener,
     ProgressDialog progressDialog;
     List<HighLightModel> flipList;
     private boolean isFirstTime = false;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     private FlipView mFlipView;
     private HomeFlipAdapter mAdapter;
@@ -70,6 +72,10 @@ public class Home extends AppCompatActivity implements View.OnClickListener,
 
         performInitial();
         registerReceivers();
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        Import.recordScreenView(this,"Home",mFirebaseAnalytics);
+        mFirebaseAnalytics.logEvent(Global.FIRE_HOME_OPEN,new Bundle());
     }
 
     @Override

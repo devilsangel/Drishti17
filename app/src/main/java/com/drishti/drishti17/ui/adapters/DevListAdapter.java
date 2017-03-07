@@ -2,6 +2,7 @@ package com.drishti.drishti17.ui.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +13,11 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.drishti.drishti17.R;
 import com.drishti.drishti17.db.data.StaticData;
+import com.drishti.drishti17.util.Global;
 import com.drishti.drishti17.util.Import;
 import com.drishti.drishti17.util.UIUtil;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -27,6 +30,7 @@ public class DevListAdapter extends RecyclerView.Adapter<DevListAdapter.ViewHold
     private String[] name, roles, mail, phone, color, pic;
     private Activity activity;
     Context context;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     public DevListAdapter(Activity activity, Context context) {
         this.activity = activity;
@@ -37,6 +41,9 @@ public class DevListAdapter extends RecyclerView.Adapter<DevListAdapter.ViewHold
         phone = context.getResources().getStringArray(R.array.dev_phone);
         color = context.getResources().getStringArray(R.array.dev_backgroud);
         pic = StaticData.devPicsUrl;
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
+
     }
 
     @Override
@@ -78,10 +85,13 @@ public class DevListAdapter extends RecyclerView.Adapter<DevListAdapter.ViewHold
     }
 
     private void callDev(int position) {
+        mFirebaseAnalytics.logEvent(Global.FIRE_DEV_PHONE_CLICK,new Bundle());
         Import.callIntent(activity, phone[position]);
     }
 
     private void sendMail(int position) {
+
+        mFirebaseAnalytics.logEvent(Global.FIRE_DEV_MAIL_CLICK,new Bundle());
         Import.composeEmail(activity, new String[]{mail[position]}, "Drishti Developer Query");
     }
 

@@ -26,7 +26,6 @@ public class GuillotineUtil implements View.OnClickListener {
     private GuillotineAnimation navAnimation;
     private TextView lastSelected ;
 
-
     public GuillotineUtil(OnNavigationClickListener mListener) {
         this.mListener = mListener;
     }

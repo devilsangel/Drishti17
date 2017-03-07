@@ -8,12 +8,15 @@ import android.view.View;
 
 import com.drishti.drishti17.R;
 import com.drishti.drishti17.ui.transition.FabTransform;
+import com.drishti.drishti17.util.Global;
 import com.drishti.drishti17.util.Import;
 import com.drishti.drishti17.util.NavUtil;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 public class NavigationActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = NavigationActivity.class.getSimpleName();
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +29,9 @@ public class NavigationActivity extends AppCompatActivity implements View.OnClic
             }
         }
 
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        Import.recordScreenView(this, "Navigation Activity", mFirebaseAnalytics);
+        mFirebaseAnalytics.logEvent(Global.FIRE_NAV_OPEN, new Bundle());
 
         setupUI();
         findViewById(R.id.fab).setOnClickListener(this);
@@ -53,28 +59,28 @@ public class NavigationActivity extends AppCompatActivity implements View.OnClic
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.fab:
-                NavUtil.returnParent(this,-1);
+                NavUtil.returnParent(this, -1);
                 break;
             case R.id.layout_left_top:
-                NavUtil.returnParent(this,1);
+                NavUtil.returnParent(this, 1);
                 break;
             case R.id.layout_left_bottom:
-                NavUtil.returnParent(this,2);
+                NavUtil.returnParent(this, 2);
                 break;
             case R.id.layout_center_top:
-                NavUtil.returnParent(this,3);
+                NavUtil.returnParent(this, 3);
                 break;
             case R.id.layout_center:
-                NavUtil.returnParent(this,4);
+                NavUtil.returnParent(this, 4);
                 break;
             case R.id.layout_center_bottom:
-                NavUtil.returnParent(this,5);
+                NavUtil.returnParent(this, 5);
                 break;
             case R.id.layout_right_top:
-                NavUtil.returnParent(this,6);
+                NavUtil.returnParent(this, 6);
                 break;
             case R.id.layout_right_bottom:
-                NavUtil.returnParent(this,7);
+                NavUtil.returnParent(this, 7);
                 break;
 
         }

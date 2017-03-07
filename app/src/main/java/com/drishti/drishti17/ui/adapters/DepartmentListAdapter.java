@@ -15,7 +15,9 @@ import com.bumptech.glide.Glide;
 import com.drishti.drishti17.R;
 import com.drishti.drishti17.network.models.DepartmentModel;
 import com.drishti.drishti17.ui.EventList;
+import com.drishti.drishti17.util.Global;
 import com.drishti.drishti17.util.UIUtil;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.HashMap;
 
@@ -27,11 +29,13 @@ public class DepartmentListAdapter extends RecyclerView.Adapter<DepartmentListAd
 
     private HashMap<Integer, DepartmentModel> deptMap;
     private Context context;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     private static final String TAG = DepartmentListAdapter.class.getSimpleName();
     public DepartmentListAdapter(HashMap<Integer, DepartmentModel> deptMap, Context context) {
         this.deptMap = deptMap;
         this.context = context;
+        this.mFirebaseAnalytics  = FirebaseAnalytics.getInstance(context);
     }
 
     @Override
@@ -83,6 +87,9 @@ public class DepartmentListAdapter extends RecyclerView.Adapter<DepartmentListAd
         }
 
         void proceedEventList() {
+
+            mFirebaseAnalytics.logEvent(Global.FIRE_DEPT_CLICK,new Bundle());
+
             Intent intent_expand = new Intent(view.getContext(), EventList.class);
             Bundle bundle = new Bundle();
             bundle.putString("dept", deptMap.get(getAdapterPosition()).key);

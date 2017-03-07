@@ -21,6 +21,7 @@ import com.drishti.drishti17.BuildConfig;
 import com.drishti.drishti17.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 
@@ -203,5 +204,9 @@ public class Import {
     public static int getColorId(Context context, String colorId) {
         String uri = "color/" + colorId;
         return context.getResources().getIdentifier(uri, null, context.getPackageName());
+    }
+
+    public static void recordScreenView(Activity activity, String screenName, FirebaseAnalytics mFirebaseAnalytics) {
+        mFirebaseAnalytics.setCurrentScreen(activity, screenName, null /* class override */);
     }
 }

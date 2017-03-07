@@ -16,8 +16,10 @@ import android.widget.TextView;
 
 import com.drishti.drishti17.R;
 import com.drishti.drishti17.network.models.EventModel;
+import com.drishti.drishti17.util.Global;
 import com.drishti.drishti17.util.Import;
 import com.drishti.drishti17.util.UIUtil;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 public class FragmentEvent_General extends Fragment {
 
@@ -25,6 +27,7 @@ public class FragmentEvent_General extends Fragment {
     private static final String TAG = FragmentEvent_General.class.getSimpleName();
     private int paddingTop;
     private EventModel eventItem;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     public FragmentEvent_General() {
         // Required empty public constructor
@@ -48,6 +51,10 @@ public class FragmentEvent_General extends Fragment {
         if (getArguments() != null) {
             paddingTop = getArguments().getInt("padding_height_top");
         }
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(getContext());
+        Import.recordScreenView(getActivity(),"Department",mFirebaseAnalytics);
+        mFirebaseAnalytics.logEvent(Global.FIRE_EVENT_GENERAL_OPEN,new Bundle());
     }
 
     @Override

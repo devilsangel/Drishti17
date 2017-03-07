@@ -3,6 +3,7 @@ package com.drishti.drishti17.async.services;
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 
 import com.drishti.drishti17.db.EventsTable;
@@ -12,6 +13,7 @@ import com.drishti.drishti17.util.ApiInterface;
 import com.drishti.drishti17.util.Global;
 import com.drishti.drishti17.util.Import;
 import com.drishti.drishti17.util.NetworkUtil;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.List;
 
@@ -23,6 +25,7 @@ import retrofit2.Response;
 public class EventsSyncService extends IntentService {
 
     private static final String TAG = EventsSyncService.class.getSimpleName();
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     public EventsSyncService() {
         super("EventsSyncService");
@@ -36,6 +39,7 @@ public class EventsSyncService extends IntentService {
     }
 
     public static void startDownload(Context context) {
+
         Log.d(TAG, "startDownload: starting");
         Intent intent = new Intent(context, EventsSyncService.class);
         context.startService(intent);
@@ -43,6 +47,8 @@ public class EventsSyncService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        mFirebaseAnalytics.logEvent(Global.FIRE_EVENT_SYNC_SERVICE_START,new Bundle());
 
         Import.setEventDownloadingStatus(true);
         if (NetworkUtil.isNetworkAvailable(this))
@@ -75,6 +81,7 @@ public class EventsSyncService extends IntentService {
                         EventsTable.insert(EventsSyncService.this, model);
                     }
                     sendBroadcast(true);
+                    mFirebaseAnalytics.logEvent(Global.FIRE_EVENT_SYNC_START,new Bundle());
 
                 } else {
                     Log.d(TAG, "onResponse: response failed");

@@ -14,8 +14,11 @@ import com.drishti.drishti17.network.models.DepartmentModel;
 import com.drishti.drishti17.ui.adapters.DepartmentListAdapter;
 import com.drishti.drishti17.ui.factory.ProgressDialog;
 import com.drishti.drishti17.ui.fragments.DeptListFragment;
+import com.drishti.drishti17.util.Global;
+import com.drishti.drishti17.util.Import;
 import com.drishti.drishti17.util.NavUtil;
 import com.drishti.drishti17.util.UIUtil;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.HashMap;
 
@@ -27,6 +30,8 @@ public class Departments extends AppCompatActivity implements DeptListFragment.O
     ProgressDialog progressDialog;
     private static final String TAG = Departments.class.getSimpleName();
     @BindView(R.id.fab)  FloatingActionButton fab;
+    private FirebaseAnalytics mFirebaseAnalytics;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +44,9 @@ public class Departments extends AppCompatActivity implements DeptListFragment.O
         fab.setOnClickListener(this);
 
         loadDepartments();
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        Import.recordScreenView(this,"Department",mFirebaseAnalytics);
+        mFirebaseAnalytics.logEvent(Global.FIRE_DEPT_OPEN,new Bundle());
 
     }
 

@@ -30,8 +30,10 @@ import com.drishti.drishti17.util.ApiClient;
 import com.drishti.drishti17.util.ApiInterface;
 import com.drishti.drishti17.util.AuthUtil;
 import com.drishti.drishti17.util.Global;
+import com.drishti.drishti17.util.Import;
 import com.drishti.drishti17.util.NavUtil;
 import com.drishti.drishti17.util.NetworkUtil;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 
 import net.glxn.qrgen.android.QRCode;
@@ -57,6 +59,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
     @BindView(R.id.d2)ListView d2;
     @BindView(R.id.d3)ListView d3;
     @BindView(R.id.appbar)AppBarLayout appBarLayout;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -97,6 +100,11 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
         qr.setImageBitmap(myBitmap);
         name.setText(Global.user);
         college.setText(Global.college);
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        Import.recordScreenView(this,"Profile",mFirebaseAnalytics);
+        mFirebaseAnalytics.logEvent(Global.FIRE_PROF_OPEN,new Bundle());
+
         final ProgressDialog progressDialog=new ProgressDialog(this);
         if(Global.isguest){
             new AlertDialog.Builder(Profile.this).setMessage("You must complete Drishti registration in order to see Profile")

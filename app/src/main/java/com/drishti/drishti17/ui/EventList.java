@@ -24,6 +24,7 @@ import com.drishti.drishti17.util.Global;
 import com.drishti.drishti17.util.GuillotineUtil;
 import com.drishti.drishti17.util.Import;
 import com.drishti.drishti17.util.UIUtil;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,6 +45,7 @@ public class EventList extends AppCompatActivity implements
     int currentFragment = 0;
     BroadcastReceiver downloadCompleteReceiver;
     ProgressDialog progressDialog;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
 
     @Override
@@ -58,9 +60,17 @@ public class EventList extends AppCompatActivity implements
         }
         progressDialog = new ProgressDialog(this);
         getArguments();
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        Import.recordScreenView(this,"Event list",mFirebaseAnalytics);
+        mFirebaseAnalytics.logEvent(Global.FIRE_EVENT_lIST_OPEN,new Bundle());
+
+
         handleNavigation();
 
         registerReceivers();
+
+
 
         setUpUI();
         doHelpAction();
@@ -152,11 +162,13 @@ public class EventList extends AppCompatActivity implements
                 text = getString(R.string.competitions);
                 currentFragment = 0;
                 setUpFragmentUi(currentFragment);
+                mFirebaseAnalytics.logEvent(Global.FIRE_COMPETITION_CLICK,new Bundle());
                 break;
             case R.id.workshops_group:
                 text = getString(R.string.workshops);
                 currentFragment = 1;
                 setUpFragmentUi(currentFragment);
+                mFirebaseAnalytics.logEvent(Global.FIRE_WORKSHOP_CLICK,new Bundle());
                 break;
             case R.id.informals_group:
                 text = getString(R.string.informals);
@@ -180,6 +192,7 @@ public class EventList extends AppCompatActivity implements
     void reload() {
         progressDialog.showProgressDialog();
         EventsSyncService.startDownload(this);
+        mFirebaseAnalytics.logEvent(Global.FIRE_EVENT_RELOAD,new Bundle());
 
     }
 
