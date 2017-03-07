@@ -149,7 +149,7 @@ public class EventList extends AppCompatActivity implements
         }
         Fragment deptListFragment = CompetitionListFragment.newInstance(dept, where);
         fragmentTransaction.add(R.id.content_event_list, deptListFragment, "competitions");
-        fragmentTransaction.commit();
+        fragmentTransaction.commitAllowingStateLoss();
 
     }
 
