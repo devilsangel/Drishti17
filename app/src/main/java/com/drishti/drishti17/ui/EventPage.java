@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.drishti.drishti17.R;
 import com.drishti.drishti17.db.EventsTable;
@@ -287,6 +289,7 @@ public class EventPage extends AppCompatActivity implements ViewPager.OnPageChan
                                 if (response.body().isRegistered) {
                                     isRegistered = true;
                                     ((Button) findViewById(R.id.register)).setText(R.string.registered);
+                                    Toast.makeText(EventPage.this,"After registering via app button, please make sure that you also follow registration or payment links present in the description or rules",Toast.LENGTH_LONG).show();
                                 }
                             } else {
 
