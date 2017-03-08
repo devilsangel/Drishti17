@@ -1,7 +1,5 @@
 package com.drishti.drishti17.network.models;
 
-import android.database.Cursor;
-
 import com.google.gson.annotations.SerializedName;
 
 /**

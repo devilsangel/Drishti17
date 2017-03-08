@@ -55,7 +55,7 @@
         android:textSize="20dp"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
-        android:text="Accomadation"
+        android:text="Accomodation"
         android:id="@+id/radiotitle"/>
     <RadioGroup
         android:layout_marginTop="10dp"

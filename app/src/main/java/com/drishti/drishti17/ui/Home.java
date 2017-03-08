@@ -11,6 +11,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.drishti.drishti17.R;
 import com.drishti.drishti17.async.services.EventsSyncService;
@@ -43,7 +44,7 @@ import se.emilsjolander.flipview.OverFlipMode;
 
 
 public class Home extends AppCompatActivity implements View.OnClickListener,
-        HomeFlipAdapter.Callback, FlipView.OnOverFlipListener, UIUtil.OnPromptActionCompleted {
+        HomeFlipAdapter.OnCardClick, FlipView.OnOverFlipListener, UIUtil.OnPromptActionCompleted {
 
     private static final String TAG = Home.class.getSimpleName();
     @BindView(R.id.fab)
@@ -141,11 +142,12 @@ public class Home extends AppCompatActivity implements View.OnClickListener,
         handleFlip();
         this.flipList = flipList;
         mFlipView = (FlipView) findViewById(R.id.flipview);
-        mAdapter = new HomeFlipAdapter(this, flipList);
+        mAdapter = new HomeFlipAdapter(this, flipList,this);
 
-       // mAdapter.setCallback(this);
+      //  mFlipView.setOnClickListener(this);
+        // mAdapter.setCallback(this);
         mFlipView.setAdapter(mAdapter);
-      //  mFlipView.peakNext(false);
+        //  mFlipView.peakNext(false);
         mFlipView.setOverFlipMode(OverFlipMode.RUBBER_BAND);
         mFlipView.setEmptyView(findViewById(R.id.cube));
         mFlipView.setOnOverFlipListener(this);
@@ -216,10 +218,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener,
         }
     }
 
-    @Override
-    public void onPageRequested(int page) {
-        Log.d(TAG, "onPageRequested: page " + page);
-    }
+
 
     @Override
     public void onOverFlip(FlipView v, OverFlipMode mode,
@@ -254,6 +253,20 @@ public class Home extends AppCompatActivity implements View.OnClickListener,
         }
     }
 
+    @Override
+    public void onPageRequested(boolean is_event, int server_id) {
+        if (is_event &&  server_id > 0) {
+            Intent intent = new Intent(this,EventPage.class);
+            Bundle bundle = new Bundle();
+            bundle.putInt("id",server_id);
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }else {
+            Toast.makeText(this,"Sorry ! Further details for" +
+                    " this item is not currently available",Toast.LENGTH_LONG).show();
+        }
+    }
+
     class AsyncLoad extends AsyncTask<Void, Void, List<HighLightModel>> {
 
         @Override
@@ -273,7 +286,7 @@ public class Home extends AppCompatActivity implements View.OnClickListener,
                 List<EventModel> eventModels = EventsTable.getAllEventsMinified(Home.this, null, null, null);
                 for (EventModel item : eventModels) {
                     HighLightModel flipModel = new HighLightModel(item.name, item.description,
-                            item.image, item.id, item.server_id);
+                            item.image, item.id, item.server_id,true,item.server_id);
 
                     models.add(flipModel);
                 }

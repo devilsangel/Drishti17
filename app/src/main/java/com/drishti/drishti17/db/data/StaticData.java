@@ -10,7 +10,7 @@ public class StaticData {
             , "https://firebasestorage.googleapis.com/v0/b/drishti-bd782.appspot.com/o/images%2Fdev%2Fkevin.JPG?alt=media&token=eab76e2e-b260-4d23-bf30-f0ee32a6abaa"
             , "https://firebasestorage.googleapis.com/v0/b/drishti-bd782.appspot.com/o/images%2Fdev%2Fjayadeep.jpeg?alt=media&token=2bce14bf-8b3e-486e-a2dc-ade064668fc2"
             , "https://firebasestorage.googleapis.com/v0/b/drishti-bd782.appspot.com/o/images%2Fdev%2Fnisham.jpg?alt=media&token=e3bcb018-3257-4c29-83ea-a63f7071d9d3"
-            , "https://firebasestorage.googleapis.com/v0/b/drishti-bd782.appspot.com/o/images%2Fdev%2Fsharath.png?alt=media&token=a5b13604-b38d-45c0-af8f-64b57d680407"
+            , "https://firebasestorage.googleapis.com/v0/b/drishti-bd782.appspot.com/o/images%2Fdev%2Fsharath.jpeg?alt=media&token=1815df44-1f90-4ff2-b30f-8f4b4312011f"
     };
 
 }

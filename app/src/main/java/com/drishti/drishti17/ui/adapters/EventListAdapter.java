@@ -129,7 +129,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
         void proceedCompetition() {
            /* Intent intent_expand = new Intent(view.getContext(), EventDetail.class);
             Bundle bundle = new Bundle();
-            bundle.putInt("dept", eventList.get(getAdapterPosition()).server_id);
+            bundle.putInt("dept", eventList.get(getAdapterPosition()).server_serial_id);
             intent_expand.putExtras(bundle);
             view.getContext().startActivity(intent_expand);*/
         }

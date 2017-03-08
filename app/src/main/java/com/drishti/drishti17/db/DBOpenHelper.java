@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.drishti.drishti17.async.services.EventsSyncService;
+import com.drishti.drishti17.async.services.HighlightSyncService;
 import com.drishti.drishti17.db.data.dbMetaData;
 import com.drishti.drishti17.util.Global;
 import com.drishti.drishti17.util.Import;
@@ -65,6 +67,13 @@ public class DBOpenHelper  extends SQLiteOpenHelper {
         drop(sqLiteDatabase);
         onCreate(sqLiteDatabase);
 
+        reloadDb();
+
+    }
+
+    private void reloadDb() {
+        EventsSyncService.startDownload(context);
+        HighlightSyncService.startDownload(context);
     }
 
     private void create(SQLiteDatabase db) {

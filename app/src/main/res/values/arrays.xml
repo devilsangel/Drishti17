@@ -10,10 +10,12 @@
     <string-array name="dept">
         <item>Computer Science</item>
         <item>Electronics</item>
-        <item>Architecture</item>
+        <item>Civil</item>
         <item>Electrical</item>
         <item>Mechanical</item>
+        <item>Originals</item>
         <item>General</item>
+        <item>Gaming</item>
         <item>Robotics</item>
         <item>Online</item>
         <item>Workshops</item>
@@ -22,10 +24,12 @@
     <string-array name="dept_keys">
         <item>CS</item>
         <item>EC</item>
-        <item>AR</item>
+        <item>CIVIL</item>
         <item>EE</item>
         <item>ME</item>
+        <item>ORIGINALS</item>
         <item>GEN</item>
+        <item>GAMING</item>
         <item>ROBO</item>
         <item>ONLINE</item>
         <item>WKSHOP</item>
@@ -36,7 +40,9 @@
         <item>archi</item>
         <item>electrical</item>
         <item>mech</item>
+        <item>original</item>
         <item>general</item>
+        <item>gaming</item>
         <item>robotics</item>
         <item>online</item>
         <item>archi</item>

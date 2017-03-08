@@ -9,7 +9,9 @@ import java.util.Map;
 
 public class SponsorMap {
 
-    final static Sponsor otherSponsors[] = {new Sponsor("TCS", "https://firebasestorage.googleapis.com/v0/b/drishti-bd782.appspot.com/o/images%2Fsponsor%2Ftcs.jpg?alt=media&token=e4692bf4-ed1b-45b8-975f-1302d9311557"),
+    final static Sponsor otherSponsors[] = {
+            new Sponsor("Red Hat", "https://firebasestorage.googleapis.com/v0/b/drishti-bd782.appspot.com/o/images%2Fsponsor%2Fredhat.png?alt=media&token=9e1ac6b9-3449-4c36-90c6-2ab020ed3ff6"),
+            new Sponsor("TCS", "https://firebasestorage.googleapis.com/v0/b/drishti-bd782.appspot.com/o/images%2Fsponsor%2Ftcs.jpg?alt=media&token=e4692bf4-ed1b-45b8-975f-1302d9311557"),
             new Sponsor("Shastra Bhavan", "https://firebasestorage.googleapis.com/v0/b/drishti-bd782.appspot.com/o/images%2Fsponsor%2Fshastra.jpg?alt=media&token=8cbed23a-dfec-4133-a23b-93acd0abce8e"),
             new Sponsor("Riya", "https://firebasestorage.googleapis.com/v0/b/drishti-bd782.appspot.com/o/images%2Fsponsor%2Friya.png?alt=media&token=89cf0cff-e7f5-43a8-b9cc-48b5deddc2cb")};
 

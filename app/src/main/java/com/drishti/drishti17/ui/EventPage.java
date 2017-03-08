@@ -174,7 +174,7 @@ public class EventPage extends AppCompatActivity implements ViewPager.OnPageChan
             Log.d(TAG, "doInBackground: padding " + paddingHeight + " tab " + tabHeight);
             id = integers[0];
 
-            String where = "server_id = " + id;
+            String where = "server_serial_id = " + id;
             EventModel model = EventsTable.getEvent(EventPage.this, where, null, null);
 
             Log.d(TAG, "doInBackground: no of qualified events " + id);

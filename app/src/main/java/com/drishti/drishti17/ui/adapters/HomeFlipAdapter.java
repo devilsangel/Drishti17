@@ -31,12 +31,14 @@ public class HomeFlipAdapter extends BaseAdapter {
 
     private List<HighLightModel> items = new ArrayList<>();
     Random random;
+    private OnCardClick cardClick;
 
-    public interface Callback {
-        public void onPageRequested(int page);
+    public interface OnCardClick {
+        void onPageRequested(boolean is_event,int server_id);
     }
 
-    public HomeFlipAdapter(Context context, List<HighLightModel> flipList) {
+    public HomeFlipAdapter(Context context, List<HighLightModel> flipList,OnCardClick mlistener) {
+        setOnClickListener(mlistener);
         items = flipList;
         random = new Random();
     }
@@ -45,6 +47,10 @@ public class HomeFlipAdapter extends BaseAdapter {
     @Override
     public int getCount() {
         return items.size();
+    }
+
+    public void setOnClickListener(OnCardClick mlistener) {
+        cardClick = mlistener;
     }
 
     @Override
@@ -58,7 +64,7 @@ public class HomeFlipAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View view, ViewGroup viewGroup) {
+    public View getView(final int position, View view, ViewGroup viewGroup) {
         ViewHolder holder;
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
 
@@ -70,6 +76,7 @@ public class HomeFlipAdapter extends BaseAdapter {
             holder.title = (TextView) view.findViewById(R.id.title);
             holder.desp = (TextView) view.findViewById(R.id.desp);
             holder.promo = (ImageView) view.findViewById(R.id.promo);
+            holder.ad_card = view.findViewById(R.id.ad_card);
 
             view.setTag(holder);
         } else {
@@ -79,14 +86,18 @@ public class HomeFlipAdapter extends BaseAdapter {
 
 
         Context context = view.getContext();
-        // int placeholder = random.nextInt(context.getResources().getInteger(R.integer.blur_limit));
-        //  int error = random.nextInt(context.getResources().getInteger(R.integer.logo_limit));
 
         holder.title.setText(items.get(position).getName());
         UIUtil.printHTML(holder.desp, items.get(position).getPromo());
 
-        // int id = Import.getBackgroundImage(context,items.get(position).getImage());
-        // UIUtil.loadPic(context, holder.promo, items.get(position).getImage(), placeholder, error);
+
+        holder.ad_card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cardClick.onPageRequested(items.get(position).getIsEvent(),
+                        items.get(position).getServerId());
+            }
+        });
 
         String imageUrl = items.get(position).getImage();
         if (imageUrl != null && imageUrl.startsWith("https://firebasestorage.googleapis.com/")) {
@@ -117,6 +128,7 @@ public class HomeFlipAdapter extends BaseAdapter {
     static class ViewHolder {
         TextView title, desp;
         ImageView promo;
+        View ad_card;
     }
 
 }
