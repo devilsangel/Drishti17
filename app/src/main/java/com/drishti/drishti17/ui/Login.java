@@ -5,6 +5,7 @@ import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -162,6 +164,22 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                                 @Override
                                 public void onAnimationEnd(Animator animation) {
                                     show();
+                                    if(!NetworkUtil.isNetworkAvailable(Login.this)){
+                                        new AlertDialog.Builder(Login.this).setMessage("Network Unavailable. You can enter in offline mode")
+                                                .setPositiveButton("Offline mode", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        Global.offline=true;
+                                                        startActivity(new Intent(Login.this,Home.class));
+                                                    }
+                                                })
+                                                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
+
+                                                    }
+                                                }).show();
+                                    }
                                 }
 
                                 @Override
@@ -231,6 +249,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                                 @Override
                                 public void onResponse(Call<Student> call, Response<Student> response) {
                                     if(response.code()==200) {
+                                        Global.offline=false;
                                         Student student = response.body();
                                         Global.id = student.id;
                                         SharedPreferences sharedPreferences = getSharedPreferences("drishti", Context.MODE_PRIVATE);

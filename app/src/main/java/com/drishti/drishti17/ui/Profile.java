@@ -106,7 +106,22 @@ public class Profile extends AppCompatActivity implements View.OnClickListener{
         mFirebaseAnalytics.logEvent(Global.FIRE_PROF_OPEN,new Bundle());
 
         final ProgressDialog progressDialog=new ProgressDialog(this);
-        if(Global.isguest){
+        if(Global.offline){
+            new AlertDialog.Builder(Profile.this).setMessage("Profile cannot be viewed in offline mode")
+                    .setPositiveButton("Login", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            startActivity(new Intent(Profile.this,Login.class));
+                            finish();
+                        }
+                    })
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    }).show();
+        }else if(Global.isguest){
             new AlertDialog.Builder(Profile.this).setMessage("You must complete Drishti registration in order to see Profile")
                     .setPositiveButton("Register Now", new DialogInterface.OnClickListener() {
                         @Override

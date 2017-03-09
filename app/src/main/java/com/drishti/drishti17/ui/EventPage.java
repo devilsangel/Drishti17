@@ -60,7 +60,8 @@ public class EventPage extends AppCompatActivity implements ViewPager.OnPageChan
         position = 0;
         initUI();
         progressDialog=new ProgressDialog(EventPage.this);
-        checkRegisterStatus();
+        if(!Global.offline)
+            checkRegisterStatus();
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         Import.recordScreenView(this,"Event Page",mFirebaseAnalytics);
@@ -71,7 +72,22 @@ public class EventPage extends AppCompatActivity implements ViewPager.OnPageChan
             @Override
             public void onClick(View v) {
                 mFirebaseAnalytics.logEvent(Global.FIRE_REGISTER_CLICK,new Bundle());
-
+                if(Global.offline){
+                    new AlertDialog.Builder(EventPage.this).setMessage("Registrations cannot be done in offline mode")
+                            .setPositiveButton("Login", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    startActivity(new Intent(EventPage.this,Login.class));
+                                    finish();
+                                }
+                            })
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    
+                                }
+                            }).show();
+                }
                 if(!NetworkUtil.isNetworkAvailable(EventPage.this)) {
                     Snackbar.make(findViewById(R.id.content_event_page), "Network Unavailable", Snackbar.LENGTH_LONG).show();
                     return;
