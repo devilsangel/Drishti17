@@ -292,13 +292,14 @@ public class EventPage extends AppCompatActivity implements ViewPager.OnPageChan
                                     Toast.makeText(EventPage.this,"After registering via app button, please make sure that you also follow registration or payment links present in the description or rules",Toast.LENGTH_LONG).show();
                                 }
                             } else {
-
+                                Snackbar.make(findViewById(R.id.content_event_page),"Network Error",Snackbar.LENGTH_LONG).show();
                             }
                         }
 
                         @Override
                         public void onFailure(Call<EventRegistrationModel> call, Throwable t) {
                             progressDialog.disMissProgressDialog();
+                            Snackbar.make(findViewById(R.id.content_event_page),"Network Error",Snackbar.LENGTH_LONG).show();
                         }
                     });
                 }

@@ -15,16 +15,20 @@ import com.google.firebase.auth.GetTokenResult;
 public class AuthUtil {
     public static void getFirebaseToken(final Listener listener ){
         FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
-        mUser.getToken(false).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
-            @Override
-            public void onComplete(@NonNull Task<GetTokenResult> task) {
-                if(task.isSuccessful()) {
-                    listener.tokenObtained(task.getResult().getToken());
-                }else {
-                    //handle
+        if(mUser!=null) {
+            mUser.getToken(false).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
+                @Override
+                public void onComplete(@NonNull Task<GetTokenResult> task) {
+                    if (task.isSuccessful()) {
+                        listener.tokenObtained(task.getResult().getToken());
+                    } else {
+                        //handle
+                    }
                 }
-            }
-        });
+            });
+        }else{
+            listener.tokenObtained("");
+        }
 
     }
     public static interface Listener{

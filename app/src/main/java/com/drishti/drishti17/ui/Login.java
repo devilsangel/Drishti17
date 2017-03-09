@@ -230,31 +230,36 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
                             call.enqueue(new Callback<Student>() {
                                 @Override
                                 public void onResponse(Call<Student> call, Response<Student> response) {
-                                    Student student=response.body();
-                                    Global.id=student.id;
-                                    SharedPreferences sharedPreferences=getSharedPreferences("drishti", Context.MODE_PRIVATE);
-                                    SharedPreferences.Editor editor=sharedPreferences.edit();
-                                    editor.putString("id",student.id);
-                                    editor.commit();
-                                    if(student.registered){
-                                        Global.isguest=false;
-                                        Global.college=student.college;
-                                        startActivity(new Intent(Login.this,Home.class));
-                                        finish();
-                                    }else{
-                                        if(autoLogin){
-                                            FirebaseAuth.getInstance().signOut();
-                                            autoLogin=false;
-                                        }else {
-                                            startActivity(new Intent(Login.this, MainRegister.class));
+                                    if(response.code()==200) {
+                                        Student student = response.body();
+                                        Global.id = student.id;
+                                        SharedPreferences sharedPreferences = getSharedPreferences("drishti", Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                                        editor.putString("id", student.id);
+                                        editor.commit();
+                                        if (student.registered) {
+                                            Global.isguest = false;
+                                            Global.college = student.college;
+                                            startActivity(new Intent(Login.this, Home.class));
                                             finish();
+                                        } else {
+                                            if (autoLogin) {
+                                                FirebaseAuth.getInstance().signOut();
+                                                autoLogin = false;
+                                            } else {
+                                                startActivity(new Intent(Login.this, MainRegister.class));
+                                                finish();
+                                            }
                                         }
+                                    }else{
+                                        Toast.makeText(Login.this,"Network Error",Toast.LENGTH_SHORT).show();
                                     }
                                 }
 
                                 @Override
                                 public void onFailure(Call<Student> call, Throwable t) {
                                     Log.d("Login","Fail");
+                                    Toast.makeText(Login.this,"Login Failed",Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }

@@ -1,6 +1,7 @@
 package com.drishti.drishti17.ui;
 
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -115,16 +116,20 @@ public class MainRegister extends AppCompatActivity implements View.OnClickListe
                 service.register(token,number, finalA,searchList.get(college)).enqueue(new retrofit2.Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, retrofit2.Response<String> response) {
-                        Toast.makeText(getApplicationContext(),"Registration Successful",Toast.LENGTH_SHORT);
-                        Global.college=college;
-                        Global.isguest=false;
-                        startActivity(new Intent(MainRegister.this,Home.class));
-                        finish();
+                        if(response.code()==200) {
+                            Toast.makeText(getApplicationContext(), "Registration Successful", Toast.LENGTH_SHORT);
+                            Global.college = college;
+                            Global.isguest = false;
+                            startActivity(new Intent(MainRegister.this, Home.class));
+                            finish();
+                        }else{
+                            Snackbar.make(findViewById(R.id.activity_main_register),"Network Error",Snackbar.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override
                     public void onFailure(Call<String> call, Throwable t) {
-
+                        Snackbar.make(findViewById(R.id.activity_main_register),"Network Error",Snackbar.LENGTH_SHORT).show();
                     }
                 });
             }
