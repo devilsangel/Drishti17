@@ -87,8 +87,8 @@ public class MainRegister extends AppCompatActivity implements View.OnClickListe
     }
     public void submit(){
         final String college =collegeName.getText().toString();
-        if(searchList.get(college)==null){
-            collegeName.setError("Select College from dropdown List or choose others");
+        if(college.isEmpty()){
+            collegeName.setError("Required Field");
             return;
         }
         final String number=pNumber.getText().toString();
@@ -112,26 +112,65 @@ public class MainRegister extends AppCompatActivity implements View.OnClickListe
         final Student.Accomodation finalA = a;
         AuthUtil.getFirebaseToken(new AuthUtil.Listener() {
             @Override
-            public void tokenObtained(String token) {
-                service.register(token,number, finalA,searchList.get(college)).enqueue(new retrofit2.Callback<String>() {
-                    @Override
-                    public void onResponse(Call<String> call, retrofit2.Response<String> response) {
-                        if(response.code()==200) {
-                            Toast.makeText(getApplicationContext(), "Registration Successful", Toast.LENGTH_SHORT);
-                            Global.college = college;
-                            Global.isguest = false;
-                            startActivity(new Intent(MainRegister.this, Home.class));
-                            finish();
-                        }else{
-                            Snackbar.make(findViewById(R.id.activity_main_register),"Network Error",Snackbar.LENGTH_SHORT).show();
+            public void tokenObtained(final String token) {
+                if(searchList.get(college)!=null) {
+                    service.register(token, number, finalA, searchList.get(college)).enqueue(new retrofit2.Callback<String>() {
+                        @Override
+                        public void onResponse(Call<String> call, retrofit2.Response<String> response) {
+                            if (response.code() == 200) {
+                                Toast.makeText(getApplicationContext(), "Registration Successful", Toast.LENGTH_SHORT);
+                                Global.college = college;
+                                Global.isguest = false;
+                                startActivity(new Intent(MainRegister.this, Home.class));
+                                finish();
+                            } else {
+                                Snackbar.make(findViewById(R.id.activity_main_register), "Network Error", Snackbar.LENGTH_SHORT).show();
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onFailure(Call<String> call, Throwable t) {
-                        Snackbar.make(findViewById(R.id.activity_main_register),"Network Error",Snackbar.LENGTH_SHORT).show();
-                    }
-                });
+                        @Override
+                        public void onFailure(Call<String> call, Throwable t) {
+                            Snackbar.make(findViewById(R.id.activity_main_register), "Network Error", Snackbar.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+                else{
+                    service.addCollege(college).enqueue(new retrofit2.Callback<College>() {
+                        @Override
+                        public void onResponse(Call<College> call, retrofit2.Response<College> response) {
+                            if(response.code()==200){
+                                service.register(token, number, finalA, response.body().id).enqueue(new retrofit2.Callback<String>() {
+                                    @Override
+                                    public void onResponse(Call<String> call, retrofit2.Response<String> response) {
+                                        if (response.code() == 200) {
+                                            Toast.makeText(getApplicationContext(), "Registration Successful", Toast.LENGTH_SHORT);
+                                            Global.college = college;
+                                            Global.isguest = false;
+                                            startActivity(new Intent(MainRegister.this, Home.class));
+                                            finish();
+                                        } else {
+                                            Snackbar.make(findViewById(R.id.activity_main_register), "Network Error", Snackbar.LENGTH_SHORT).show();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<String> call, Throwable t) {
+                                        Snackbar.make(findViewById(R.id.activity_main_register), "Network Error", Snackbar.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+                            else{
+                                Snackbar.make(findViewById(R.id.activity_main_register),"Failed to add college",Snackbar.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<College> call, Throwable t) {
+                            Snackbar.make(findViewById(R.id.activity_main_register),"Failed to add college",Snackbar.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+
             }
         });
     }

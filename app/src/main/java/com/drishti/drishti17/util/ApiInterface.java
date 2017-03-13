@@ -62,4 +62,8 @@ public interface ApiInterface {
     @FormUrlEncoded
     @PUT("student/event/{id}")
     Call<String> eventRegisterGroup(@Header("x-auth-token")String token, @Path("id")int id, @Field("group")ArrayList<String> group);
+
+    @FormUrlEncoded
+    @PUT("public/college")
+    Call<College> addCollege(@Field("name")String name);
 }

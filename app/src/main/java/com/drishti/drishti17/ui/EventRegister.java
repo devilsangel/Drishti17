@@ -75,13 +75,13 @@ public class EventRegister extends AppCompatActivity {
                                 grpList.setAdapter(new GrpListAdapter(EventRegister.this,names));
                             }
                         }else
-                            Snackbar.make(findViewById(R.id.content_event_register),"Please try again",Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(findViewById(R.id.content_event_register),"Please try again, please make sure your team member has logged in atleast once",Snackbar.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onFailure(Call<Student> call, Throwable t) {
                         progressDialog.disMissProgressDialog();
-                        Snackbar.make(findViewById(R.id.content_event_register),"Please try again",Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(findViewById(R.id.content_event_register),"Please try again, please make sure your team member has logged in atleast once",Snackbar.LENGTH_SHORT).show();
                     }
                 });
             }
