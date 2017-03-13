@@ -62,7 +62,7 @@ public class Global {
     public static final String FIRE_EVENT_GENERAL_OPEN = "event_general_screen_open";
     public static final String FIRE_DEV_PHONE_CLICK = "dev_phone_click";
     public static final String FIRE_DEV_MAIL_CLICK = "dev_mail_click";
-//    public static final String FIRE_ = "";
+    public static final String FIRE_SITE_CLICK = "site_open";
 //    public static final String FIRE_ = "";
 //    public static final String FIRE_ = "";
 }

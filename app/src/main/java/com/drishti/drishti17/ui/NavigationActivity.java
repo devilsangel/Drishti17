@@ -1,10 +1,13 @@
 package com.drishti.drishti17.ui;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.drishti.drishti17.R;
 import com.drishti.drishti17.ui.transition.FabTransform;
@@ -46,6 +49,9 @@ public class NavigationActivity extends AppCompatActivity implements View.OnClic
         Import.settypefaces(this,"SourceSansPro-Regular.otf", (TextView) findViewById(R.id.text_profile));
         Import.settypefaces(this,"SourceSansPro-Regular.otf", (TextView) findViewById(R.id.text_map));*/
 
+        TextView link = (TextView) findViewById(R.id.site_link);
+        link.setOnClickListener(this);
+
         findViewById(R.id.layout_center_top).setOnClickListener(this);
         findViewById(R.id.layout_center_bottom).setOnClickListener(this);
         findViewById(R.id.layout_center).setOnClickListener(this);
@@ -81,6 +87,13 @@ public class NavigationActivity extends AppCompatActivity implements View.OnClic
                 break;
             case R.id.layout_right_bottom:
                 NavUtil.returnParent(this, 7);
+                break;
+            case R.id.site_link:
+                mFirebaseAnalytics.logEvent(Global.FIRE_SITE_CLICK, new Bundle());
+                String url = "http://www.drishticet.org";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
                 break;
 
         }

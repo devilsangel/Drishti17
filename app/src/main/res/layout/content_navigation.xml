@@ -15,6 +15,16 @@
     tools:context="com.drishti.drishti17.ui.NavigationActivity"
     tools:showIn="@layout/activity_navigation">
 
+    <com.drishti.drishti17.ui.factory.CanaroTextView_s
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="drishticet.org"
+        android:visibility="visible"
+        android:id="@+id/site_link"
+        android:textColor="@color/white" />
+
     <LinearLayout
         android:id="@+id/layout_center"
         android:layout_width="wrap_content"
@@ -69,6 +79,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@id/layout_center"
+        android:layout_alignRight="@id/layout_center"
         android:layout_below="@id/layout_center"
         android:layout_marginTop="10dp"
         android:orientation="vertical"
