@@ -20,11 +20,17 @@
         <item name="android:background">@color/black_overlay</item>
     </style>
 
-    <style name="Registration" parent="AppTheme">
+    <style name="AppThemeDark" parent="Theme.AppCompat.Light">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="Registration" parent="AppThemeDark">
         <item name="colorAccent">@android:color/white</item>
 
     </style>
-    <style name="Registration.NoActionBAr" parent="AppTheme">
+    <style name="Registration.NoActionBAr" parent="AppThemeDark">
         <item name="colorAccent">@android:color/white</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

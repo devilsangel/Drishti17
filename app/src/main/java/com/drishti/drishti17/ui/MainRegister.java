@@ -1,17 +1,15 @@
 package com.drishti.drishti17.ui;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.drishti.drishti17.R;
@@ -24,22 +22,12 @@ import com.drishti.drishti17.util.AuthUtil;
 import com.drishti.drishti17.util.Global;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.StringTokenizer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import retrofit2.Call;
 
 public class MainRegister extends AppCompatActivity implements View.OnClickListener{
@@ -118,19 +106,19 @@ public class MainRegister extends AppCompatActivity implements View.OnClickListe
                         @Override
                         public void onResponse(Call<String> call, retrofit2.Response<String> response) {
                             if (response.code() == 200) {
-                                Toast.makeText(getApplicationContext(), "Registration Successful", Toast.LENGTH_SHORT);
+                                Toast.makeText(getApplicationContext(), "Registration Successful", Toast.LENGTH_LONG);
                                 Global.college = college;
                                 Global.isguest = false;
                                 startActivity(new Intent(MainRegister.this, Home.class));
                                 finish();
                             } else {
-                                Snackbar.make(findViewById(R.id.activity_main_register), "Network Error", Snackbar.LENGTH_SHORT).show();
+                                Snackbar.make(findViewById(R.id.activity_main_register), "Network Error", Snackbar.LENGTH_LONG).show();
                             }
                         }
 
                         @Override
                         public void onFailure(Call<String> call, Throwable t) {
-                            Snackbar.make(findViewById(R.id.activity_main_register), "Network Error", Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(findViewById(R.id.activity_main_register), "Network Error", Snackbar.LENGTH_LONG).show();
                         }
                     });
                 }
@@ -143,30 +131,30 @@ public class MainRegister extends AppCompatActivity implements View.OnClickListe
                                     @Override
                                     public void onResponse(Call<String> call, retrofit2.Response<String> response) {
                                         if (response.code() == 200) {
-                                            Toast.makeText(getApplicationContext(), "Registration Successful", Toast.LENGTH_SHORT);
+                                            Toast.makeText(getApplicationContext(), "Registration Successful", Toast.LENGTH_LONG);
                                             Global.college = college;
                                             Global.isguest = false;
                                             startActivity(new Intent(MainRegister.this, Home.class));
                                             finish();
                                         } else {
-                                            Snackbar.make(findViewById(R.id.activity_main_register), "Network Error", Snackbar.LENGTH_SHORT).show();
+                                            Snackbar.make(findViewById(R.id.activity_main_register), "Network Error", Snackbar.LENGTH_LONG).show();
                                         }
                                     }
 
                                     @Override
                                     public void onFailure(Call<String> call, Throwable t) {
-                                        Snackbar.make(findViewById(R.id.activity_main_register), "Network Error", Snackbar.LENGTH_SHORT).show();
+                                        Snackbar.make(findViewById(R.id.activity_main_register), "Network Error", Snackbar.LENGTH_LONG).show();
                                     }
                                 });
                             }
                             else{
-                                Snackbar.make(findViewById(R.id.activity_main_register),"Failed to add college",Snackbar.LENGTH_SHORT).show();
+                                Snackbar.make(findViewById(R.id.activity_main_register),"Failed to add college",Snackbar.LENGTH_LONG).show();
                             }
                         }
 
                         @Override
                         public void onFailure(Call<College> call, Throwable t) {
-                            Snackbar.make(findViewById(R.id.activity_main_register),"Failed to add college",Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(findViewById(R.id.activity_main_register),"Failed to add college",Snackbar.LENGTH_LONG).show();
                         }
                     });
                 }

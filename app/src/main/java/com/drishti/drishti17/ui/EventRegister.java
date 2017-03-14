@@ -1,17 +1,13 @@
 package com.drishti.drishti17.ui;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.drishti.drishti17.R;
 import com.drishti.drishti17.network.models.Student;
@@ -22,9 +18,7 @@ import com.drishti.drishti17.util.ApiInterface;
 import com.drishti.drishti17.util.AuthUtil;
 import com.drishti.drishti17.util.Global;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -68,20 +62,20 @@ public class EventRegister extends AppCompatActivity {
                         progressDialog.disMissProgressDialog();
                         if(response.code()==200){
                             if(names.size()==(maxcount-1)){
-                                Snackbar.make(findViewById(R.id.content_event_register),"Maximum Group Members Reached. Do not add yourself",Snackbar.LENGTH_SHORT).show();
+                                Snackbar.make(findViewById(R.id.content_event_register),"Maximum Group Members Reached. Do not add yourself",Snackbar.LENGTH_LONG).show();
                             }else {
                                 group.add(response.body().id);
                                 names.add(response.body().name);
                                 grpList.setAdapter(new GrpListAdapter(EventRegister.this,names));
                             }
                         }else
-                            Snackbar.make(findViewById(R.id.content_event_register),"Please try again, please make sure your team member has logged in atleast once",Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(findViewById(R.id.content_event_register),"Please try again, please make sure all your team member has created account in Drishti app",Snackbar.LENGTH_LONG).show();
                     }
 
                     @Override
                     public void onFailure(Call<Student> call, Throwable t) {
                         progressDialog.disMissProgressDialog();
-                        Snackbar.make(findViewById(R.id.content_event_register),"Please try again, please make sure your team member has logged in atleast once",Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(findViewById(R.id.content_event_register),"Please try again, please make sure all your team member has created account in Drishti app",Snackbar.LENGTH_LONG).show();
                     }
                 });
             }
@@ -100,17 +94,17 @@ public class EventRegister extends AppCompatActivity {
                             public void onResponse(Call<String> call, Response<String> response) {
                                 progressDialog.disMissProgressDialog();
                                 if(response.code()==200) {
-                                    Snackbar.make(findViewById(R.id.content_event_register),"Success",Snackbar.LENGTH_SHORT).show();
+                                    Snackbar.make(findViewById(R.id.content_event_register),"Success",Snackbar.LENGTH_LONG).show();
                                     finish();
                                 }
                                 else
-                                    Snackbar.make(findViewById(R.id.content_event_register),"Please try again",Snackbar.LENGTH_SHORT).show();
+                                    Snackbar.make(findViewById(R.id.content_event_register),"Please try again",Snackbar.LENGTH_LONG).show();
                             }
 
                             @Override
                             public void onFailure(Call<String> call, Throwable t) {
                                 progressDialog.disMissProgressDialog();
-                                Snackbar.make(findViewById(R.id.content_event_register),"Please try again",Snackbar.LENGTH_SHORT).show();
+                                Snackbar.make(findViewById(R.id.content_event_register),"Please try again",Snackbar.LENGTH_LONG).show();
                             }
                         });
                     }

@@ -16,11 +16,13 @@ public class SponsorMap {
             new Sponsor("Riya", "https://firebasestorage.googleapis.com/v0/b/drishti-bd782.appspot.com/o/images%2Fsponsor%2Friya.png?alt=media&token=89cf0cff-e7f5-43a8-b9cc-48b5deddc2cb")};
 
     final static Sponsor mobilitySponsor[] = {new Sponsor("Uber","https://firebasestorage.googleapis.com/v0/b/drishti-bd782.appspot.com/o/images%2Fsponsor%2FUber.png?alt=media&token=474548ef-546d-4272-9dc0-c37017899f20")};
+    final static Sponsor merchandise[] = {new Sponsor("Thoughtline","https://firebasestorage.googleapis.com/v0/b/drishti-bd782.appspot.com/o/images%2Fsponsor%2Fthoughtline.png?alt=media&token=11aa95ff-74e7-4628-9e9b-f8ae4315331f")};
 
     static Map<String, Sponsor[]> otherMap = new HashMap<>();
 
     public static Map<String, Sponsor[]> getMap() {
-        otherMap.put("Mobility Sponsors", mobilitySponsor);
+        otherMap.put("Merchandise Sponsor",merchandise);
+        otherMap.put("Mobility Sponsor", mobilitySponsor);
         otherMap.put("Other Sponsors", otherSponsors);
 
         return otherMap;

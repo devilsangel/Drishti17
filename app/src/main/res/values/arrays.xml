@@ -116,7 +116,8 @@
     </string-array>
 
     <string-array name="sponsors_title">
-        <item>Mobility Sponsors</item>
+        <item>Merchandise Sponsor</item>
+        <item>Mobility Sponsor</item>
         <item>Other Sponsors</item>
     </string-array>
 
