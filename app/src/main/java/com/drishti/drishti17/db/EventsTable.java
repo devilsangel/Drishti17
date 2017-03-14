@@ -93,7 +93,7 @@ public class EventsTable {
     }
 
     public static Cursor selectEventMinified(Context context, String selection, String[] selectionArgs, String orderby) {
-        int[] columnno = {0, 1, 2,3, 5, 6};
+        int[] columnno = {0, 1, 2,3, 5, 6, 8};
         return select(context, 0, columnno, selection, selectionArgs, orderby);
     }
 
@@ -125,7 +125,7 @@ public class EventsTable {
             model.description = eventCursor.getString(eventCursor.getColumnIndex(columnNames[0][3]));
             model.category = eventCursor.getString(eventCursor.getColumnIndex(columnNames[0][5]));
             model.image = eventCursor.getString(eventCursor.getColumnIndex(columnNames[0][6]));
-
+            model.time = eventCursor.getString(eventCursor.getColumnIndex(columnNames[0][8]));
             eventList.add(model);
 
         }

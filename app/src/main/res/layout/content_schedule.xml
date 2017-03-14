@@ -1,39 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/content_schdedule"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.drishti.drishti17.ui.EventList"
     tools:showIn="@layout/activity_schedule">
 
+    <FrameLayout
+        android:id="@+id/tab_host"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/tab_back2"
+        android:paddingTop="10dp">
 
+        <View
+            android:id="@+id/split_view"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="18dp"
+            android:background="@color/event_tab_back2" />
+
+
+        <com.gigamole.navigationtabstrip.NavigationTabStrip
+            android:id="@+id/sched_tab"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginEnd="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginStart="30dp"
+            app:nts_active_color="@color/tab_active2"
+            app:nts_color="@color/tab_highlight2"
+            app:nts_corners_radius="3.5dp"
+            app:nts_factor="0.8"
+            app:nts_gravity="bottom"
+            app:nts_inactive_color="@color/tab_inactive2"
+            app:nts_titles="@array/schedule_tabs"
+            app:nts_type="point"
+            app:nts_typeface="ProximaNovaSoft-Regular.otf"
+            app:nts_weight="7dp" />
+
+    </FrameLayout>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/register"
+        android:layout_below="@id/tab_host"
+        android:visibility="visible" />
     <ImageView
-        android:id="@+id/cube"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:scaleType="centerInside"
-        android:src="@drawable/error" />
+        android:id="@+id/error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tab_host"
+        android:src="@drawable/error"
+        android:visibility="gone"/>
 
-    <com.drishti.drishti17.ui.factory.ProximaTextView
-        android:id="@+id/empty_view"
-        style="@style/error_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="visible"
-        android:text="@string/oops"/>
 
-    <com.drishti.drishti17.ui.factory.SourceSansTextView
-        android:id="@+id/empty_text"
-        style="@style/error_desp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="visible"
-        android:text="@string/no_schedule"/>
-
-</LinearLayout>
+</RelativeLayout>
