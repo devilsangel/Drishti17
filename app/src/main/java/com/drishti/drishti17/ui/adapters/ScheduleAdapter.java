@@ -63,7 +63,8 @@ public class ScheduleAdapter extends ArrayAdapter<FragmentSchedule.ScheduleItem>
         rowView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(context, EventPage.class).putExtra("id",list.get(position).id));
+                if(list.get(position).level!=0)
+                    context.startActivity(new Intent(context, EventPage.class).putExtra("id",list.get(position).id));
             }
         });
         return rowView;
