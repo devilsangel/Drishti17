@@ -30,13 +30,14 @@ import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
  */
 
 public class FragmentSchedule extends Fragment {
-    String day,where;
+    String day,day1,where;
     ProgressDialog progressDialog;
     public FragmentSchedule(){}
-    public static FragmentSchedule newInstance(String day,String where){
+    public static FragmentSchedule newInstance(String day,String day1,String where){
         FragmentSchedule fragment=new FragmentSchedule();
         Bundle args=new Bundle();
         args.putString("day",day);
+        args.putString("day1",day1);
         args.putString("where",where);
         fragment.setArguments(args);
         return fragment;
@@ -47,6 +48,7 @@ public class FragmentSchedule extends Fragment {
 
         if (getArguments() != null) {
             day = getArguments().getString("day");
+            day1=getArguments().getString("day1");
             where = getArguments().getString("where");
         }
 
@@ -62,7 +64,7 @@ public class FragmentSchedule extends Fragment {
         for(int i=0;i<24;i++){
             boolean first=true;
             for(EventModel e:events){
-                Log.d("time",e.time);
+                Log.d("day "+ day+" ",e.name);
                 if(e.time==null||e.time.isEmpty()||!Character.isDigit(e.time.charAt(0)))
                     continue;
                 Log.d("baaaa","baaaa");
@@ -128,6 +130,10 @@ public class FragmentSchedule extends Fragment {
             String[] args = {day};
             List<EventModel> eventModels = EventsTable.getAllEventsMinified(getContext(),
                     where, where.contains("?") ? args : null, null);
+            String[] args1 = {day1};
+            List<EventModel> eventModels1 = EventsTable.getAllEventsMinified(getContext(),
+                    where, where.contains("?") ? args1 : null, null);
+            eventModels.addAll(eventModels1);
             Log.d(TAG, "loadEvents: total no of event in day " +day+ eventModels.size());
             return eventModels;
         }

@@ -96,13 +96,13 @@ public class Schedule extends AppCompatActivity implements View.OnClickListener,
             Log.d("blooo","blooo");
             switch (position){
                 case 0:
-                    fragment= FragmentSchedule.newInstance("1","day=?");
+                    fragment= FragmentSchedule.newInstance("1","17","day=?");
                     break;
                 case 1:
-                    fragment= FragmentSchedule.newInstance("2","day=?");
+                    fragment= FragmentSchedule.newInstance("2","18","day=?");
                     break;
                 case 2:
-                    fragment= FragmentSchedule.newInstance("3","day=?");
+                    fragment= FragmentSchedule.newInstance("3","19","day=?");
                     break;
             }
             return fragment;
