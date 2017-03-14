@@ -66,6 +66,11 @@
         <item>Contact</item>
     </string-array>
 
+    <string-array name="schedule_tabs">
+    <item>Day 1</item>
+    <item>Day 2</item>
+    <item>Day 3</item></string-array>
+
 
     <string-array name="dev_names">
         <item>Nirmal Kumar</item>
