@@ -1,9 +1,9 @@
 package com.drishti.drishti17.ui;
 
-import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -16,7 +16,6 @@ import com.drishti.drishti17.ui.fragments.FragmentSchedule;
 import com.drishti.drishti17.util.Global;
 import com.drishti.drishti17.util.Import;
 import com.drishti.drishti17.util.NavUtil;
-import com.drishti.drishti17.util.UIUtil;
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
@@ -33,7 +32,7 @@ public class Schedule extends AppCompatActivity implements View.OnClickListener,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
-        UIUtil.setToolBar(this, "Schedule");
+      //  UIUtil.setToolBar(this, "Schedule");
 
         ButterKnife.bind(this);
         fab.setOnClickListener(this);

@@ -23,7 +23,7 @@
             android:layout_height="4dp"
             android:layout_gravity="center"
             android:layout_marginTop="18dp"
-            android:background="@color/event_tab_back2" />
+            android:background="@color/colorPrimary" />
 
 
         <com.gigamole.navigationtabstrip.NavigationTabStrip
