@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -66,4 +67,7 @@ public interface ApiInterface {
     @FormUrlEncoded
     @PUT("public/college")
     Call<College> addCollege(@Field("name")String name);
+
+    @DELETE("student/event/{id}")
+    Call<String> unregister(@Header("x-auth-token")String token, @Path("id")int id);
 }

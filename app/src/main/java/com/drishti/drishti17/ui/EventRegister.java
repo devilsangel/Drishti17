@@ -88,6 +88,8 @@ public class EventRegister extends AppCompatActivity {
                     @Override
                     public void tokenObtained(String token) {
                         ApiInterface service=ApiClient.getService();
+                        if(group.size()==1)
+                            group.add(group.get(0));
                         Call<String> call=service.eventRegisterGroup(token,eventId,group);
                         call.enqueue(new Callback<String>() {
                             @Override

@@ -109,7 +109,42 @@ public class EventPage extends AppCompatActivity implements ViewPager.OnPageChan
                     return;
                 }
                 if(isRegistered){
-                    Snackbar.make(findViewById(R.id.content_event_page),"Already Registered",Snackbar.LENGTH_SHORT).show();
+                    new AlertDialog.Builder(EventPage.this).setTitle("Warning").setMessage("Are you sure you want to un-register?For group events un-registering will also delete your group and UN-REGISTER ALL other members of the group")
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    progressDialog.showProgressDialog();
+                                    AuthUtil.getFirebaseToken(new AuthUtil.Listener() {
+                                        @Override
+                                        public void tokenObtained(String token) {
+                                            ApiInterface service=ApiClient.getService();
+                                            service.unregister(token,eventItem.server_id).enqueue(new Callback<String>() {
+                                                @Override
+                                                public void onResponse(Call<String> call, Response<String> response) {
+                                                    progressDialog.disMissProgressDialog();
+                                                    if(response.code()==200){
+                                                        ((Button) findViewById(R.id.register)).setText(R.string.register);
+                                                        isRegistered=false;
+                                                        Snackbar.make(findViewById(R.id.content_event_page),"Un-registered",Snackbar.LENGTH_SHORT).show();
+                                                    }else{
+                                                        Snackbar.make(findViewById(R.id.content_event_page),"Network Error",Snackbar.LENGTH_SHORT).show();
+                                                    }
+                                                }
+
+                                                @Override
+                                                public void onFailure(Call<String> call, Throwable t) {
+                                                    progressDialog.disMissProgressDialog();
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                            }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            }).show();
                     return;
                 }
                 if(!eventItem.group){
